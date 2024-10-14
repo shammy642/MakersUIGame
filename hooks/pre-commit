@@ -1,0 +1,6 @@
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch" = "main" ]; then
+  echo "You can't commit directly to main branch, create a new branch first."
+  exit 1
+fi
