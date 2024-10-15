@@ -2,7 +2,7 @@
 // this page has the score and the option to do another round or quit
 
 import { Link } from "react-router-dom";
-import { Button } from "../components/Button";
+// import { Button } from "../components/Button";
 
 export function RoundEnd() {
   return (
@@ -38,10 +38,11 @@ export function RoundEnd() {
         </div>
 
 
+        <Link to="/" className="homepage-link"></Link>
+        <Link to="/in-game" className="in-game-link"></Link>
+        {/* <Button onClick={handleClick}>Next round :D</Button>
 
-        <Button onClick={handleClick}>Next round :D</Button>
-
-        <Button onClick={handleClick}>Quit :'(</Button>
+        <Button onClick={handleClick}>Quit :'(</Button> */}
 
     </div>
   );

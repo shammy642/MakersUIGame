@@ -1,7 +1,8 @@
 // The page where the game happens
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+// import { Button } from "../components/Button";
 
-
+// in game page function
 export function InGame() {
     return (
       <div className="InGame">
@@ -20,12 +21,12 @@ export function InGame() {
           <div className="guess"> 
             <h1>Guess a number component placeholder</h1>
             <form>
-                <label for="number_guess">Guess a number between 1 and 100!</label>
+                <label htmlFor="number_guess">Guess a number between 1 and 100!</label>
                 <input type="number" id="number_guess" name="number_guess"></input>
             </form>
           </div>
         
-          <Button onClick={handleClick}>Submit</Button>
+          {/* <Button onClick={handleClick}>Submit</Button> */}
 
       </div>
     );

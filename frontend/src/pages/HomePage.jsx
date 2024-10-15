@@ -1,12 +1,15 @@
 // the landing page with the create a game option
 
+//imports needed
 import { Link } from "react-router-dom";
-import { Button } from "../components/Button";
+{/*import { Button } from "../components/Button"; */}
 
+// page function
 export function HomePage() {
   return (
+    <>
     <div className="home">
-        <h1>Guess the number!</h1>
+        <h1 data-testid="game-name">Guess the number!</h1>
         <p>
             Rules of the game: 
             <ul>
@@ -14,9 +17,10 @@ export function HomePage() {
                 <li>2 to 6 players</li>
             </ul>
         </p>
-        
-        <Button onClick={handleClick}>Create game</Button>
+        <Link to="/lobby" className="lobby-link"></Link>
+        {/* <Button onClick={handleClick}>Create game</Button> */}
 
     </div>
+    </>
   );
 }
