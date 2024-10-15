@@ -5,9 +5,9 @@ name: Frontend CI
 
 on:
   push:
-    branches: [ "add_git_workflows" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "add_git_workflows" ]
+    branches: [ "main" ]
 
 jobs:
   build:
