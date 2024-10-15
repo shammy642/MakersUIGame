@@ -5,9 +5,11 @@ name: Frontend CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      -'*'
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - '*'
 
 jobs:
   build:
@@ -18,15 +20,22 @@ jobs:
 
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js 22.x
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22.x
-        cache: 'npm'
-    - name: Frontend - install dependencies
-      run: npm install
-    - name: Frontend - Build
-      run: npm run build --if-present
-    - name: Frontend - Tests
+      - uses: actions/checkout@v4
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+      - name: API - install dependencies
+        run: npm install
+      - name: API - build
+        run: npm run build --if-present
+  
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: fontend
+    steps:    
+    - name: API - run tests
       run: npm run test
