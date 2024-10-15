@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const gamesRouter = require('./routes/games')
 const tokenChecker = require("./middleware/tokenChecker");
+const { Server } = require("socket.io")
+const http = require('http')
 
 
 const app = express();
@@ -17,6 +19,14 @@ app.use(bodyParser.json());
 
 // API Routes
 app.use('/game', tokenChecker, gamesRouter)
+
+const server = http.createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173"
+  }
+})
 
 
 // 404 Handler
