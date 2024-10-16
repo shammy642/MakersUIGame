@@ -6,6 +6,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const crypto = require("crypto")
+require("dotenv").config();
 
 
 const app = express();
@@ -40,7 +41,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
   cors: {
-    origin: "https://makersuigame-mlid.onrender.com"
+    origin: "process.env.CORS_ALLOWED_URL"
   }
 })
 
