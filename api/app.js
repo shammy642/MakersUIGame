@@ -13,7 +13,7 @@ const app = express();
 // Allow requests from any client
 // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 // docs: https://expressjs.com/en/resources/middleware/cors.html
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "https://makersuigame-mlid.onrender.com" }));
 
 // Parse JSON request bodies, made available on `req.body`
 app.use(bodyParser.json());
@@ -39,7 +39,7 @@ app.use((err, _req, res, _next) => {
 const server = http.createServer(app)
 
 const io = new Server(server, {
-  cors: { origin: "*" }
+  cors: { origin: "https://makersuigame-mlid.onrender.com" }
 })
 
 io.on('connection', (socket) => {
