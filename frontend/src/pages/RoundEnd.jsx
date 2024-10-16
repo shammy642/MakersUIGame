@@ -39,7 +39,7 @@ export function RoundEnd() {
         </div>
 
 
-        <Link to="/" className="homepage-link"></Link>
+        <Link to="/" className="landing-host-link"></Link>
         <Link to="/in-game" className="in-game-link"></Link>
         {/* <Button onClick={handleClick}>Next round :D</Button>
 

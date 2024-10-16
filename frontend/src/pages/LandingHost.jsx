@@ -3,12 +3,15 @@
 //imports needed
 import { socket } from "../socket";
 import { Button } from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 // page function
-export function HomePage({gameLink}) {
-
+export function LandingHost() {
+  const navigate = useNavigate()
   const handleClick = () => {
     socket.emit("create_room");
+    navigate('/lobby/host')
+
   };
   return (
     <>
@@ -22,7 +25,6 @@ export function HomePage({gameLink}) {
           </ul>
         </p>
         <Button handleClick={handleClick} buttonText="Create Game"></Button>
-        {gameLink && <div data-testid="game-link">Game Link: {gameLink}</div>}
       </div>
     </>
   );
