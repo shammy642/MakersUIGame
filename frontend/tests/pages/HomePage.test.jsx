@@ -13,36 +13,36 @@ vi.mock("../../src/socket.js", () => {
 
 describe("Homepage tests", () => {
   test("name of the game", () => {
-    render(<HomePage gameLink={""} />);
+    render(<HomePage gameRoom={""} />);
     const heading = screen.getByTestId("game-name");
     expect(heading.textContent).toEqual("Guess the number!");
   });
   test("rules of the game", () => {
-    render(<HomePage gameLink={""} />);
+    render(<HomePage gameRoom={""} />);
     expect(screen.getByText("Rules of the game:")).toBeTruthy();
     expect(screen.getByText("Guess the number between 1 and 100")).toBeTruthy();
     expect(screen.getByText("2 to 6 players")).toBeTruthy();
   });
   test("create game button appears on page", () => {
-    render(<HomePage gameLink={""} />);
+    render(<HomePage gameRoom={""} />);
     const buttonEl = screen.getByRole("button");
     expect(buttonEl.textContent).toEqual("Create Game");
   });
   test('when a user clicks on the button the socket emits to "create_room"', async () => {
-    render(<HomePage gameLink={""} />);
+    render(<HomePage gameRoom={""} />);
     const buttonEl = screen.getByRole("button");
     const user = userEvent.setup();
     await user.click(buttonEl);
     expect(socket.emit).toHaveBeenCalledWith("create_room");
   });
   test("when no link is passed into the component it is not visible", () => {
-    render(<HomePage gameLink={""} />);
+    render(<HomePage gameRoom={""} />);
     const link = screen.queryByTestId("game-link");
     expect(link).toBeNull();
   });
   test("given a link passed into the components", () => {
-    render(<HomePage gameLink={"http://example.com"} />);
+    render(<HomePage gameRoom={"abc123"} />);
     const link = screen.getByTestId("game-link");
-    expect(link.textContent).toEqual("Game Link: http://example.com");
+    expect(link.textContent).toEqual("Game Link: http://localhost:3000/join/abc123");
   });
 });

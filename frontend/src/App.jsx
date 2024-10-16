@@ -14,7 +14,7 @@ import { RoundEnd } from "./pages/RoundEnd";
 function App() {
   
   const [isConnected, setIsConnected] = useState(socket.connected)
-  const [gameLink, setGameLink] = useState("")
+  const [gameRoom, setGameRoom] = useState("")
   
   useEffect(() => {
     const onConnect = () => {
@@ -24,7 +24,7 @@ function App() {
       setIsConnected(false)
     }
     const onReceiveLink = (data) => {
-      setGameLink(data)
+      setGameRoom(data)
     }
     
     socket.on('connect', onConnect)
@@ -41,7 +41,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage gameLink={gameLink}/>,
+      element: <HomePage gameRoom={gameRoom}/>,
     },
     {
       path: "/in-game",

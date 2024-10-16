@@ -5,8 +5,7 @@ import { socket } from "../socket";
 import { Button } from "../components/Button";
 
 // page function
-export function HomePage({gameLink}) {
-
+export function HomePage({ gameRoom }) {
   const handleClick = () => {
     socket.emit("create_room");
   };
@@ -22,7 +21,7 @@ export function HomePage({gameLink}) {
           </ul>
         </p>
         <Button handleClick={handleClick} buttonText="Create Game"></Button>
-        {gameLink && <div data-testid="game-link">Game Link: {gameLink}</div>}
+        {gameRoom && <div data-testid="game-link">Game Link: {`${window.location.href}join/${gameRoom}`}</div>}
       </div>
     </>
   );

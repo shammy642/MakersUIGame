@@ -55,8 +55,8 @@ io.on('connection', (socket) => {
 
   socket.on("create_room", () => {
     const roomId = crypto.randomBytes(3).toString('hex')
-    const link = `http://localhost:5173/join/${roomId}`
-    socket.emit('receive_link', link)
+    // const link = `http://localhost:5173/join/${roomId}`
+    socket.emit('receive_link', roomId)
   })
 })
 
