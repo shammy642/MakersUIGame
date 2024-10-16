@@ -1,4 +1,4 @@
-const Game = require("../../classes/Game");
+const Game = require("../../numberGame/Game");
 
 
 describe("Game", () => {
@@ -26,11 +26,6 @@ describe("Game", () => {
         expect(randomNumber).toBeLessThanOrEqual(100);
         });
 
-        test("should generate different numbers on subsequent calls", () => {
-        const randomNumber1 = game.generateRandomNumber();
-        const randomNumber2 = game.generateRandomNumber();
-        expect(randomNumber1).not.toEqual(randomNumber2); // Not always true, but generally should be.
-        });
     });
 
     describe("addPlayer", () => {
