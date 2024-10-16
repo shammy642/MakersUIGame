@@ -6,7 +6,6 @@ import { BrowserRouter } from "react-router-dom";
 import { HomePage } from "../../src/pages/HomePage";
 import { describe, expect, test } from "vitest";
 
-
 describe("Homepage tests", ()  => {
     test("name of the game", () => {
         render(
@@ -19,4 +18,3 @@ describe("Homepage tests", ()  => {
         expect(heading.textContent).toEqual("Guess the number!");
     });
 });
-

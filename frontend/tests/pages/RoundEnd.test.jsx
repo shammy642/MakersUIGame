@@ -5,3 +5,17 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { RoundEnd } from "../../src/pages/RoundEnd";
+import { describe, expect, test } from "vitest";
+
+describe("Round end tests", ()  => {
+    test("name of the game", () => {
+        render(
+            <BrowserRouter>
+                <RoundEnd />
+            </BrowserRouter>
+        );       
+        
+        const heading = screen.getByTestId("number-reveal");
+        expect(heading.textContent).toEqual("The number was:");
+    });
+});

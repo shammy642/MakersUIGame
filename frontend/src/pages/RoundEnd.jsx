@@ -11,16 +11,17 @@ export function RoundEnd() {
             <p>
                 Placeholder for the display number to guess component
             </p>
-            <p>
-                The number was: 42
-            </p>
+            <p data-testId="number-reveal">
+                The number was:
+            </p><br></br>
+            <p>42</p> 
         </div>
 
         <div className="winner">
             <p>
                 Placeholder for the winner component
             </p>
-            <p>
+            <p >
                 The winner is... Player3!
             </p>
         </div>

@@ -21,7 +21,7 @@ export function InGame() {
           <div className="guess"> 
             <h1>Guess a number component placeholder</h1>
             <form>
-                <label htmlFor="number_guess">Guess a number between 1 and 100!</label>
+                <label htmlFor="number_guess" data-testId="guess-label">Guess a number between 1 and 100!</label>
                 <input type="number" id="number_guess" name="number_guess"></input>
             </form>
           </div>

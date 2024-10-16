@@ -24,7 +24,7 @@ export function Lobby() {
 
         <div className="share_link">
             <h1>Share link component placeholder</h1>
-            <p>
+            <p data-testid="add-players-prompt">
                 Add up to 6 players using this link
             </p>
             <a> Link</a>

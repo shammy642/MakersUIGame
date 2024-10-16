@@ -5,3 +5,18 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { Lobby } from "../../src/pages/Lobby";
+import { describe, expect, test } from "vitest";
+
+
+describe("Lobby tests", ()  => {
+    test("name of the game", () => {
+        render(
+            <BrowserRouter>
+                <Lobby />
+            </BrowserRouter>
+        );       
+        
+        const heading = screen.getByTestId("add-players-prompt");
+        expect(heading.textContent).toEqual("Add up to 6 players using this link");
+    });
+});
