@@ -45,6 +45,12 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
+  console.log(`Users Connected: ${io.engine.clientsCount}`)
+  
+  socket.on('disconnect', () => {
+    console.log("User disconnected!")
+    console.log(`Users Connected: ${io.engine.clientsCount}`)
+  })
 })
 
 server.listen(3001, () => {
