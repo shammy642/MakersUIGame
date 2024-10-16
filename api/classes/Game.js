@@ -7,4 +7,8 @@ class Game {
     generateRandomNumber() {
         return Math.floor(Math.random() * 100) + 1;
     }
+
+    addPlayer(user) {
+        this.players.push(user);
+    }
 }
