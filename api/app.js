@@ -41,7 +41,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
   cors: {
-    origin: "process.env.CORS_ALLOWED_URL"
+    origin: process.env.CORS_ALLOWED_URL
   }
 })
 
