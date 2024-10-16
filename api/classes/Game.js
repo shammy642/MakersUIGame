@@ -12,3 +12,5 @@ class Game {
         this.players.push(user);
     }
 }
+
+module.exports = Game;
