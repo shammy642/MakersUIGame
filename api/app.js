@@ -5,6 +5,7 @@ const http = require('http')
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const crypto = require("crypto")
 
 
 const app = express();
@@ -50,6 +51,12 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log("User disconnected!")
     console.log(`Users Connected: ${io.engine.clientsCount}`)
+  })
+
+  socket.on("create_room", () => {
+    const roomId = crypto.randomBytes(3).toString('hex')
+    const link = `http://localhost:5173/join/${roomId}`
+    socket.emit('receive_link', link)
   })
 })
 
