@@ -2,7 +2,7 @@
 // this page has the score and the option to do another round or quit
 
 import { Link } from "react-router-dom";
-import { Button } from "../components/Button";
+// import { Button } from "../components/Button";
 
 export function RoundEnd() {
   return (
@@ -11,16 +11,17 @@ export function RoundEnd() {
             <p>
                 Placeholder for the display number to guess component
             </p>
-            <p>
-                The number was: 42
-            </p>
+            <p data-testId="number-reveal">
+                The number was:
+            </p><br></br>
+            <p>42</p> 
         </div>
 
         <div className="winner">
             <p>
                 Placeholder for the winner component
             </p>
-            <p>
+            <p >
                 The winner is... Player3!
             </p>
         </div>
@@ -38,10 +39,11 @@ export function RoundEnd() {
         </div>
 
 
+        <Link to="/" className="homepage-link"></Link>
+        <Link to="/in-game" className="in-game-link"></Link>
+        {/* <Button onClick={handleClick}>Next round :D</Button>
 
-        <Button onClick={handleClick}>Next round :D</Button>
-
-        <Button onClick={handleClick}>Quit :'(</Button>
+        <Button onClick={handleClick}>Quit :'(</Button> */}
 
     </div>
   );
