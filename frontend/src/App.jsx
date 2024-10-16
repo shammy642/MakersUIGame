@@ -4,10 +4,13 @@ import { socket } from "./socket";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
-import { HomePage } from "./pages/HomePage";
+
 import { InGame } from "./pages/InGame";
-import { Lobby } from "./pages/Lobby";
+import { LobbyHost } from "./pages/LobbyHost";
 import { RoundEnd } from "./pages/RoundEnd";
+import { LandingPlayer } from "./pages/LandingPlayer";
+import { LobbyPlayer } from "./pages/LobbyPlayer";
+import { LandingHost } from "./pages/LandingHost";
 
 // router
 
@@ -41,15 +44,25 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage gameRoom={gameRoom}/>,
+      element: <LandingHost w/>,
     },
+    {
+      path: "/lobby/player",
+      element: <LobbyPlayer gameRoom={gameRoom}/>
+    },
+
+    {
+      path: "/join/:roomId",
+      element: <LandingPlayer />
+    },
+
     {
       path: "/in-game",
       element: <InGame />,
     },
     {
-      path: "/lobby",
-      element: <Lobby />,
+      path: "/lobby/host",
+      element: <LobbyHost gameRoom={gameRoom}/>,
     },
     {
       path: "/round-end",
