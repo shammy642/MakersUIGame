@@ -13,7 +13,7 @@ const app = express();
 // Allow requests from any client
 // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 // docs: https://expressjs.com/en/resources/middleware/cors.html
-app.use(cors({ origin: "https://makersuigame-mlid.onrender.com/" }));
+app.use(cors());
 
 // Parse JSON request bodies, made available on `req.body`
 app.use(bodyParser.json());
@@ -23,7 +23,6 @@ app.use('/game', tokenChecker, gamesRouter)
 
 // 404 Handler
 app.use((_req, res) => {
-  console.log(_req)
   res.status(404).json({ err: "Error 404: Not Found" });
 });
 
@@ -41,8 +40,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
   cors: {
-    origin: "https://makersuigame-mlid.onrender.com/", 
-    methods: ["GET", "POST"], 
+    origin: "https://makersuigame-mlid.onrender.com:3000"
   }
 })
 
