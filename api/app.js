@@ -1,8 +1,10 @@
+const gamesRouter = require('./routes/games')
+const tokenChecker = require("./middleware/tokenChecker");
+const { Server } = require("socket.io")
+const http = require('http')
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const gamesRouter = require('./routes/games')
-const tokenChecker = require("./middleware/tokenChecker");
 
 
 const app = express();
@@ -18,7 +20,6 @@ app.use(bodyParser.json());
 // API Routes
 app.use('/game', tokenChecker, gamesRouter)
 
-
 // 404 Handler
 app.use((_req, res) => {
   res.status(404).json({ err: "Error 404: Not Found" });
@@ -32,6 +33,28 @@ app.use((err, _req, res, _next) => {
   } else {
     res.status(500).json({ err: "Something went wrong" });
   }
+});
+
+const server = http.createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173"
+  }
+})
+
+io.on('connection', (socket) => {
+  console.log(`User Connected: ${socket.id}`)
+  console.log(`Users Connected: ${io.engine.clientsCount}`)
+  
+  socket.on('disconnect', () => {
+    console.log("User disconnected!")
+    console.log(`Users Connected: ${io.engine.clientsCount}`)
+  })
+})
+
+server.listen(3001, () => {
+  console.log("Server running at http://localhost:3001");
 });
 
 module.exports = app;
