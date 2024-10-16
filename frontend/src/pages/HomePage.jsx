@@ -1,7 +1,6 @@
 // the landing page with the create a game option
 
 //imports needed
-import { Link } from "react-router-dom";
 import { socket } from "../socket";
 import { Button } from "../components/Button";
 
@@ -22,9 +21,8 @@ export function HomePage({gameLink}) {
             <li>2 to 6 players</li>
           </ul>
         </p>
-        <Link to="/lobby" className="lobby-link"></Link>
-        <Button handleClick={handleClick} buttonText="Create Room"></Button>
-        {gameLink && <div>{gameLink}</div>}
+        <Button handleClick={handleClick} buttonText="Create Game"></Button>
+        {gameLink && <div data-testid="game-link">Game Link: {gameLink}</div>}
       </div>
     </>
   );
