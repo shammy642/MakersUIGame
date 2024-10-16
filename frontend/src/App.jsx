@@ -1,8 +1,9 @@
 //imports needed
+import { useEffect, useState } from "react";
+import { socket } from "./socket";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";// docs: https://reactrouter.com/en/main/start/overview
 
-//imports of pages
 import { HomePage } from "./pages/HomePage";
 import { InGame } from "./pages/InGame";
 import { Lobby } from "./pages/Lobby";
@@ -28,9 +29,27 @@ const router = createBrowserRouter([
   }      
 ]);
 
-
-// the app with the above-defined routes
 function App() {
+
+  const [isConnected, setIsConnected] = useState(socket.connected)
+
+  useEffect(() => {
+    const onConnect = () => {
+      setIsConnected(true)
+    }
+
+    const onDisconnect = () => {
+      setIsConnected(false)
+    }
+
+    socket.on('connect', onConnect)
+    socket.on('disconnect', onDisconnect)
+
+    return () => {
+      socket.off('connect', onConnect)
+      socket.off('disconnect', onDisconnect)
+    }
+  })
   return (
     <>
       <RouterProvider router={router} />
