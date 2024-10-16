@@ -1,6 +1,33 @@
+//imports needed
 import { useEffect, useState } from "react";
-import "./App.css";
 import { socket } from "./socket";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+
+import { HomePage } from "./pages/HomePage";
+import { InGame } from "./pages/InGame";
+import { Lobby } from "./pages/Lobby";
+import { RoundEnd } from "./pages/RoundEnd";
+
+// router
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/in-game",
+    element: <InGame />,
+  },
+  {
+    path: "/lobby",
+    element: <Lobby />,
+  },
+  {
+    path: "/round-end",
+    element: <RoundEnd />,
+  }      
+]);
 
 function App() {
 
@@ -25,10 +52,7 @@ function App() {
   })
   return (
     <>
-      <div>
-        <h1 className="text-6xl font-bold underline">Makers UI game group!</h1>
-        <div>{`Connected: ${isConnected}`}</div>
-      </div>
+      <RouterProvider router={router} />
     </>
   );
 }

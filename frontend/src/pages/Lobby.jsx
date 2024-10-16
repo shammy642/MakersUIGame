@@ -2,7 +2,7 @@
 // For the host, this is the page with the 'start the game' button
 
 import { Link } from "react-router-dom";
-import { Button } from "../components/Button";
+{/* import { Button } from "../components/Button"; */}
 
 export function Lobby() {
   return (
@@ -19,11 +19,12 @@ export function Lobby() {
             </p>
         </div>
 
-        <Button onClick={handleClick}>Start game</Button>
+        <Link to="/in-game" className="in-game-link"></Link>
+        {/* <Button onClick={handleClick}>Start game</Button> */}
 
         <div className="share_link">
             <h1>Share link component placeholder</h1>
-            <p>
+            <p data-testid="add-players-prompt">
                 Add up to 6 players using this link
             </p>
             <a> Link</a>
