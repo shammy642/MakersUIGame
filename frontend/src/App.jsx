@@ -44,7 +44,7 @@ function App() {
       socket.off("receive_players", () => onReceivePlayers([]));
     };
   });
-
+  console.log("App GameRoom: ",gameRoom)
   const router = createBrowserRouter([
     {
       path: "/",

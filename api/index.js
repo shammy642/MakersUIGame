@@ -39,6 +39,7 @@ io.on('connection', (socket) => {
   })
   
   socket.on("join_room", (gameId) => {
+    socket.emit('receive_link', gameId)
     console.log("Room ID:", gameId)
     socket.join(gameId)
     games[gameId].addPlayer(new Player(socket.id, "Player"))

@@ -21,11 +21,13 @@ export function LobbyHost({ gameRoom, players }) {
   return (
     <>
       <h2 className="font-bold">Players:</h2>
-      {playersList.map((player, index) => (
-        <div key={`${player}-${index}`}>{player}</div>
-      ))}
+      <ul>
+        {playersList.map((player, index) => (
+          <li key={`${player}-${index}`}>{player}</li>
+        ))}
+      </ul>
       <Button buttonText="Start Game" />
-      <div>{`Game Room: http://localhost:5173/join/${gameRoom}`}</div>
+      <div>{`Game Room: ${window.location.origin}/join/${gameRoom}`}</div>
     </>
   );
 }
