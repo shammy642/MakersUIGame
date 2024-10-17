@@ -27,6 +27,13 @@ io.on('connection', (socket) => {
     rooms[roomId].addPlayer(new Player(socket.id, "Host"))
     io.to(roomId).emit("receive_players", rooms[roomId].players)
   })
+  
+  socket.on("join_room", (roomId) => {
+    console.log("Room ID:", roomId)
+    socket.join(roomId)
+    rooms[roomId].addPlayer(new Player(socket.id, "Player"))
+    io.to(roomId).emit("receive_players", rooms[roomId].players)
+  })
 })
 
 function listenForRequests() {

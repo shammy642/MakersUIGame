@@ -3,28 +3,29 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
-{/* import { Button } from "../components/Button"; */}
+{
+  /* import { Button } from "../components/Button"; */
+}
 
 export function LobbyHost({ gameRoom, players }) {
-
-  const [playersList, setPlayersList] = useState([])
+  const [playersList, setPlayersList] = useState([]);
 
   useEffect(() => {
     if (players) {
-      let playerNamesList = players.map((value) => (value["name"]))
-      console.log("Host Lobby Players", playerNamesList)
-      setPlayersList(playerNamesList)
+      let list = players.map((value) => value["name"]);
+      console.log("Host Lobby Players", list);
+      setPlayersList(list);
     }
-
-  }, [players])
+  }, [players]);
 
   return (
     <>
-        {playersList.map((player, index) => (
-      <div key={`${player}-${index}`}>{player}</div>
-    ))}
-    <Button buttonText="Start Game"/>
-    <div>{`Game Room: http://localhost:5173/join/${gameRoom}`}</div>
+      <h2 className="font-bold">Players:</h2>
+      {playersList.map((player, index) => (
+        <div key={`${player}-${index}`}>{player}</div>
+      ))}
+      <Button buttonText="Start Game" />
+      <div>{`Game Room: http://localhost:5173/join/${gameRoom}`}</div>
     </>
-  )
+  );
 }
