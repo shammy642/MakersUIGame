@@ -76,7 +76,7 @@ function App() {
 
     {
       path: "/in-game",
-      element: <InGame />,
+      element: <InGame players={players}/>,
     },
     {
       path: "/lobby/host",

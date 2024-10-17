@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on("create_room", (name) => {
+    console.log("Create room rooms:",socket.rooms[1])
     const gameId = crypto.randomBytes(3).toString('hex')
     socket.emit('receive_link', gameId)
     socket.join(gameId)
@@ -53,7 +54,21 @@ io.on('connection', (socket) => {
       }
     })
   })
+
+  socket.on("send_number", (number) => {
+    socket.rooms.forEach((gameId) => {
+      if (games[gameId]) {
+        games[gameId].players.forEach((player) => {
+          if (player.id === socket.id) {
+            player.guess(number)
+          }
+        })
+      }
+    })
+  })
 })
+  
+
 
 function listenForRequests() {
   const port = process.env.PORT || 3001;
