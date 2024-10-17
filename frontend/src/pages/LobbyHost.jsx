@@ -3,12 +3,12 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
-{
-  /* import { Button } from "../components/Button"; */
-}
+import { socket } from "../socket";
+import { useNavigate } from "react-router-dom";
 
 export function LobbyHost({ gameRoom, players }) {
   const [playersList, setPlayersList] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (players) {
@@ -18,6 +18,11 @@ export function LobbyHost({ gameRoom, players }) {
     }
   }, [players]);
 
+  const handleClick = () => {
+    socket.emit("start_game")
+    navigate("/in-game")
+  }
+
   return (
     <>
       <h2 className="font-bold">Players:</h2>
@@ -26,7 +31,7 @@ export function LobbyHost({ gameRoom, players }) {
           <li key={`${player}-${index}`}>{player}</li>
         ))}
       </ul>
-      <Button buttonText="Start Game" />
+      <Button handleClick={handleClick} buttonText="Start Game" />
       <div>{`Game Room: ${window.location.origin}/join/${gameRoom}`}</div>
     </>
   );

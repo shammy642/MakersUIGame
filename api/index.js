@@ -35,7 +35,6 @@ io.on('connection', (socket) => {
     games[gameId] = new Game()
     games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`))
     io.to(gameId).emit("receive_players", games[gameId].players)
-    console.log("Rooms: ", io.sockets.adapter.rooms)
   })
   
   socket.on("join_room", (gameId, name) => {
@@ -44,7 +43,15 @@ io.on('connection', (socket) => {
     socket.join(gameId)
     games[gameId].addPlayer(new Player(socket.id, name))
     io.to(gameId).emit("receive_players", games[gameId].players)
-    console.log("Rooms: ", io.sockets.adapter.rooms)
+  })
+
+  socket.on("start_game", () => {
+    socket.rooms.forEach((gameId) => {
+      if (games[gameId]) {
+        console.log("Sent redirect")
+        io.to(gameId).emit("redirect_to_game_start")
+      }
+    })
   })
 })
 
