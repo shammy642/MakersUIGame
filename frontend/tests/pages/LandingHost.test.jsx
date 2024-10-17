@@ -42,7 +42,7 @@ describe("LandingHost tests", () => {
     const buttonEl = screen.getByRole("button");
     const user = userEvent.setup();
     await user.click(buttonEl);
-    expect(socket.emit).toHaveBeenCalledWith("create_room");
+    expect(socket.emit).toHaveBeenCalledWith("create_room", "");
   });
   test("when no link is passed into the component it is not visible", () => {
     render(<LandingHost />);
