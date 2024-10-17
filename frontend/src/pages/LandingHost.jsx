@@ -4,12 +4,15 @@
 import { socket } from "../socket";
 import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Form } from "../components/Form";
 
 // page function
 export function LandingHost() {
+  const [input, setInput ] = useState("")
   const navigate = useNavigate()
   const handleClick = () => {
-    socket.emit("create_room");
+    socket.emit("create_room", input);
     navigate('/lobby/host')
 
   };
@@ -24,6 +27,8 @@ export function LandingHost() {
             <li>2 to 6 players</li>
           </ul>
         </p>
+        <Form input={input} setInput={setInput}></Form>
+        <br></br>
         <Button handleClick={handleClick} buttonText="Create Game" ></Button>
       </div>
     </>

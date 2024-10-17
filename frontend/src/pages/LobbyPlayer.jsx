@@ -21,9 +21,7 @@ export function LobbyPlayer({ gameRoom, players }) {
       <div>Waiting for host to start game...</div>
       <div>
         <h2 className="font-bold">Game Room:</h2>
-        <a href={`${window.location.origin}/join/${gameRoom}`}>
           {`${window.location.origin}/join/${gameRoom}`}
-        </a>
       </div>
     </>
   );

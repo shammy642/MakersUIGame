@@ -28,21 +28,21 @@ io.on('connection', (socket) => {
     })
   })
 
-  socket.on("create_room", () => {
+  socket.on("create_room", (name) => {
     const gameId = crypto.randomBytes(3).toString('hex')
     socket.emit('receive_link', gameId)
     socket.join(gameId)
     games[gameId] = new Game()
-    games[gameId].addPlayer(new Player(socket.id, "Host"))
+    games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`))
     io.to(gameId).emit("receive_players", games[gameId].players)
     console.log("Rooms: ", io.sockets.adapter.rooms)
   })
   
-  socket.on("join_room", (gameId) => {
+  socket.on("join_room", (gameId, name) => {
     socket.emit('receive_link', gameId)
     console.log("Room ID:", gameId)
     socket.join(gameId)
-    games[gameId].addPlayer(new Player(socket.id, "Player"))
+    games[gameId].addPlayer(new Player(socket.id, name))
     io.to(gameId).emit("receive_players", games[gameId].players)
     console.log("Rooms: ", io.sockets.adapter.rooms)
   })
