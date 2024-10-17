@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ListPlayers } from "../components/ListPlayers";
 
 export function LobbyPlayer({ gameRoom, players }) {
   const [playersList, setPlayersList] = useState([]);
@@ -13,11 +14,15 @@ export function LobbyPlayer({ gameRoom, players }) {
   return (
     <>
       <h2 className="font-bold">Players:</h2>
-      <ul>
+      {/* <ul>
         {playersList.map((player, index) => (
           <li key={`${player}-${index}`}>{player}</li>
         ))}
-      </ul>
+      </ul> */}
+        < ListPlayers></ListPlayers>
+        <br></br>
+
+
       <div>Waiting for host to start game...</div>
       <div>
         <h2 className="font-bold">Game Room:</h2>

@@ -1,6 +1,7 @@
 // The page where the game happens
 // import { Link } from "react-router-dom";
 // import { Button } from "../components/Button";
+import { ListPlayers } from "../components/ListPlayers";
 
 // in game page function
 export function InGame() {
@@ -8,15 +9,10 @@ export function InGame() {
       <div className="InGame">
             <div className="players_list">
                 <h1>Players joining component placeholder</h1>
-                <p>
-                    Players
-                    <ul>
-                        <li>Player1</li>
-                        <li>Player2</li>
-                        <li>Player3</li>
-                    </ul>
-                </p>
+                < ListPlayers></ListPlayers>
+
             </div>
+            <br></br>
 
           <div className="guess"> 
             <h1>Guess a number component placeholder</h1>
