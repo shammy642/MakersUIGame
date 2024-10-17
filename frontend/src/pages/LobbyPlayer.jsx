@@ -13,11 +13,18 @@ export function LobbyPlayer({ gameRoom, players }) {
   return (
     <>
       <h2 className="font-bold">Players:</h2>
-      {playersList.map((player, index) => (
-        <div key={`${player}-${index}`}>{player}</div>
-      ))}
+      <ul>
+        {playersList.map((player, index) => (
+          <li key={`${player}-${index}`}>{player}</li>
+        ))}
+      </ul>
       <div>Waiting for host to start game...</div>
-      <div>{`Game Room: http://localhost:5173/join/${gameRoom}`}</div>
+      <div>
+        <h2 className="font-bold">Game Room:</h2>
+        <a href={`${window.location.origin}/join/${gameRoom}`}>
+          {`${window.location.origin}/join/${gameRoom}`}
+        </a>
+      </div>
     </>
   );
 }
