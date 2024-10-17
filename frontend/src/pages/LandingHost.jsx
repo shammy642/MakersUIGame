@@ -24,7 +24,7 @@ export function LandingHost() {
             <li>2 to 6 players</li>
           </ul>
         </p>
-        <Button handleClick={handleClick} buttonText="Create Game"></Button>
+        <Button handleClick={handleClick} buttonText="Create Game" ></Button>
       </div>
     </>
   );
