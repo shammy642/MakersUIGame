@@ -7,32 +7,43 @@ const crypto = require("crypto")
 const Game = require('./numberGame/Game.js')
 const Player = require("./numberGame/Player");
 
-const rooms = {}
+const games = {}
 
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
   console.log(`Users Connected: ${io.engine.clientsCount}`)
 
   socket.on('disconnect', () => {
+    console.log("Disconnect", socket.rooms)
     console.log("User disconnected!")
     console.log(`Users Connected: ${io.engine.clientsCount}`)
   })
 
+  socket.on('disconnecting', () => {
+    socket.rooms.forEach((gameId) => {
+      if (games[gameId]) {
+        games[gameId].removePlayer(socket.id)
+        io.to(gameId).emit("receive_players", games[gameId].players)
+      }
+    })
+  })
+
   socket.on("create_room", () => {
-    const roomId = crypto.randomBytes(3).toString('hex')
-    socket.emit('receive_link', roomId)
-    socket.join(roomId)
-    rooms[roomId] = new Game()
-    console.log("Rooms:", rooms)
-    rooms[roomId].addPlayer(new Player(socket.id, "Host"))
-    io.to(roomId).emit("receive_players", rooms[roomId].players)
+    const gameId = crypto.randomBytes(3).toString('hex')
+    socket.emit('receive_link', gameId)
+    socket.join(gameId)
+    games[gameId] = new Game()
+    games[gameId].addPlayer(new Player(socket.id, "Host"))
+    io.to(gameId).emit("receive_players", games[gameId].players)
+    console.log("Rooms: ", io.sockets.adapter.rooms)
   })
   
-  socket.on("join_room", (roomId) => {
-    console.log("Room ID:", roomId)
-    socket.join(roomId)
-    rooms[roomId].addPlayer(new Player(socket.id, "Player"))
-    io.to(roomId).emit("receive_players", rooms[roomId].players)
+  socket.on("join_room", (gameId) => {
+    console.log("Room ID:", gameId)
+    socket.join(gameId)
+    games[gameId].addPlayer(new Player(socket.id, "Player"))
+    io.to(gameId).emit("receive_players", games[gameId].players)
+    console.log("Rooms: ", io.sockets.adapter.rooms)
   })
 })
 
