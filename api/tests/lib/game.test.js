@@ -1,4 +1,4 @@
-const Game = require("../../classes/Game");
+const Game = require("../../numberGame/Game");
 
 describe("Game", () => {
     let game;

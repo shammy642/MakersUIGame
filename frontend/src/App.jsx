@@ -4,7 +4,6 @@ import { socket } from "./socket";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
-
 import { InGame } from "./pages/InGame";
 import { LobbyHost } from "./pages/LobbyHost";
 import { RoundEnd } from "./pages/RoundEnd";
@@ -15,45 +14,50 @@ import { LandingHost } from "./pages/LandingHost";
 // router
 
 function App() {
-  
-  const [isConnected, setIsConnected] = useState(socket.connected)
-  const [gameRoom, setGameRoom] = useState("")
-  
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [gameRoom, setGameRoom] = useState("");
+  const [players, setPlayers] = useState([]);
+
   useEffect(() => {
     const onConnect = () => {
-      setIsConnected(true)
-    }
+      setIsConnected(true);
+    };
     const onDisconnect = () => {
-      setIsConnected(false)
-    }
+      setIsConnected(false);
+    };
     const onReceiveLink = (data) => {
-      setGameRoom(data)
-    }
-    
-    socket.on('connect', onConnect)
-    socket.on('disconnect', onDisconnect)
-    socket.on('receive_link', (data) => onReceiveLink(data))
-    
+      setGameRoom(data);
+    };
+    const onReceivePlayers = (data) => {
+      setPlayers(data);
+    };
+
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
+    socket.on("receive_link", (data) => onReceiveLink(data));
+    socket.on("receive_players", (data) => onReceivePlayers(data));
+
     return () => {
-      socket.off('connect', onConnect)
-      socket.off('disconnect', onDisconnect)
-      socket.off('receive_link', () => onReceiveLink(""))
-    }
-  })
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+      socket.off("receive_link", () => onReceiveLink(""));
+      socket.off("receive_players", () => onReceivePlayers([]));
+    };
+  });
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingHost w/>,
+      element: <LandingHost />,
     },
     {
       path: "/lobby/player",
-      element: <LobbyPlayer gameRoom={gameRoom}/>
+      element: <LobbyPlayer gameRoom={gameRoom} players={players} />,
     },
 
     {
       path: "/join/:roomId",
-      element: <LandingPlayer />
+      element: <LandingPlayer />,
     },
 
     {
@@ -62,12 +66,12 @@ function App() {
     },
     {
       path: "/lobby/host",
-      element: <LobbyHost gameRoom={gameRoom}/>,
+      element: <LobbyHost gameRoom={gameRoom} players={players} />,
     },
     {
       path: "/round-end",
       element: <RoundEnd />,
-    }      
+    },
   ]);
 
   return (

@@ -4,6 +4,10 @@ require("dotenv").config();
 const server = require("./app.js");
 const io = require('./socket.js')
 const crypto = require("crypto")
+const Game = require('./numberGame/Game.js')
+const Player = require("./numberGame/Player");
+
+const rooms = {}
 
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
@@ -16,8 +20,19 @@ io.on('connection', (socket) => {
 
   socket.on("create_room", () => {
     const roomId = crypto.randomBytes(3).toString('hex')
-    // const link = `http://localhost:5173/join/${roomId}`
     socket.emit('receive_link', roomId)
+    socket.join(roomId)
+    rooms[roomId] = new Game()
+    console.log("Rooms:", rooms)
+    rooms[roomId].addPlayer(new Player(socket.id, "Host"))
+    io.to(roomId).emit("receive_players", rooms[roomId].players)
+  })
+  
+  socket.on("join_room", (roomId) => {
+    console.log("Room ID:", roomId)
+    socket.join(roomId)
+    rooms[roomId].addPlayer(new Player(socket.id, "Player"))
+    io.to(roomId).emit("receive_players", rooms[roomId].players)
   })
 })
 
