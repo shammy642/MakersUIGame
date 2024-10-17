@@ -12,6 +12,10 @@ class Game {
         this.players.push(player);
     }
 
+    removePlayer(playerId) {
+        this.players = this.players.filter(player => player.id !== playerId);
+    }
+
     checkGuess() {
         if (this.players.every(player => player.currentGuess !== null)) {
             let closestPlayer = this.players[0];

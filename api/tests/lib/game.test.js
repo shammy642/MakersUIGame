@@ -61,6 +61,49 @@ describe("Game", () => {
             expect(game.players).toEqual(expect.arrayContaining([user1, user2]));
         });
     });
+
+    describe("removePlayer", () => {
+        beforeEach(() => {
+            // Add the players before each removePlayer test
+            game.addPlayer(mockPlayer1);
+            game.addPlayer(mockPlayer2);
+        });
+    
+        test("should remove a player by playerId", () => {
+            game.removePlayer(1);  // Remove player with id 1
+    
+            // Check that one player was removed
+            expect(game.players).toHaveLength(1);
+            expect(game.players).not.toContain(mockPlayer1);
+            expect(game.players).toEqual(expect.arrayContaining([mockPlayer2]));
+        });
+    
+        test("should not remove any players if playerId does not exist", () => {
+            game.removePlayer(3);  // Attempt to remove non-existent player
+    
+            // No players should be removed
+            expect(game.players).toHaveLength(2);
+            expect(game.players).toEqual(expect.arrayContaining([mockPlayer1, mockPlayer2]));
+        });
+    
+        test("should remove the correct player when multiple players exist", () => {
+            const mockPlayer3 = {
+                id: 3,
+                name: "Alice",
+                currentGuess: null,
+                wonRound: jest.fn(),
+            };
+            game.addPlayer(mockPlayer3);  // Add a third player
+    
+            game.removePlayer(2);  // Remove player with id 2
+    
+            // Check that the correct player was removed
+            expect(game.players).toHaveLength(2);
+            expect(game.players).not.toContain(mockPlayer2);
+            expect(game.players).toEqual(expect.arrayContaining([mockPlayer1, mockPlayer3]));
+        });
+    });
+    
     
     describe("checkGuess", () => {
         test("should return a success message and the closest player when all players have guessed", () => {
