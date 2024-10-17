@@ -1,5 +1,5 @@
-//button than can pass a function and will display some text
-export function Button(props) {
+//A textbox that will allow a user to input text as a username or number
+export function Username(props) {
 
     return (
       <>
