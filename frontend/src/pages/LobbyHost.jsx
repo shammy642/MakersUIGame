@@ -30,6 +30,7 @@ export function LobbyHost({ gameRoom, players }) {
         <br></br>
 
       <Button buttonText="Start Game" />
+      <div>{`Game Room: ${window.location.origin}/join/${gameRoom}`}</div>
     </>
   );
 }
