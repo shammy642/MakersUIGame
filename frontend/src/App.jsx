@@ -18,6 +18,7 @@ function App() {
   
   const [isConnected, setIsConnected] = useState(socket.connected)
   const [gameRoom, setGameRoom] = useState("")
+  const [players, setPlayers] = useState([])
   
   useEffect(() => {
     const onConnect = () => {
@@ -29,22 +30,27 @@ function App() {
     const onReceiveLink = (data) => {
       setGameRoom(data)
     }
+    const onReceivePlayers = (data) => {
+      setPlayers(data)
+    }
     
     socket.on('connect', onConnect)
     socket.on('disconnect', onDisconnect)
     socket.on('receive_link', (data) => onReceiveLink(data))
+    socket.on('receive_players', (data) => onReceivePlayers(data) )
     
     return () => {
       socket.off('connect', onConnect)
       socket.off('disconnect', onDisconnect)
       socket.off('receive_link', () => onReceiveLink(""))
+      socket.off('receive_players', () => onReceivePlayers([]))
     }
   })
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingHost w/>,
+      element: <LandingHost />,
     },
     {
       path: "/lobby/player",
@@ -62,7 +68,7 @@ function App() {
     },
     {
       path: "/lobby/host",
-      element: <LobbyHost gameRoom={gameRoom}/>,
+      element: <LobbyHost gameRoom={gameRoom} players={players} />,
     },
     {
       path: "/round-end",
