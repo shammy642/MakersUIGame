@@ -8,7 +8,7 @@ export function ListPlayers(props) { //props would the game instance
     const players = [{name: 'Joe'}, {name: 'James'}, {name: 'Alexia'}]
     return (
       <>
-        {players.map((player) => ((player.name))+" ")}
+        {props.players.map((player) => ((player.name))+" ")}
 
       </>
     )
