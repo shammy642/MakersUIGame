@@ -1,12 +1,9 @@
 const gamesRouter = require('./routes/games')
 const tokenChecker = require("./middleware/tokenChecker");
-const { Server } = require("socket.io")
 const http = require('http')
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const crypto = require("crypto")
-
 
 const app = express();
 
@@ -19,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // API Routes
-app.use('/game', tokenChecker, gamesRouter)
+app.use('/createGame', gamesRouter)
 
 // 404 Handler
 app.use((_req, res) => {
@@ -38,30 +35,5 @@ app.use((err, _req, res, _next) => {
 
 const server = http.createServer(app)
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:5173"
-  }
-})
 
-io.on('connection', (socket) => {
-  console.log(`User Connected: ${socket.id}`)
-  console.log(`Users Connected: ${io.engine.clientsCount}`)
-  
-  socket.on('disconnect', () => {
-    console.log("User disconnected!")
-    console.log(`Users Connected: ${io.engine.clientsCount}`)
-  })
-
-  socket.on("create_room", () => {
-    const roomId = crypto.randomBytes(3).toString('hex')
-    // const link = `http://localhost:5173/join/${roomId}`
-    socket.emit('receive_link', roomId)
-  })
-})
-
-server.listen(3001, () => {
-  console.log("Server running at http://localhost:3001");
-});
-
-module.exports = app;
+module.exports = server;
