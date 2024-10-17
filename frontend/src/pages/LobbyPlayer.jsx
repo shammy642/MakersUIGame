@@ -19,7 +19,7 @@ export function LobbyPlayer({ gameRoom, players }) {
           <li key={`${player}-${index}`}>{player}</li>
         ))}
       </ul> */}
-        < ListPlayers></ListPlayers>
+        < ListPlayers players={players}></ListPlayers>
         <br></br>
 
 
