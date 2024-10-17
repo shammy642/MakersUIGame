@@ -26,7 +26,7 @@ export function LobbyHost({ gameRoom, players }) {
         <div key={`${player}-${index}`}>{player}</div>
       ))} */}
 
-        < ListPlayers></ListPlayers>
+        < ListPlayers players={players}></ListPlayers>
         <br></br>
 
       <Button buttonText="Start Game" />
