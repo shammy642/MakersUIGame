@@ -14,7 +14,7 @@ export function LandingPlayer() {
   const handleClick = () => {
     if (params.roomId) {
       socket.emit("join_room", params.roomId, input)
-      navigate(`/lobby/player/`)
+      navigate(`/lobby/player`)
     }
     else {
       navigate('/')
