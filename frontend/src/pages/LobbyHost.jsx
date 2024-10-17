@@ -30,7 +30,6 @@ export function LobbyHost({ gameRoom, players }) {
         <br></br>
 
       <Button buttonText="Start Game" />
-      <div>{`Game Room: http://localhost:5173/join/${gameRoom}`}</div>
     </>
   );
 }
