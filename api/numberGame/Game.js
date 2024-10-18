@@ -2,6 +2,7 @@ class Game {
     constructor() {
         this.players = [];
         this.targetNumber = this.generateRandomNumber();
+        this.currentRoundWinner = null
     }
 
     generateRandomNumber() {
@@ -29,7 +30,8 @@ class Game {
                 }
             })
             closestPlayer.wonRound();
-            this.resetGame();
+            this.currentRoundWinner = closestPlayer
+            // this.resetGame();
 
             return { success: true, closestPlayer};
         }
