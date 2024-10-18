@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
         io.to(gameId).emit("redirect_to_round_end", false)
         games[gameId].players.forEach((player) => {
           if (player.id === socket.id) {
-            player.voteNextRound();
+            player.nextRound = true
             console.log(`${player.name} voted for next round`)
           }
         });
