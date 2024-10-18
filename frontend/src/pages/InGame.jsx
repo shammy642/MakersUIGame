@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 import { Form } from "../components/Form";
 import { useState } from "react";
 import { socket } from "../socket";
+import { ListPlayers } from "../components/ListPlayers";
 
 // in game page function
 export function InGame({ players }) {
@@ -12,6 +13,7 @@ export function InGame({ players }) {
   const handleClick = () => {
     socket.emit("send_number", input);
   };
+  console.log(players)
 
   return (
     <div className="InGame">
