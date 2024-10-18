@@ -14,6 +14,7 @@ export function InGame({ players, redirect }) {
   const navigate = useNavigate();
   console.log("Ingame redirect", redirect)
 
+
   const handleClick = () => {
     socket.emit("send_number", input);
   };

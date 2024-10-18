@@ -50,7 +50,8 @@ io.on("connection", (socket) => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         console.log("Sent redirect");
-        io.to(gameId).emit("redirect_to_game_start");
+        io.to(gameId).emit("redirect_to_round_end", false);
+        io.to(gameId).emit("redirect_to_game_start", true);
       }
     });
   });
@@ -65,7 +66,8 @@ io.on("connection", (socket) => {
         });
         const isEndOfRound = games[gameId].checkGuess();
         if (isEndOfRound.success) {
-          io.to(gameId).emit("redirect_to_round_end");
+          io.to(gameId).emit("redirect_to_game_start", false)
+          io.to(gameId).emit("redirect_to_round_end", true);
           io.to(gameId).emit("receive_players", games[gameId].players);
           io.to(gameId).emit("receive_game", games[gameId])
           console.log("Round End", games[gameId])
@@ -73,7 +75,28 @@ io.on("connection", (socket) => {
       }
     });
   });
-});
+
+  socket.on("next_round", () => {
+    socket.rooms.forEach((gameId) => {
+      if (games[gameId]) {
+        io.to(gameId).emit("redirect_to_round_end", false)
+        games[gameId].players.forEach((player) => {
+          if (player.id === socket.id) {
+            player.nextRound = true
+            console.log(`${player.name} voted for next round`)
+          }
+        });
+        if (games[gameId].checkNextRound()) {
+          console.log("send redirect to start game")
+          io.to(gameId).emit("redirect_to_game_start", true);
+          games[gameId].resetGame()
+        }
+      }
+    });
+  });
+})
+
+
 
 function listenForRequests() {
   const port = process.env.PORT || 3001;

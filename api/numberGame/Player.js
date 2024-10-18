@@ -4,6 +4,7 @@ class Player {
     this.name = name;
     this.currentGuess = null,
     this.totalScore = 0
+    this.nextRound  = false
   } 
 
   guess(num) {
@@ -16,6 +17,8 @@ class Player {
   wonRound() {
     this.totalScore++
   }
+  voteNextRound() {
+    this.nextRound = true
+  } 
 }
-
 module.exports = Player

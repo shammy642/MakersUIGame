@@ -33,14 +33,20 @@ class Game {
             this.currentRoundWinner = closestPlayer
             // this.resetGame();
 
-            return { success: true, closestPlayer};
+            return { success: true, closestPlayer };
         }
-        return { success: false, message: 'Waiting for other players to submit guesses'}
+
+        return { success: false, message: 'Waiting for other players to submit guesses' }
+    }
+
+    checkNextRound() {
+        return this.players.every(player => player.nextRound === true)
     }
 
     resetGame() {
         this.targetNumber = this.generateRandomNumber();
         this.players.forEach(player => player.currentGuess = null);
+        this.players.forEach(player => player.nextRound = false);
     }
 }
 

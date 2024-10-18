@@ -49,8 +49,8 @@ function App() {
     socket.on("disconnect", onDisconnect);
     socket.on("receive_link", (data) => onReceiveLink(data));
     socket.on("receive_players", (data) => onReceivePlayers(data));
-    socket.on("redirect_to_game_start", () => onReceiveGameStartRedirect(true))
-    socket.on("redirect_to_round_end", () => onReceiveRoundEndRedirect(true))
+    socket.on("redirect_to_game_start", (data) => onReceiveGameStartRedirect(data))
+    socket.on("redirect_to_round_end", (data) => onReceiveRoundEndRedirect(data))
     socket.on("receive_game", (data) => onReceiveGame(data))
     
     return () => {
@@ -89,9 +89,12 @@ function App() {
     },
     {
       path: "/round-end",
-      element: <RoundEnd gameState={gameState}/>,
+      element: <RoundEnd gameState={gameState} redirect={gameStartRedirect} />,
     },
   ]);
+
+  console.log("App Redirect to game Start", gameStartRedirect)
+  console.log("App Redirect to round end redirect", roundEndRedirect)
 
   return (
     <>
