@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ListPlayers } from "../components/ListPlayers";
 
 export function LobbyPlayer({ gameRoom, players, redirect }) {
   const [playersList, setPlayersList] = useState([]);
@@ -18,12 +19,8 @@ export function LobbyPlayer({ gameRoom, players, redirect }) {
   console.log("Redirect:", redirect)
   return (
     <>
-      <h2 className="font-bold">Players:</h2>
-      <ul>
-        {playersList.map((player, index) => (
-          <li key={`${player}-${index}`}>{player}</li>
-        ))}
-      </ul>
+      <ListPlayers players = {players} />
+      <br/>
       <div>Waiting for host to start game...</div>
       <div>
         <h2 className="font-bold">Game Room:</h2>

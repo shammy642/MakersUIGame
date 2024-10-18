@@ -16,13 +16,8 @@ export function InGame({ players }) {
   return (
     <div className="InGame">
       <div className="players_list">
-        <h1>Players joining component placeholder</h1>
-        <p>Players</p>
-        <ul>
-          {players && players.map((player, index) => (
-            <li key={`${player.name}-${index}`}>{player.name}</li>
-          ))}
-        </ul>
+    
+        <ListPlayers players = {players} />
       </div>
 
       <div className="guess">
