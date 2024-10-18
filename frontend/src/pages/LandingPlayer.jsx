@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { socket } from "../socket"
 import { Button } from "../components/Button"
-import { Form } from "../components/Form"
+import { Form } from "../components/UsernameForm"
 import { useState } from "react"
 
 
