@@ -32,7 +32,8 @@ export function LobbyHost({ gameRoom, players }) {
         ))}
       </ul>
       <Button handleClick={handleClick} buttonText="Start Game" />
-      <div>{`Game Room: ${window.location.origin}/join/${gameRoom}`}</div>
+      <div>Share your game link:</div>
+      <div className="game-link">{`${window.location.origin}/join/${gameRoom}`}</div>
     </>
   );
 }

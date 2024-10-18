@@ -21,4 +21,27 @@ describe("Host landing page", () => {
 
     cy.url().should('include', '/lobby/host')
   })
+
+  it("entering a name, the name should appear on the next page", () => {
+    cy.visit("/")
+    cy.get('input[placeholder="Username"]').type("Joe");
+    cy.contains("Create Game").click()
+    cy.url().should('include', '/lobby/host')
+    cy.contains("Joe(Host)").should("be.visible")
+  })
 });
+
+describe("Lobby Host Page", () => {
+  beforeEach(() => {
+    cy.visit("/")
+    cy.get('input[placeholder="Username"]').type("Joe");
+    cy.contains("Create Game").click()
+    cy.url().should('include', '/lobby/host')
+  })
+  it("the inputed name should appear on in the lobby page", () => {
+    cy.contains("Joe(Host)").should("be.visible")
+  })
+  it("should have link with random room on page", () => {
+    cy.get(".game-link").should("contain", `${window.location.origin}`)
+  })
+})
