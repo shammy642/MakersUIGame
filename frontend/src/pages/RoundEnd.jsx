@@ -1,20 +1,17 @@
 // The page that is displays once at the end of the round
 // this page has the score and the option to do another round or quit
 
-import { Link } from "react-router-dom";
 // import { Button } from "../components/Button";
 
-export function RoundEnd() {
+export function RoundEnd({ gameState }) {
+
   return (
     <div className="round-end">
         <div className="number_to_guess">
-            <p>
-                Placeholder for the display number to guess component
-            </p>
             <p data-testId="number-reveal">
                 The number was:
             </p><br></br>
-            <p>42</p> 
+            <p>{gameState && gameState.targetNumber}</p> 
         </div>
 
         <div className="winner">
@@ -22,8 +19,9 @@ export function RoundEnd() {
                 Placeholder for the winner component
             </p>
             <p >
-                The winner is... Player3!
+                The winner is...
             </p>
+            <h2>{gameState && gameState.currentRoundWinner && gameState.currentRoundWinner.name}</h2>
         </div>
 
         <div className="scores">
@@ -32,18 +30,11 @@ export function RoundEnd() {
             </p>
             {/* Should probably be a table with a column for players and one for points */}
             <ol> 
-                <li>Player 3</li>
-                <li>Player 1</li>
-                <li>Player 2</li>
+                {gameState && gameState.players && gameState.players.map((player, index) => (
+                    <p key={`${player.name}-${index}`}>{player.name}: {player.totalScore}</p>
+                ))}
             </ol>
         </div>
-
-
-        <Link to="/" className="landing-host-link"></Link>
-        <Link to="/in-game" className="in-game-link"></Link>
-        {/* <Button onClick={handleClick}>Next round :D</Button>
-
-        <Button onClick={handleClick}>Quit :'(</Button> */}
 
     </div>
   );
