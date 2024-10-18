@@ -29,7 +29,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("create_room", (name) => {
-    console.log("Create room rooms:", socket.rooms[1]);
     const gameId = crypto.randomBytes(3).toString("hex");
     socket.emit("receive_link", gameId);
     socket.join(gameId);
