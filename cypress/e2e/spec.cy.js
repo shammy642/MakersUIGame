@@ -52,4 +52,15 @@ describe("Lobby Host Page", () => {
         cy.url().should("include", "/join/")
       });
   });
+  it("player is visible when joining game", () => {
+    cy.window().then((window) => {
+      cy.get(".game-link")
+      .invoke("text")
+      .then((text) => {
+        cy.visit(text)
+        cy.url().should("include", "/join/")
+      });
+    })
+  })
 });
+
