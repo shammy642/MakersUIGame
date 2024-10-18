@@ -61,6 +61,7 @@ describe("Lobby Host Page", () => {
         cy.url().should("include", "/join/")
       });
     })
+    cy.window().then
   })
 });
 
