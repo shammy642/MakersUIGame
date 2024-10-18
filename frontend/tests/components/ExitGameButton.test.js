@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { describe, expect, test } from "vitest";
 import ExitGameButton from '../../src/components/ExitButton';
 
 describe('ExitGameButton', () => {
