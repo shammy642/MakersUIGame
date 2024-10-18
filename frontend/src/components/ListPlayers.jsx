@@ -5,7 +5,7 @@ export function ListPlayers({players}) {
     return (
       <>
         <h2 className="font-bold">Players:</h2>
-        {players.map((player) => ((player.name))+" ")}
+        {players && players.map((player) => ((player.name))+" ")}
 
       </>
     )
