@@ -4,7 +4,9 @@ import { Button } from "../components/Button";
 import { Form } from "../components/Form";
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
+import { ListPlayers } from "../components/ListPlayers";
 import { useNavigate } from "react-router-dom";
+
 
 // in game page function
 export function InGame({ players, redirect }) {
@@ -15,6 +17,7 @@ export function InGame({ players, redirect }) {
   const handleClick = () => {
     socket.emit("send_number", input);
   };
+  console.log(players)
 
   useEffect(() => {
     if (redirect) {
@@ -27,6 +30,10 @@ export function InGame({ players, redirect }) {
   return (
     <div className="InGame">
       <div className="players_list">
+
+    
+        <ListPlayers players = {players} />
+
         <h1>Players joining component placeholder</h1>
         <p>Players</p>
         <ul>
@@ -35,6 +42,7 @@ export function InGame({ players, redirect }) {
               <li key={`${player.name}-${index}`}>{player.name}</li>
             ))}
         </ul>
+
       </div>
 
       <div className="guess">
