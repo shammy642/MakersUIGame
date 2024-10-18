@@ -29,13 +29,13 @@ io.on('connection', (socket) => {
   })
 
   socket.on("create_room", (name) => {
+    console.log("Create room rooms:",socket.rooms[1])
     const gameId = crypto.randomBytes(3).toString('hex')
     socket.emit('receive_link', gameId)
     socket.join(gameId)
     games[gameId] = new Game()
     games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`))
     io.to(gameId).emit("receive_players", games[gameId].players)
-    console.log("Rooms: ", io.sockets.adapter.rooms)
   })
   
   socket.on("join_room", (gameId, name) => {
@@ -44,9 +44,31 @@ io.on('connection', (socket) => {
     socket.join(gameId)
     games[gameId].addPlayer(new Player(socket.id, name))
     io.to(gameId).emit("receive_players", games[gameId].players)
-    console.log("Rooms: ", io.sockets.adapter.rooms)
+  })
+
+  socket.on("start_game", () => {
+    socket.rooms.forEach((gameId) => {
+      if (games[gameId]) {
+        console.log("Sent redirect")
+        io.to(gameId).emit("redirect_to_game_start")
+      }
+    })
+  })
+
+  socket.on("send_number", (number) => {
+    socket.rooms.forEach((gameId) => {
+      if (games[gameId]) {
+        games[gameId].players.forEach((player) => {
+          if (player.id === socket.id) {
+            player.guess(number)
+          }
+        })
+      }
+    })
   })
 })
+  
+
 
 function listenForRequests() {
   const port = process.env.PORT || 3001;

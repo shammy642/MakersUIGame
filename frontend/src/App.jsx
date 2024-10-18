@@ -17,6 +17,8 @@ function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [gameRoom, setGameRoom] = useState("");
   const [players, setPlayers] = useState([]);
+  const [targetNumber, setTargetNumber] = useState("")
+  const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
     const onConnect = () => {
@@ -31,20 +33,32 @@ function App() {
     const onReceivePlayers = (data) => {
       setPlayers(data);
     };
+    const onReceiveTargetNumber = (data) => {
+      setTargetNumber(data)
+    }
+    const onReceiveRedirect = (data) => {
+      setRedirect(data)
+    }
+    
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("receive_link", (data) => onReceiveLink(data));
     socket.on("receive_players", (data) => onReceivePlayers(data));
+    socket.on("receive_target_number", (data) => onReceiveTargetNumber(data))
+    socket.on("redirect_to_game_start", () => onReceiveRedirect(true))
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("receive_link", () => onReceiveLink(""));
       socket.off("receive_players", () => onReceivePlayers([]));
+      socket.off("receive_target_number", () => onReceiveTargetNumber(""))
+      socket.off("redirect_to_game_start", () => onReceiveRedirect(false))
     };
   });
-  console.log("App GameRoom: ",gameRoom)
+
+  console.log("app redirect:", redirect)
   const router = createBrowserRouter([
     {
       path: "/",
@@ -52,7 +66,7 @@ function App() {
     },
     {
       path: "/lobby/player",
-      element: <LobbyPlayer gameRoom={gameRoom} players={players} />,
+      element: <LobbyPlayer gameRoom={gameRoom} players={players} redirect={redirect}/>,
     },
 
     {
@@ -62,7 +76,7 @@ function App() {
 
     {
       path: "/in-game",
-      element: <InGame />,
+      element: <InGame players={players}/>,
     },
     {
       path: "/lobby/host",
