@@ -46,7 +46,7 @@ class Game {
     resetGame() {
         this.targetNumber = this.generateRandomNumber();
         this.players.forEach(player => player.currentGuess = null);
-        this.players.forEach(player => player.voteNextRound = false);
+        this.players.forEach(player => player.nextRound = false);
     }
 }
 
