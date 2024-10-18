@@ -5,7 +5,7 @@ import { socket } from "../socket";
 import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Form } from "../components/Form";
+import { Form } from "../components/UsernameForm";
 
 // page function
 export function LandingHost() {
