@@ -7,7 +7,6 @@ import { describe, expect, test, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { socket } from "../../src/socket";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 vi.mock("../../src/socket.js", () => {
   return { socket: { emit: vi.fn() } };
