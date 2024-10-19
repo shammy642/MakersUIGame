@@ -20,7 +20,7 @@ test.describe("Host landing page", () => {
     await page.goto("/");
     const buttonEl = page.getByRole("button");
 
-    expect(buttonEl).toHaveText("Create Game");
+    await expect(buttonEl).toHaveText("Create Game");
   });
   test("inputing a name and then going to the next page", async ({ page }) => {
     await page.goto("/");
