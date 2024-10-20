@@ -22,7 +22,7 @@ export function RoundEnd({ gameState, redirect }) {
   return (
     <div className="round-end">
       <div className="number_to_guess">
-        <p data-testId="number-reveal">The number was:</p>
+        <p data-testid="number-reveal">The number was:</p>
         <br></br>
         <p>{gameState && gameState.targetNumber}</p>
       </div>

@@ -38,7 +38,7 @@ export function InGame({ players, redirect }) {
       </div>
 
       <div className="guess">
-        <h1 data-testId="guess-label">Guess a number between 1 and 100!</h1>
+        <h1 data-testid="guess-label">Guess a number between 1 and 100!</h1>
         
         <GuessForm input={input} setInput={setInput}></GuessForm>
         <br></br>
