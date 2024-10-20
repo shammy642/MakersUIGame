@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ListPlayers } from "../components/ListPlayers";
 
-export function LobbyPlayer({ gameRoom, players, redirect }) {
-  const [playersList, setPlayersList] = useState([]);
+export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
+
   const navigate = useNavigate()
   useEffect(() => {
     if (redirect) {
-      navigate("/in-game")
+      navigate(redirect)
+      setRedirect("")
     }
-    if (players) {
-      let list = players.map((value) => value["name"]);
-      console.log("Host Lobby Players", list);
-      setPlayersList(list);
-    }
-  }, [players, redirect, navigate]);
+  }, [redirect, navigate, setRedirect]);
 
   console.log("Redirect:", redirect)
   return (

@@ -5,15 +5,15 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export function RoundEnd({ gameState, redirect }) {
+export function RoundEnd({ gameState, redirect, setRedirect }) {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (redirect) {
-      console.log("navigate to in game");
-      navigate("/in-game");
+      navigate(redirect);
+      setRedirect("")
     }
-  }, [navigate, redirect]);
+  }, [navigate, redirect, setRedirect]);
 
   const handleNextRound = () => {
     socket.emit("next_round");

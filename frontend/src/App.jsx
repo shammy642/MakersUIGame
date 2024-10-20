@@ -1,7 +1,11 @@
 //imports needed
 import { useEffect, useState } from "react";
 import { socket } from "./socket";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 
 import { InGame } from "./pages/InGame";
@@ -18,9 +22,7 @@ function App() {
   const [gameRoom, setGameRoom] = useState("");
   const [players, setPlayers] = useState([]);
   const [gameState, setGameState] = useState([]);
-  const [gameStartRedirect, setGameStartRedirect] = useState(false)
-  const [roundEndRedirect, setRoundEndRedirect] = useState(false)
-
+  const [redirect, setRedirect] = useState("");
   useEffect(() => {
     const onConnect = () => {
       setIsConnected(true);
@@ -34,33 +36,27 @@ function App() {
     const onReceivePlayers = (data) => {
       setPlayers(data);
     };
-    const onReceiveGameStartRedirect = (data) => {
-      setGameStartRedirect(data)
-    }
-    const onReceiveRoundEndRedirect = (data) => {
-      setRoundEndRedirect(data)
-    }
     const onReceiveGame = (data) => {
-      setGameState(data)
-    }
-    
+      setGameState(data);
+    };
+    const onReceiveRedirect = (data) => {
+      setRedirect(data);
+    };
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("receive_link", (data) => onReceiveLink(data));
     socket.on("receive_players", (data) => onReceivePlayers(data));
-    socket.on("redirect_to_game_start", (data) => onReceiveGameStartRedirect(data))
-    socket.on("redirect_to_round_end", (data) => onReceiveRoundEndRedirect(data))
-    socket.on("receive_game", (data) => onReceiveGame(data))
-    
+    socket.on("receive_game", (data) => onReceiveGame(data));
+    socket.on("redirect", (data) => onReceiveRedirect(data));
+
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("receive_link", () => onReceiveLink(""));
       socket.off("receive_players", () => onReceivePlayers([]));
-      socket.off("redirect_to_game_start", () => onReceiveGameStartRedirect(false))
-      socket.off("redirect_to_round_end", () => onReceiveRoundEndRedirect(false))
-      socket.off("receive_game", () => onReceiveGame([]))
+      socket.off("receive_game", () => onReceiveGame([]));
+      socket.off("redirect", () => onReceiveRedirect(""));
     };
   });
 
@@ -71,7 +67,14 @@ function App() {
     },
     {
       path: "/lobby/player",
-      element: <LobbyPlayer gameRoom={gameRoom} players={players} redirect={gameStartRedirect}/>,
+      element: (
+        <LobbyPlayer
+          gameRoom={gameRoom}
+          players={players}
+          redirect={redirect}
+          setRedirect={setRedirect}
+        />
+      ),
     },
 
     {
@@ -81,7 +84,13 @@ function App() {
 
     {
       path: "/in-game",
-      element: <InGame players={players} redirect={roundEndRedirect}/>,
+      element: (
+        <InGame
+          players={players}
+          redirect={redirect}
+          setRedirect={setRedirect}
+        />
+      ),
     },
     {
       path: "/lobby/host",
@@ -89,12 +98,15 @@ function App() {
     },
     {
       path: "/round-end",
-      element: <RoundEnd gameState={gameState} redirect={gameStartRedirect} />,
+      element: (
+        <RoundEnd
+          gameState={gameState}
+          redirect={redirect}
+          setRedirect={setRedirect}
+        />
+      ),
     },
   ]);
-
-  console.log("App Redirect to game Start", gameStartRedirect)
-  console.log("App Redirect to round end redirect", roundEndRedirect)
 
   return (
     <>

@@ -9,7 +9,7 @@ import { GuessForm } from "../components/GuessForm";
 
 
 // in game page function
-export function InGame({ players, redirect }) {
+export function InGame({ players, redirect, setRedirect }) {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
   console.log("Ingame redirect", redirect)
@@ -22,9 +22,10 @@ export function InGame({ players, redirect }) {
 
   useEffect(() => {
     if (redirect) {
-      navigate("/round-end");
+      navigate(redirect);
+      setRedirect("")
     }
-  },[redirect, navigate])
+  },[redirect, navigate, setRedirect])
 
 
 
