@@ -56,12 +56,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_number", (number) => {
-    console.log()
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         games[gameId].players.forEach((player) => {
           if (player.id === socket.id) {
             player.guess(number);
+            io.to(gameId).emit("receive_players", games[gameId].players);
           }
         });
       }
@@ -74,7 +74,6 @@ io.on("connection", (socket) => {
         games[gameId].players.forEach((player) => {
           if (player.id === socket.id) {
             player.nextRound = true
-            console.log(`${player.name} voted for next round`)
           }
         });
         if (games[gameId].checkNextRound()) {
@@ -87,10 +86,9 @@ io.on("connection", (socket) => {
   });
 
   function startTimer(gameId) {
-    let timeRemaining = 10;
+    let timeRemaining = 1000;
     io.to(gameId).emit("time_remaining", timeRemaining)
     let timer = setInterval(() => {
-        console.log("Time remaining: " + timeRemaining)
         timeRemaining -= 1;
         io.to(gameId).emit("time_remaining", timeRemaining)
         if (timeRemaining <= 0 || (games[gameId].players.every(player => player.currentGuess !== null))) {
