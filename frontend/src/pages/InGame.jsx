@@ -1,6 +1,7 @@
 // The page where the game happens
 // import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
+import { Check } from "../components/Check";
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
 import { ListPlayers } from "../components/ListPlayers";
@@ -10,11 +11,15 @@ import { GuessForm } from "../components/GuessForm";
 // in game page function
 export function InGame({ players, redirect, setRedirect }) {
   const [input, setInput] = useState("");
+  //const [buttonText, setButtonText] = useState("Guess");
+  const [showCheck, setShowCheck] = useState(false);
   const navigate = useNavigate();
   console.log("Ingame redirect", redirect);
 
   const handleClick = () => {
     socket.emit("send_number", input);
+    //setButtonText("Good luck!")
+    setShowCheck(true);
   };
   console.log(players);
 
@@ -36,7 +41,14 @@ export function InGame({ players, redirect, setRedirect }) {
 
         <GuessForm input={input} setInput={setInput}></GuessForm>
         <br></br>
-        <Button handleClick={handleClick} buttonText="Guess" />
+        {/* <Button handleClick={handleClick} buttonText={buttonText} /> */}
+        <div className="flex justify-center items-center">
+          {!showCheck ? (
+            <Button handleClick={handleClick} buttonText="Guess" />
+          ) : (
+            <Check />
+          )}
+        </div>
       </div>
     </div>
   );
