@@ -29,7 +29,7 @@ export function LandingHost() {
         </p>
         <Form input={input} setInput={setInput}></Form>
         <br></br>
-        <Button handleClick={handleClick} buttonText="Create Game" ></Button>
+        <Button handleClick={handleClick} buttonText="Create Game"></Button>
       </div>
     </>
   );

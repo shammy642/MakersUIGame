@@ -19,8 +19,8 @@ export function LandingPlayer() {
     else {
       navigate('/')
     }
-
   }
+  
   return (
     <>
       <Form input={input} setInput={setInput}></Form>

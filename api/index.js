@@ -3,9 +3,8 @@ require("dotenv").config();
 
 const server = require("./app.js");
 const io = require("./socket.js");
-const crypto = require("crypto");
+
 const Game = require("./numberGame/Game.js");
-const Player = require("./numberGame/Player");
 
 const games = {};
 
@@ -23,37 +22,38 @@ io.on("connection", (socket) => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         games[gameId].removePlayer(socket.id);
-        io.to(gameId).emit("receive_players", games[gameId].players);
       }
     });
   });
 
+  // socket.on("create_room", (name) => {
+  //   console.log("Create room rooms:", socket.rooms[1]);
+  //   const gameId = 
+  //   socket.emit("receive_link", gameId);
+  //   socket.join(gameId);
+  //   games[gameId] = new Game();
+  //   games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`));
+  //   io.to(gameId).emit("receive_players", games[gameId].players);
+  // });
+
   socket.on("create_room", (name) => {
-    console.log("Create room rooms:", socket.rooms[1]);
-    const gameId = crypto.randomBytes(3).toString("hex");
+    console.log("create_room")  
+    const game = new Game(io);
+    const gameId = game.id;
+    games[gameId] = game;
+    game.addPlayer(socket, name, true)
     socket.emit("receive_link", gameId);
-    socket.join(gameId);
-    games[gameId] = new Game();
-    games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`));
-    io.to(gameId).emit("receive_players", games[gameId].players);
-  });
+  })
 
   socket.on("join_room", (gameId, name) => {
     socket.emit("receive_link", gameId);
-    console.log("Room ID:", gameId);
-    socket.join(gameId);
-    games[gameId].addPlayer(new Player(socket.id, name));
-    io.to(gameId).emit("receive_players", games[gameId].players);
+    games[gameId].addPlayer(socket, name);
+    console.log("join_room = room ID: ", gameId);
   });
 
-  socket.on("start_game", () => {
-    socket.rooms.forEach((gameId) => {
-      if (games[gameId]) {
-        console.log("Sent redirect");
-        io.to(gameId).emit("redirect_to_round_end", false);
-        io.to(gameId).emit("redirect_to_game_start", true);
-      }
-    });
+  socket.on("start_game", (gameId) => {
+    console.log("start_game: ", gameId)
+    games[gameId].startRound()
   });
 
   socket.on("send_number", (number) => {

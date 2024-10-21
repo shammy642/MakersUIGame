@@ -1,5 +1,5 @@
 class Player {
-  constructor(id, name) {
+  constructor(id, name, isHost=false) {
     this.id = id;
     this.name = name;
     this.currentGuess = null,
