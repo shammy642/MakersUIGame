@@ -18,10 +18,9 @@ export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
       <ListPlayers players = {players} />
       <br/>
       <div>Waiting for host to start game...</div>
-      <div>
-        <h2 className="font-bold">Game Room:</h2>
-          {`${window.location.origin}/join/${gameRoom}`}
-      </div>
+      <br />
+      <div>Share your game link:</div>
+      <div data-testid="game-link" className="game-link">{`${window.location.origin}/join/${gameRoom}`}</div>
     </>
   );
 }
