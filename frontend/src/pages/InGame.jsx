@@ -10,6 +10,7 @@ import { GuessForm } from "../components/GuessForm";
 // in game page function
 export function InGame({ players, redirect, setRedirect }) {
   const [input, setInput] = useState("");
+  const [localPlayers, setLocalPlayers] = useState(players);
   const navigate = useNavigate();
   console.log("Ingame redirect", redirect);
 

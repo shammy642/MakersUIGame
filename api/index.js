@@ -60,6 +60,7 @@ io.on("connection", (socket) => {
             player.guess(number);
           }
         });
+        io.to(gameId).emit("receive_players", games[gameId].players);
         const isEndOfRound = games[gameId].checkGuess();
         if (isEndOfRound.success) {
           io.to(gameId).emit("redirect", "/round-end")
