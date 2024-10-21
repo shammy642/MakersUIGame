@@ -4,7 +4,6 @@ class Game {
         this.targetNumber = null;
         this.currentRoundWinner = null
         this.timeRemaining = null
-        this.roundComplete = false
     }
 
     generateRandomNumber() {
@@ -51,7 +50,6 @@ class Game {
         this.targetNumber = this.generateRandomNumber();
         this.players.forEach(player => player.currentGuess = null);
         this.players.forEach(player => player.nextRound = false);
-        this.roundComplete = false;
         this.currentRoundWinner = null;
     }
 }
