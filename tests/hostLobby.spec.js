@@ -53,14 +53,14 @@ test.describe("Host Lobby Tests", () => {
   test("player's name should appear in host lobby after joining", async ({page}) => {
     await expect(page.getByText("Joe(Host)")).toBeVisible();
 
-    utils.newPlayerJoinGame(page, playerPage, "John")
+    await utils.newPlayerJoinGame(page, playerPage, "John")
 
     await expect(page.getByText("John")).toBeVisible();
   });
   test("given a host and a player the host clicks start game", async ({page}) => {
     await expect(page.getByText("Joe(Host)")).toBeVisible();
 
-    utils.newPlayerJoinGame(page, playerPage, "John")
+    await utils.newPlayerJoinGame(page, playerPage, "John")
 
     await expect(page.getByText("John")).toBeVisible();
 
