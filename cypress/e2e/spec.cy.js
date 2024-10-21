@@ -11,37 +11,57 @@ describe("Host landing page", () => {
   });
 
   it("create game button exists", () => {
-    cy.visit("/")
-    cy.contains("Create Game").should('be.visible')
-  })
+    cy.visit("/");
+    cy.contains("Create Game").should("be.visible");
+  });
 
   it("create game button should redirect to lobby host page", () => {
-    cy.visit("/")
-    cy.contains("Create Game").click()
+    cy.visit("/");
+    cy.contains("Create Game").click();
 
-    cy.url().should('include', '/lobby/host')
-  })
+    cy.url().should("include", "/lobby/host");
+  });
 
   it("entering a name, the name should appear on the next page", () => {
-    cy.visit("/")
+    cy.visit("/");
     cy.get('input[placeholder="Username"]').type("Joe");
-    cy.contains("Create Game").click()
-    cy.url().should('include', '/lobby/host')
-    cy.contains("Joe(Host)").should("be.visible")
-  })
+    cy.contains("Create Game").click();
+    cy.url().should("include", "/lobby/host");
+    cy.contains("Joe(Host)").should("be.visible");
+  });
 });
 
 describe("Lobby Host Page", () => {
   beforeEach(() => {
-    cy.visit("/")
+    cy.visit("/");
     cy.get('input[placeholder="Username"]').type("Joe");
-    cy.contains("Create Game").click()
-    cy.url().should('include', '/lobby/host')
-  })
+    cy.contains("Create Game").click();
+    cy.url().should("include", "/lobby/host");
+  });
   it("the inputed name should appear on in the lobby page", () => {
-    cy.contains("Joe(Host)").should("be.visible")
-  })
+    cy.contains("Joe(Host)").should("be.visible");
+  });
   it("should have link with random room on page", () => {
-    cy.get(".game-link").should("contain", `${window.location.origin}`)
+    cy.get(".game-link").should("contain", `${window.location.origin}`);
+  });
+  it("link on page should navigate to player landing page", () => {
+    cy.get(".game-link")
+      .invoke("text")
+      .then((text) => {
+        cy.visit(text)
+        cy.url().should("include", "/join/")
+      });
+  });
+  it("player is visible when joining game", () => {
+    cy.window().then((window) => {
+      cy.get(".game-link")
+      .invoke("text")
+      .then((text) => {
+        cy.visit(text)
+        cy.url().should("include", "/join/")
+      });
+    })
+    cy.window().then
   })
-})
+});
+

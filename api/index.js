@@ -14,7 +14,6 @@ io.on("connection", (socket) => {
   console.log(`Users Connected: ${io.engine.clientsCount}`);
 
   socket.on("disconnect", () => {
-    console.log("Disconnect", socket.rooms);
     console.log("User disconnected!");
     console.log(`Users Connected: ${io.engine.clientsCount}`);
   });
@@ -29,7 +28,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("create_room", (name) => {
-    console.log("Create room rooms:", socket.rooms[1]);
     const gameId = crypto.randomBytes(3).toString("hex");
     socket.emit("receive_link", gameId);
     socket.join(gameId);
@@ -49,9 +47,7 @@ io.on("connection", (socket) => {
   socket.on("start_game", () => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
-        console.log("Sent redirect");
-        io.to(gameId).emit("redirect_to_round_end", false);
-        io.to(gameId).emit("redirect_to_game_start", true);
+        io.to(gameId).emit("redirect", "/in-game")
       }
     });
   });
@@ -66,11 +62,9 @@ io.on("connection", (socket) => {
         });
         const isEndOfRound = games[gameId].checkGuess();
         if (isEndOfRound.success) {
-          io.to(gameId).emit("redirect_to_game_start", false)
-          io.to(gameId).emit("redirect_to_round_end", true);
+          io.to(gameId).emit("redirect", "/round-end")
           io.to(gameId).emit("receive_players", games[gameId].players);
           io.to(gameId).emit("receive_game", games[gameId])
-          console.log("Round End", games[gameId])
         }
       }
     });
@@ -79,7 +73,6 @@ io.on("connection", (socket) => {
   socket.on("next_round", () => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
-        io.to(gameId).emit("redirect_to_round_end", false)
         games[gameId].players.forEach((player) => {
           if (player.id === socket.id) {
             player.nextRound = true
@@ -87,8 +80,7 @@ io.on("connection", (socket) => {
           }
         });
         if (games[gameId].checkNextRound()) {
-          console.log("send redirect to start game")
-          io.to(gameId).emit("redirect_to_game_start", true);
+          io.to(gameId).emit("redirect", "/in-game")
           games[gameId].resetGame()
         }
       }

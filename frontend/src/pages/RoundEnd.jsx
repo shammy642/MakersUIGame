@@ -5,15 +5,15 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export function RoundEnd({ gameState, redirect }) {
+export function RoundEnd({ gameState, redirect, setRedirect }) {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (redirect) {
-      console.log("navigate to in game");
-      navigate("/in-game");
+      navigate(redirect);
+      setRedirect("")
     }
-  }, [navigate, redirect]);
+  }, [navigate, redirect, setRedirect]);
 
   const handleNextRound = () => {
     socket.emit("next_round");
@@ -22,7 +22,7 @@ export function RoundEnd({ gameState, redirect }) {
   return (
     <div className="round-end">
       <div className="number_to_guess">
-        <p data-testId="number-reveal">The number was:</p>
+        <p data-testid="number-reveal">The number was:</p>
         <br></br>
         <p>{gameState && gameState.targetNumber}</p>
       </div>
@@ -39,7 +39,6 @@ export function RoundEnd({ gameState, redirect }) {
 
       <div className="scores">
         <p>Placeholder for the scores component</p>
-        {/* Should probably be a table with a column for players and one for points */}
         <ol>
           {gameState &&
             gameState.players &&
