@@ -28,11 +28,6 @@ describe("Game", () => {
             // No players added here, so should be empty
             expect(game.players).toEqual([]);
         });
-
-        test("should initialise with a target number between 1 and 100", () => {
-            expect(game.targetNumber).toBeGreaterThanOrEqual(1);
-            expect(game.targetNumber).toBeLessThanOrEqual(100);
-        });
     });
 
     describe("generateRandomNumber", () => {
@@ -105,7 +100,7 @@ describe("Game", () => {
     });
     
     
-    describe("checkGuess", () => {
+    describe("checkGuesses", () => {
         test("should return a success message and the closest player when all players have guessed", () => {
             // Set current guesses
             mockPlayer1.currentGuess = 40;
@@ -117,28 +112,57 @@ describe("Game", () => {
             // Set a target number
             game.targetNumber = 50;
 
-            const result = game.checkGuess();
+            game.checkGuesses();
 
-            expect(result.success).toBe(true);
-            expect(result.closestPlayer).toBe(mockPlayer1); // mockPlayer2 is closer to 50
+            expect(game.currentRoundWinner).toBe(mockPlayer1); // mockPlayer2 is closer to 50
 
             expect(mockPlayer1.wonRound).toHaveBeenCalled();
             expect(mockPlayer2.wonRound).not.toHaveBeenCalled(); // Only the closest player's wonRound should be called
         });
-
-        test("should return a failure message if not all players have guessed", () => {
-            // Only one player has guessed
-            mockPlayer1.currentGuess = 40;
+        
+        test("if no guesses were made by any player, nothing should be returned", () => {
+            // Set current guesses
+            mockPlayer1.currentGuess = null;
+            mockPlayer2.currentGuess = null;
 
             game.addPlayer(mockPlayer1);
-            game.addPlayer(mockPlayer2); // mockPlayer2 has not guessed yet
+            game.addPlayer(mockPlayer2);
 
-            const result = game.checkGuess();
+            // Set a target number
+            game.targetNumber = 50;
+            
+            
+            game.checkGuesses();
 
-            expect(result.success).toBe(false);
-            expect(result.message).toBe("Waiting for other players to submit guesses");
+            expect(game.currentRoundWinner).toBe(null); // no one wins, mwahahahahaha
+
+            expect(mockPlayer1.wonRound).not.toHaveBeenCalled(); //  No one's wonRound should be called
+            expect(mockPlayer2.wonRound).not.toHaveBeenCalled(); //  No one's wonRound should be called
+            
+        });
+        test("if 1 or more players don't guess, ignore them and process only those who have. ", () => {
+            // Set current guesses
+            mockPlayer1.currentGuess = null;
+            mockPlayer2.currentGuess = 1;
+
+            game.addPlayer(mockPlayer1);
+            game.addPlayer(mockPlayer2);
+
+            // Set a target number
+            game.targetNumber = 50;
+
+            game.checkGuesses();
+
+            expect(game.currentRoundWinner).toBe(mockPlayer2); // mockPlayer2 is closer to 50
+
+            expect(mockPlayer1.wonRound).not.toHaveBeenCalled(); 
+            expect(mockPlayer2.wonRound).toHaveBeenCalled(); // Only the closest player's wonRound should be called
         });
     });
+
+    
+
+
 
     describe("resetGame", () => {
         test("should generate a new target number and reset all players' guesses", () => {

@@ -1,23 +1,12 @@
 // The page where the players are waiting while everybody joins the game
 // For the host, this is the page with the 'start the game' button
-
-import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { socket } from "../socket";
 import { useNavigate } from "react-router-dom";
 import { ListPlayers } from "../components/ListPlayers";
 
 export function LobbyHost({ gameRoom, players }) {
-  const [playersList, setPlayersList] = useState([]);
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if (players) {
-      let list = players.map((value) => value["name"]);
-      console.log("Host Lobby Players", list);
-      setPlayersList(list);
-    }
-  }, [players]);
 
   const handleClick = () => {
     socket.emit("start_game")
@@ -27,10 +16,9 @@ export function LobbyHost({ gameRoom, players }) {
   return (
     <>
       <ListPlayers players = {players} />
-      <br/>
       <Button handleClick={handleClick} buttonText="Start Game" />
       <div>Share your game link:</div>
-      <div className="game-link">{`${window.location.origin}/join/${gameRoom}`}</div>
+      <div data-testid="game-link" className="game-link">{`${window.location.origin}/join/${gameRoom}`}</div>
     </>
   );
 }

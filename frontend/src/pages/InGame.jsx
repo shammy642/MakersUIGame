@@ -13,6 +13,7 @@ export function InGame({ players, redirect, setRedirect }) {
   const [input, setInput] = useState("");
   //const [buttonText, setButtonText] = useState("Guess");
   const [showCheck, setShowCheck] = useState(false);
+  const [localPlayers, setLocalPlayers] = useState(players);
   const navigate = useNavigate();
   console.log("Ingame redirect", redirect);
 
