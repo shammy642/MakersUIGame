@@ -33,7 +33,7 @@ io.on("connection", (socket) => {
     socket.emit("receive_link", gameId);
     socket.join(gameId);
     games[gameId] = new Game();
-    games[gameId].addPlayer(new Player(socket.id, `${name} (Host)`));
+    games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`));
     io.to(gameId).emit("receive_players", games[gameId].players);
   });
 
