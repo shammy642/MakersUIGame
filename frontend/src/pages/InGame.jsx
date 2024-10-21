@@ -26,25 +26,10 @@ export function InGame({ players, redirect, setRedirect }) {
     }
   }, [redirect, navigate, setRedirect]);
 
-  useEffect(() => {
-    // Listen for updated player list from the server
-    socket.on("receive_players", (updatedPlayers) => {
-      setLocalPlayers(updatedPlayers); // Update local players with the latest state
-    });
-
-    return () => {
-      socket.off("receive_players"); // Clean up the listener
-    };
-  }, []);
-
-  useEffect(() => {
-    setLocalPlayers(players); // Sync localPlayers with the props when players update
-  }, [players]);
-
   return (
     <div className="InGame">
       <div className="players_list">
-        <ListPlayers players={localPlayers} />
+        <ListPlayers players={players} />
       </div>
 
       <div className="guess">
