@@ -2,6 +2,7 @@
 // this page has the score and the option to do another round or quit
 import { socket } from "../socket";
 import { Button } from "../components/Button";
+//import { ExitButton } from "../components/ExitButton"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -18,6 +19,11 @@ export function RoundEnd({ gameState, redirect, setRedirect }) {
   const handleNextRound = () => {
     socket.emit("next_round");
   };
+
+  const handleQuitGame = () => {
+    socket.disconnect();
+    navigate("/")
+  }
 
   return (
     <div className="round-end">
@@ -52,6 +58,7 @@ export function RoundEnd({ gameState, redirect, setRedirect }) {
 
       <div>
         <Button handleClick={handleNextRound} buttonText={"Next Round"} />
+        <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
       </div>
     </div>
   );
