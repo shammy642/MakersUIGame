@@ -1,8 +1,10 @@
 class Game {
     constructor() {
         this.players = [];
-        this.targetNumber = this.generateRandomNumber();
+        this.targetNumber = null;
         this.currentRoundWinner = null
+        this.timeRemaining = null
+        this.roundComplete = false
     }
 
     generateRandomNumber() {
@@ -17,11 +19,16 @@ class Game {
         this.players = this.players.filter(player => player.id !== playerId);
     }
 
-    checkGuess() {
-        if (this.players.every(player => player.currentGuess !== null)) {
-            let closestPlayer = this.players[0];
-            let smallestDifference = Math.abs(this.players[0].currentGuess - this.targetNumber);
+    checkGuesses() {
+        console.log("checkGuesses: ", this.players)
+        if (this.players.every(player => player.currentGuess === null)) {
+            console.log("All players' currentGuess are null");
+            this.currentRoundWinner = null;
+        }
 
+        else {
+            let smallestDifference = Math.abs(this.players[0].currentGuess - this.targetNumber);
+            let closestPlayer = this.players[0];
             this.players.forEach(player => {
                 const difference = Math.abs(player.currentGuess - this.targetNumber);
                 if (difference < smallestDifference) {
@@ -31,22 +38,21 @@ class Game {
             })
             closestPlayer.wonRound();
             this.currentRoundWinner = closestPlayer
-            // this.resetGame();
-
-            return { success: true, closestPlayer };
         }
-
-        return { success: false, message: 'Waiting for other players to submit guesses' }
     }
+
 
     checkNextRound() {
         return this.players.every(player => player.nextRound === true)
     }
 
     resetGame() {
+        console.log("line 73: Resetting the game")
         this.targetNumber = this.generateRandomNumber();
         this.players.forEach(player => player.currentGuess = null);
         this.players.forEach(player => player.nextRound = false);
+        this.roundComplete = false;
+        this.currentRoundWinner = null;
     }
 }
 
