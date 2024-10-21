@@ -37,38 +37,37 @@ describe("LandingPlayer tests", () => {
   });
   test("a join room button is visible", () => {
     render(<LandingPlayer />);
-    const buttonEl = screen.getByRole("button", {name: "Join Room"})
-    expect(buttonEl).toBeDefined()
-  })
+    const buttonEl = screen.getByRole("button", { name: "Join Room" });
+    expect(buttonEl).toBeDefined();
+  });
   test("a user can enter a user name and join a game", async () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     // @ts-ignore
-    useParams.mockReturnValue({ roomId: "abc123"})
+    useParams.mockReturnValue({ roomId: "abc123" });
     const user = userEvent.setup();
     render(<LandingPlayer />);
     const inputEl = screen.getByPlaceholderText("Username");
     await act(async () => {
       await user.type(inputEl, "Joe");
     });
-    const buttonEl = screen.getByRole("button", {name: "Join Room"})
-    await user.click(buttonEl)
+    const buttonEl = screen.getByRole("button", { name: "Join Room" });
+    await user.click(buttonEl);
 
-    expect(socket.emit).toHaveBeenCalledWith("join_room", "abc123", "Joe")
-    expect(navigate).toHaveBeenCalledWith("/lobby/player")
-    
-  })
+    expect(socket.emit).toHaveBeenCalledWith("join_room", "abc123", "Joe");
+    expect(navigate).toHaveBeenCalledWith("/lobby/player");
+  });
   test("when no parameter return to home page", async () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     // @ts-ignore
-    useParams.mockReturnValue({ roomId: ""})
+    useParams.mockReturnValue({ roomId: "" });
     const user = userEvent.setup();
     render(<LandingPlayer />);
     const inputEl = screen.getByPlaceholderText("Username");
     await act(async () => {
       await user.type(inputEl, "Joe");
     });
-    const buttonEl = screen.getByRole("button", {name: "Join Room"})
-    await user.click(buttonEl)
-    expect(navigate).toHaveBeenCalledWith("/")
-  })
+    const buttonEl = screen.getByRole("button", { name: "Join Room" });
+    await user.click(buttonEl);
+    expect(navigate).toHaveBeenCalledWith("/");
+  });
 });
