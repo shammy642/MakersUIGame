@@ -1,4 +1,7 @@
 const { test, expect, chromium } = require("@playwright/test");
+const Utils = require("./utils")
+
+const utils = new Utils()
 
 test.describe("Host Lobby Tests", () => {
   let playerPage;
@@ -50,30 +53,19 @@ test.describe("Host Lobby Tests", () => {
   test("player's name should appear in host lobby after joining", async ({page}) => {
     await expect(page.getByText("Joe(Host)")).toBeVisible();
 
-    const gameLinkString = await page.locator(".game-link").textContent();
-    await playerPage.goto(gameLinkString);
-    await expect(playerPage).toHaveURL(gameLinkString);
-
-    await playerPage.getByPlaceholder("Username").fill("John");
-    await playerPage.locator("button").click();
+    utils.newPlayerJoinGame(page, playerPage, "John")
 
     await expect(page.getByText("John")).toBeVisible();
   });
   test("given a host and a player the host clicks start game", async ({page}) => {
     await expect(page.getByText("Joe(Host)")).toBeVisible();
 
-    const gameLinkString = await page.locator(".game-link").textContent();
-    await playerPage.goto(gameLinkString);
-    await expect(playerPage).toHaveURL(gameLinkString);
-
-    await playerPage.getByPlaceholder("Username").fill("John");
-    await playerPage.locator("button").click();
+    utils.newPlayerJoinGame(page, playerPage, "John")
 
     await expect(page.getByText("John")).toBeVisible();
 
     await page.locator("button").click();
 
     await expect(page).toHaveURL("/in-game");
-
   })
 });

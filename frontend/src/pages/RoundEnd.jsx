@@ -39,7 +39,6 @@ export function RoundEnd({ gameState, redirect, setRedirect }) {
 
       <div className="scores">
         <p>Placeholder for the scores component</p>
-        {/* Should probably be a table with a column for players and one for points */}
         <ol>
           {gameState &&
             gameState.players &&

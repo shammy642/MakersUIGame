@@ -1,11 +1,7 @@
 //imports needed
 import { useEffect, useState } from "react";
 import { socket } from "./socket";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useNavigate,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
 import { InGame } from "./pages/InGame";
