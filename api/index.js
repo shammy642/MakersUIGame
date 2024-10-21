@@ -87,7 +87,8 @@ io.on("connection", (socket) => {
   });
 
   function startTimer(gameId) {
-    let timeRemaining = 4;
+    let timeRemaining = 10;
+    io.to(gameId).emit("time_remaining", timeRemaining)
     let timer = setInterval(() => {
         console.log("Time remaining: " + timeRemaining)
         timeRemaining -= 1;
