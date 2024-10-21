@@ -27,6 +27,7 @@ io.on("connection", (socket) => {
     });
   });
 
+  // name of the host player passed as a variable below
   socket.on("create_room", (name) => {
     const gameId = crypto.randomBytes(3).toString("hex");
     socket.emit("receive_link", gameId);
@@ -48,11 +49,14 @@ io.on("connection", (socket) => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         io.to(gameId).emit("redirect", "/in-game")
+        games[gameId].resetGame()
+        startTimer(gameId)
       }
     });
   });
 
   socket.on("send_number", (number) => {
+    console.log()
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         games[gameId].players.forEach((player) => {
@@ -60,13 +64,6 @@ io.on("connection", (socket) => {
             player.guess(number);
           }
         });
-        io.to(gameId).emit("receive_players", games[gameId].players);
-        const isEndOfRound = games[gameId].checkGuess();
-        if (isEndOfRound.success) {
-          io.to(gameId).emit("redirect", "/round-end")
-          io.to(gameId).emit("receive_players", games[gameId].players);
-          io.to(gameId).emit("receive_game", games[gameId])
-        }
       }
     });
   });
@@ -83,13 +80,32 @@ io.on("connection", (socket) => {
         if (games[gameId].checkNextRound()) {
           io.to(gameId).emit("redirect", "/in-game")
           games[gameId].resetGame()
+          startTimer(gameId)
         }
       }
     });
   });
+
+  function startTimer(gameId) {
+    let timeRemaining = 10;
+    io.to(gameId).emit("time_remaining", timeRemaining)
+    let timer = setInterval(() => {
+        console.log("Time remaining: " + timeRemaining)
+        timeRemaining -= 1;
+        io.to(gameId).emit("time_remaining", timeRemaining)
+        if (timeRemaining <= 0 || (games[gameId].players.every(player => player.currentGuess !== null))) {
+          clearInterval(timer)
+          games[gameId].checkGuesses()
+          io.to(gameId).emit("redirect", "/round-end")
+          io.to(gameId).emit("receive_players", games[gameId].players);
+          io.to(gameId).emit("receive_game", games[gameId])
+        }
+
+    }, 1000)
+  }
+
+
 })
-
-
 
 function listenForRequests() {
   const port = process.env.PORT || 3001;
