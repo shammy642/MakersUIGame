@@ -25,7 +25,7 @@ test.describe("Player Landing Page", () => {
   });
 
   test("player should be able enter to their name", async ({ page }) => {
-    const gameLink = await page.locator(".game-link").textContent();
+    const gameLink = await page.getByTestId("game-link").textContent();
     await playerPage.goto(gameLink)
     await expect(playerPage).toHaveURL(gameLink)
 
@@ -35,7 +35,7 @@ test.describe("Player Landing Page", () => {
     expect(inputEl).toHaveValue("Joe");
   });
   test("join room button is visible to player", async ({ page }) => {
-    const gameLink = await page.locator(".game-link").textContent();
+    const gameLink = await page.getByTestId("game-link").textContent();
     await playerPage.goto(gameLink)
     await expect(playerPage).toHaveURL(gameLink)
 
@@ -44,7 +44,7 @@ test.describe("Player Landing Page", () => {
     await expect(buttonEl).toBeVisible()
   })
   test("player enters name and then can join game", async ({ page }) => {
-    const gameLink = await page.locator(".game-link").textContent();
+    const gameLink = await page.getByTestId("game-link").textContent();
     await playerPage.goto(gameLink)
     await expect(playerPage).toHaveURL(gameLink)
 
