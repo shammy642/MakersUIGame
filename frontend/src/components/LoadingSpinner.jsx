@@ -1,6 +1,6 @@
 export default function LoadingSpinner() {
   return (
-    <svg
+    <svg data-testid="loading-spinner-svg"
       aria-hidden="true"
       className="w-4 h-4 me-2 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
       viewBox="0 0 100 101"

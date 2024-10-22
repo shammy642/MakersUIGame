@@ -2,13 +2,6 @@ import CheckMark from "./CheckMark";
 import LoadingSpinner from "./LoadingSpinner";
 
 export function ListPlayers({ players }) {
-  const playerLength = (length) => {
-    if (length <= 3) {
-      return length;
-    } else {
-      return 3;
-    }
-  };
   return (
     <div className="max-w-lg mx-auto">
       <h2 className="font-bold mb-3">Players:</h2>
