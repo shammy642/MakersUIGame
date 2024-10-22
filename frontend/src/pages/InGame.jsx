@@ -33,18 +33,8 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
     }
   }, [redirect, navigate, setRedirect]);
 
-  const styles = {
-    backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
-    backgroundSize: 'cover',
-    height: '100vh',
-    width: '100vw',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
-  }
-
   return (
-    <div style={styles}>
+    <div className="full-page">
     <div className="InGame">
       <h1 data-testid="guess-label">Poké Poké Guess Weight!</h1>
       <div className="players_list m-3">
