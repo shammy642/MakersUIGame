@@ -1,6 +1,6 @@
 class Pokemon {
   constructor() {
-    this._maxPokemon = 1118;
+    this._maxPokemon = 1025;
   }
 
   async getRandom() {

@@ -46,10 +46,7 @@ export function LandingHost() {
         <div className="m-6 border-2 rounded-lg px-8 py-5">
           <p className="underline mb-3">Rules</p>
           <ul className="list-disc">
-            <li>
-              Guess the Pokémon&apos;s weight in
-              <span className="font-extrabold">HECTOGRAMS</span>
-            </li>
+          <li>Guess the Pokémon&apos;s weight in HECTOGRAMS</li>
             <li>Unlimited players</li>
           </ul>
         </div>

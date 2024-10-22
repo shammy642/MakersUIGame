@@ -7,8 +7,7 @@ import { RoundEnd } from "../../src/pages/RoundEnd";
 import { describe, expect, test, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { socket } from "../../src/socket";
-import { disconnect } from "process";
-import { before, beforeEach } from "node:test";
+import { beforeEach } from "node:test";
 import { useNavigate } from "react-router-dom";
 
 const gameState = {
@@ -35,6 +34,12 @@ const gameState = {
   },
 };
 
+const mockPokemon = {
+  name: "Sam",
+  weight: 12,
+  pictureURL: "http://fakePictureURL.com"
+}
+
 const setRedirect = vi.fn();
 
 vi.mock("../../src/socket.js", () => {
@@ -53,23 +58,23 @@ describe("Round end tests", () => {
   })
   test("name of the game", () => {
     render(
-      <RoundEnd gameState={gameState} redirect={""} setRedirect={setRedirect} />
+      <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
     const heading = screen.getByTestId("number-reveal");
-    expect(heading.textContent).toEqual("The number was:");
+    expect(heading.textContent).toEqual("Sam's weight is");
   });
   test("the target number is visible", () => {
     render(
-      <RoundEnd gameState={gameState} redirect={""} setRedirect={setRedirect} />
+      <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
-    const targetNumberEl = screen.getByText("42");
-    expect(targetNumberEl).toBeDefined();
+    const weightEl = screen.getByText("12");
+    expect(weightEl).toBeDefined();
   });
   test("given a winner they are visible", () => {
     render(
-      <RoundEnd gameState={gameState} redirect={""} setRedirect={setRedirect} />
+      <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
     const targetNumberEl = screen.getByText("Alexia(Host)");
@@ -77,7 +82,7 @@ describe("Round end tests", () => {
   });
   test("there is a next round button", () => {
     render(
-      <RoundEnd gameState={gameState} redirect={""} setRedirect={setRedirect} />
+      <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
     const nextRoundButtonEl = screen.getByRole("button", {
@@ -87,7 +92,7 @@ describe("Round end tests", () => {
   });
   test("when the next round button is clicked it calls the socket", async () => {
     render(
-      <RoundEnd gameState={gameState} redirect={""} setRedirect={setRedirect} />
+      <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     const user = userEvent.setup();
     const nextRoundButtonEl = screen.getByRole("button", {
@@ -98,7 +103,7 @@ describe("Round end tests", () => {
   });
   test("there is a quit game button button", () => {
     render(
-      <RoundEnd gameState={gameState} redirect={""} setRedirect={setRedirect} />
+      <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
     const quitGameButtonEl = screen.getByRole("button", { name: "Quit Game" });
@@ -106,7 +111,7 @@ describe("Round end tests", () => {
   });
   test("when the next quit button it calls socket and naviagte", async () => {
     render(
-      <RoundEnd gameState={gameState} redirect={""} setRedirect={setRedirect} />
+      <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     const navigate = useNavigate()
     const user = userEvent.setup();
@@ -119,7 +124,7 @@ describe("Round end tests", () => {
   });
   test("when the redirct state changes the user is redirect", () => {
     render(
-      <RoundEnd gameState={gameState} redirect={"/test-route"} setRedirect={setRedirect} />
+      <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={"/test-route"} setRedirect={setRedirect} />
     );
     const navigate = useNavigate()
     expect(navigate).toHaveBeenCalledWith("/test-route")
