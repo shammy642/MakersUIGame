@@ -1,6 +1,6 @@
 class Pokemon {
   constructor() {
-    this._maxPokemon = 1025;
+    this._maxPokemon = 1118;
   }
 
   async getRandom() {
@@ -13,7 +13,7 @@ class Pokemon {
 
   _extractInfo(pokemon) {
     return {
-      name: pokemon.name.toUpperCase(),
+      name: pokemon.name,
       pictureURL: pokemon.sprites.front_default,
       weight: pokemon.weight
     }
