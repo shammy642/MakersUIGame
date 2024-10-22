@@ -33,18 +33,19 @@ test.describe("Host Lobby Tests", () => {
   });
 
   test("lobby should display shareable game link", async ({ page }) => {
-    await expect(page.locator(".game-link")).toContainText("/join");
+    await expect(page.getByTestId("game-link")).toContainText("/join");
   });
 
   test("start game button is visible", async ({ page }) => {
-    const buttonEl = page.locator("button");
+    const buttonEl = page.getByRole("button", { name: "Start Game"});
+    console.log(buttonEl)
     await expect(buttonEl).toHaveText("Start Game");
   });
 
   test("player should be able to access lobby via shared link", async ({page,}) => {
     await expect(page.getByText("Joe(Host)")).toBeVisible();
 
-    const gameLinkString = await page.locator(".game-link").textContent();
+    const gameLinkString = await page.getByTestId("game-link").textContent();
     await playerPage.goto(gameLinkString);
 
     await expect(playerPage).toHaveURL(gameLinkString);
@@ -64,7 +65,7 @@ test.describe("Host Lobby Tests", () => {
 
     await expect(page.getByText("John")).toBeVisible();
 
-    await page.locator("button").click();
+    await page.getByRole("button", {name: "Start Game"}).click();
 
     await expect(page).toHaveURL("/in-game");
   })

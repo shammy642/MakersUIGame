@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ListPlayers } from "../components/ListPlayers";
-
+import CopyToClipboardButton from "../components/CopyToClipboardButton";
 export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
 
   const navigate = useNavigate()
@@ -34,7 +34,7 @@ export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
       <div>Waiting for host to start game...</div>
       <br></br>
       <div>Share your game link:</div>
-      <div data-testid="game-link" className="game-link">{`${window.location.origin}/join/${gameRoom}`}</div>
+      <CopyToClipboardButton content={`${window.location.origin}/join/${gameRoom}`}/>
     </>
     </div>
   );
