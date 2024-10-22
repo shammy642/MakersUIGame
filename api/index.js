@@ -101,6 +101,7 @@ io.on("connection", (socket) => {
           io.to(gameId).emit("receive_players", games[gameId].players);
           io.to(gameId).emit("receive_game", games[gameId])
         }
+        console.log("Time remaining: ", timeRemaining)
     }, 1000)
   }
 })
