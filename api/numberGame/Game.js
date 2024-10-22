@@ -19,9 +19,7 @@ class Game {
     }
 
     checkGuesses() {
-        console.log("checkGuesses: ", this.players)
         if (this.players.every(player => player.currentGuess === null)) {
-            console.log("All players' currentGuess are null");
             this.currentRoundWinner = null;
         }
 
@@ -46,7 +44,6 @@ class Game {
     }
 
     resetGame() {
-        console.log("line 73: Resetting the game")
         this.targetNumber = this.generateRandomNumber();
         this.players.forEach(player => player.currentGuess = null);
         this.players.forEach(player => player.nextRound = false);
