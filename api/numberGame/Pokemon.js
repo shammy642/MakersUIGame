@@ -13,7 +13,7 @@ class Pokemon {
 
   _extractInfo(pokemon) {
     return {
-      name: pokemon.name,
+      name: pokemon.name.toUpperCase(),
       pictureURL: pokemon.sprites.front_default,
       weight: pokemon.weight
     }

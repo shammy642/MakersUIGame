@@ -77,6 +77,7 @@ io.on("connection", (socket) => {
         });
         if (games[gameId].checkNextRound()) {
           io.to(gameId).emit("redirect", "/in-game")
+          startTimer(gameId)
         }
       }
     });
