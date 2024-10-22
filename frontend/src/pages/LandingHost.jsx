@@ -38,13 +38,13 @@ export function LandingHost() {
 
   return (
     <>
-      <div className="home home flex-col justify-items-center">
-        <h1 data-testid="game-name" className="text-xl mb-1 font-bold">
+      <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           Poké Poké Guess Weight!
         </h1>
         <p>A quick-fire multiplayer game</p>
         <div className="m-6 border-2 rounded-lg px-8 py-5">
-          <p className="underline mb-3">Rules</p>
+          <p className="mb-3">Rules :</p>
           <ul className="list-disc">
           <li>Guess the Pokémon&apos;s weight in HECTOGRAMS</li>
             <li>Unlimited players</li>
@@ -60,6 +60,7 @@ export function LandingHost() {
         <br></br>
         <Button handleClick={handleClick} buttonText="Create Game"></Button>
       </div>
+      
     </>
   );
 }
