@@ -47,7 +47,7 @@ export function LandingHost() {
           <p className="underline mb-3">Rules</p>
           <ul className="list-disc">
             <li>
-              Guess the Pokémon&apos;s weight in{" "}
+              Guess the Pokémon&apos;s weight in
               <span className="font-extrabold">HECTOGRAMS</span>
             </li>
             <li>Unlimited players</li>
