@@ -6,13 +6,13 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export function RoundEnd({ gameState, redirect, setRedirect }) {
+export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (redirect) {
       navigate(redirect);
-      setRedirect("")
+      setRedirect("");
     }
   }, [navigate, redirect, setRedirect]);
 
@@ -22,29 +22,13 @@ export function RoundEnd({ gameState, redirect, setRedirect }) {
 
   const handleQuitGame = () => {
     socket.disconnect();
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   return (
     <div className="round-end">
-      <div className="number_to_guess">
-        <p data-testid="number-reveal">The number was:</p>
-        <br></br>
-        <p>{gameState && gameState.targetNumber}</p>
-      </div>
-
-      <div className="winner">
-        <p>Placeholder for the winner component</p>
-        <p>The winner is...</p>
-        <h2>
-          {gameState &&
-            gameState.currentRoundWinner &&
-            gameState.currentRoundWinner.name}
-        </h2>
-      </div>
-
-      <div className="scores">
-        <p>Placeholder for the scores component</p>
+      <div className="m-3">
+        <h2 className="text-2xl">Scores</h2>
         <ol>
           {gameState &&
             gameState.players &&
@@ -54,6 +38,25 @@ export function RoundEnd({ gameState, redirect, setRedirect }) {
               </p>
             ))}
         </ol>
+      </div>
+
+      <div className="m-3">
+        <p data-testid="number-reveal">
+          <b>{pokemon.name}</b>&apos;s weight is
+        </p>
+        <h2 className="text-5xl">{pokemon.weight}</h2>
+        <h2 className="font-bold">Hectograms</h2>
+      </div>
+      <div className="flex justify-center">
+        <img src={pokemon.pictureURL} />
+      </div>
+      <div className="m-3">
+        <p>The winner is...</p>
+        <h2 className="text-4xl">
+          {gameState &&
+            gameState.currentRoundWinner &&
+            gameState.currentRoundWinner.name}
+        </h2>
       </div>
 
       <div>

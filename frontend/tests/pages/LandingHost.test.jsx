@@ -25,12 +25,12 @@ describe("LandingHost tests", () => {
   test("name of the game", () => {
     render(<LandingHost />);
     const heading = screen.getByTestId("game-name");
-    expect(heading.textContent).toEqual("Guess the weight of the Pokémon!");
+    expect(heading.textContent).toEqual("Poké Poké Guess Weight!");
   });
   test("rules of the game", () => {
     render(<LandingHost />);
-    expect(screen.getByText("Rules of the game:")).toBeTruthy();
-    expect(screen.getByText("Guess the Pokémon's weight in kilograms")).toBeTruthy();
+    expect(screen.getByText("Rules")).toBeTruthy();
+    expect(screen.getByText(/Guess the Pokémon's weight in HECTOGRAMS/i)).toBeTruthy();
     expect(screen.getByText("Unlimited players")).toBeTruthy();
   });
   test("create game button appears on page", () => {
