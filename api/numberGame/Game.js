@@ -14,7 +14,7 @@ class Game {
     // }
 
     async getPokemonStats() {
-        return await this.getPokemonStats()
+        return await this.pokemon.getRandom()
     }
 
     addPlayer(player) {
@@ -26,9 +26,7 @@ class Game {
     }
 
     checkGuesses() {
-        console.log("checkGuesses: ", this.players)
         if (this.players.every(player => player.currentGuess === null)) {
-            console.log("All players' currentGuess are null");
             this.currentRoundWinner = null;
         }
 
@@ -47,15 +45,15 @@ class Game {
         }
     }
 
-
     checkNextRound() {
         return this.players.every(player => player.nextRound === true)
     }
 
     async resetGame() {
-        console.log("line 73: Resetting the game")
         const pokemon = await this.getPokemonStats()
-        this.targetNumber = pokemon.weight;
+        this.pokemonStats = pokemon;
+        console.log("ResetGame() pokemonStats: ", this.pokemonStats)
+        this.targetNumber = this.pokemonStats.weight;
         this.players.forEach(player => player.currentGuess = null);
         this.players.forEach(player => player.nextRound = false);
         this.currentRoundWinner = null;

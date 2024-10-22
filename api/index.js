@@ -68,8 +68,8 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("next_round", () => {
-    socket.rooms.forEach((gameId) => {
+  socket.on("next_round",  () => {
+    socket.rooms.forEach(async (gameId) => {
       if (games[gameId]) {
         games[gameId].players.forEach((player) => {
           if (player.id === socket.id) {
@@ -79,7 +79,8 @@ io.on("connection", (socket) => {
         });
         if (games[gameId].checkNextRound()) {
           io.to(gameId).emit("redirect", "/in-game")
-          games[gameId].resetGame()
+          await games[gameId].resetGame()
+          io.to(gameId).emit("pokemon", games[gameId].pokemon)
           startTimer(gameId)
         }
       }
