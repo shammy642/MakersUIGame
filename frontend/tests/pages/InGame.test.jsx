@@ -43,7 +43,7 @@ describe("InGame tests", () => {
         <InGame players={players} redirect={""} setRedirect={setRedirect} />
     );
     const heading = screen.getByTestId("guess-label");
-    expect(heading.textContent).toEqual("Guess a number between 1 and 100!");
+    expect(heading.textContent).toEqual("Guess the Pokémon weight!");
   });
   test("given a list of players, they are visible", () => {
     render(

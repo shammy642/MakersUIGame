@@ -38,8 +38,8 @@ export function InGame({ players, redirect, setRedirect }) {
       </div>
 
       <div className="guess">
-        <h1 data-testid="guess-label">Guess a number between 1 and 100!</h1>
-
+        <h1 data-testid="guess-label">Guess the Pokémon weight!</h1>
+        <br></br>
         <GuessForm input={input} setInput={setInput}></GuessForm>
         <br></br>
         {/* <Button handleClick={handleClick} buttonText={buttonText} /> */}

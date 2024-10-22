@@ -4,7 +4,8 @@ export function GuessForm(props) {
       <>
       <form className="max-w-sm mx-auto">
         <div className="md-5">
-          <label htmlFor="website-admin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your guess</label>
+          <label htmlFor="website-admin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">How much does this Pokémon weight?</label>
+          <br/>
           <div className="flex">
             <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
               <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -17,10 +18,10 @@ export function GuessForm(props) {
         <div className="relative md-5 mb-6">
             <label htmlFor="labels-range-input" className="sr-only">Weight range</label>
             <input id="labels-range-input" type="range" value={props.input} onChange={(e) => props.setInput(e.target.value)} min="0.100" max="999" step="0.1" className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
-            <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min (0.100kg)</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">0.100kg</span>
             <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-1/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">333kg</span>
             <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-2/3 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">666kg</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max (999kg)</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">999kg</span>
         </div>
 
         </div>
