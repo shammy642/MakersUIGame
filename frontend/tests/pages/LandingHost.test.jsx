@@ -43,7 +43,7 @@ describe("LandingHost tests", () => {
     const buttonEl = screen.getByRole("button");
     const user = userEvent.setup();
     await user.click(buttonEl);
-    expect(socket.emit).toHaveBeenCalledWith("create_room", "");
+    expect(socket.emit).toHaveBeenCalledWith("create_room", { avatar: null, name: "" });
   });
   test('when a user inputs a name and clicks create game socket is called correctly', async () => {
     const user = userEvent.setup();
@@ -54,7 +54,7 @@ describe("LandingHost tests", () => {
       await user.type(inputEl, "Joe")
       await user.click(buttonEl)
     })
-    expect(socket.emit).toHaveBeenCalledWith("create_room", "Joe");
+    expect(socket.emit).toHaveBeenCalledWith("create_room", { avatar: null, name: "Joe" });
   })
   test('when a user clicks create game, they are navigated to lobby/host', async () => {
     render(<LandingHost />)
