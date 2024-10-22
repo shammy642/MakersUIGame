@@ -45,6 +45,19 @@ io.on("connection", (socket) => {
     io.to(gameId).emit("receive_players", games[gameId].players);
   });
 
+  socket.on('avatarSelected', (newAvatar) => {
+    socket.rooms.forEach((gameId) => {
+      if (games[gameId]) {
+        games[gameId].players.forEach((player) => {
+          if (player.id === socket.id) {
+            player.avatar = newAvatar;  // Update the avatar for this player
+          }
+        });
+        io.to(gameId).emit("receive_players", games[gameId].players);
+      }
+    });
+  })
+
   socket.on("start_game", () => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
