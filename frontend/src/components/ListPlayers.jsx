@@ -14,11 +14,11 @@ export function ListPlayers({ players }) {
                 // Green check mark for players who have guessed
                 <div role="status" className="flex items-center justify-center">
                   {/* Avatar */}
-                  <img
+                  {player.avatar && <img
                       src={player.avatar}
                       alt={`${player.name}'s avatar`}
                       className="w-8 h-8 rounded-full mr-2"
-                  />
+                  />}
                   <div>{player.name}</div>
                   <div>
                     <CheckMark />
@@ -28,11 +28,11 @@ export function ListPlayers({ players }) {
                 // Loading animation for players who haven't guessed yet
                 <div role="status" className="flex items-center justify-center">
                   {/* Avatar */}
-                  <img
+                  {player.avatar && <img
                       src={player.avatar}
                       alt={`${player.name}'s avatar`}
                       className="w-8 h-8 rounded-full mr-2"
-                  />
+                  />}
                   <div>{player.name}</div>
                   <div>
                     <LoadingSpinner />
