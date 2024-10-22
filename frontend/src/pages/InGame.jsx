@@ -7,7 +7,7 @@ import { socket } from "../socket";
 import { ListPlayers } from "../components/ListPlayers";
 import { useNavigate } from "react-router-dom";
 import { GuessForm } from "../components/GuessForm";
-import { Timer } from "../components/Timer"
+import { Timer } from "../components/Timer";
 
 // in game page function
 export function InGame({ players, redirect, pokemon, setRedirect, timeRemaining }) {
