@@ -81,5 +81,6 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
         </CountdownCircleTimer>
       </div>
     </div>
+    </div>
   );
 }
