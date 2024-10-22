@@ -7,9 +7,11 @@ import { socket } from "../socket";
 import { ListPlayers } from "../components/ListPlayers";
 import { useNavigate } from "react-router-dom";
 import { GuessForm } from "../components/GuessForm";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 // in game page function
-export function InGame({ players, redirect, pokemon, setRedirect }) {
+export function InGame({ players, redirect, pokemon, setRedirect, remainingTime }) {
+
   const [input, setInput] = useState("");
   //const [buttonText, setButtonText] = useState("Guess");
   const [showCheck, setShowCheck] = useState(false);
@@ -53,6 +55,19 @@ export function InGame({ players, redirect, pokemon, setRedirect }) {
             <Check />
           )}
         </div>
+      </div>
+      <br />
+      <div className="flex justify-center items-center">
+        <CountdownCircleTimer
+          isPlaying
+          duration={remainingTime}
+          colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+          colorsTime={[7, 5, 2, 0]}
+          size={100}
+          trailColor="#00000000"
+        >
+          {({ remainingTime }) => remainingTime}
+        </CountdownCircleTimer>
       </div>
     </div>
   );
