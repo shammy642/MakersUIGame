@@ -1,13 +1,20 @@
+const Pokemon = require("./Pokemon");
+
 class Game {
     constructor() {
         this.players = [];
         this.targetNumber = null;
         this.currentRoundWinner = null
         this.timeRemaining = null
+        this.pokemon = new Pokemon()
     }
 
-    generateRandomNumber() {
-        return Math.floor(Math.random() * 100) + 1;
+    // generateRandomNumber() {
+    //     return Math.floor(Math.random() * 100) + 1;
+    // }
+
+    async getPokemonStats() {
+        return await this.getPokemonStats()
     }
 
     addPlayer(player) {
@@ -45,9 +52,10 @@ class Game {
         return this.players.every(player => player.nextRound === true)
     }
 
-    resetGame() {
+    async resetGame() {
         console.log("line 73: Resetting the game")
-        this.targetNumber = this.generateRandomNumber();
+        const pokemon = await this.getPokemonStats()
+        this.targetNumber = pokemon.weight;
         this.players.forEach(player => player.currentGuess = null);
         this.players.forEach(player => player.nextRound = false);
         this.currentRoundWinner = null;

@@ -100,11 +100,8 @@ io.on("connection", (socket) => {
           io.to(gameId).emit("receive_players", games[gameId].players);
           io.to(gameId).emit("receive_game", games[gameId])
         }
-
     }, 1000)
   }
-
-
 })
 
 function listenForRequests() {
