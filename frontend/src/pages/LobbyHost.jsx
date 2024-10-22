@@ -7,12 +7,12 @@ import { ListPlayers } from "../components/ListPlayers";
 import CopyToClipboardButton from "../components/CopyToClipboardButton";
 
 export function LobbyHost({ gameRoom, players }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    socket.emit("start_game")
-    navigate("/in-game")
-  }
+    socket.emit("start_game");
+    navigate("/in-game");
+  };
 
   const styles = {
     backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
@@ -27,16 +27,13 @@ export function LobbyHost({ gameRoom, players }) {
   return (
     <div style={styles}>
     <>
-      <div>
-        <ListPlayers players = {players} />
-      </div>
-      <br></br>
-      <div>
-        <Button handleClick={handleClick} buttonText="Start Game" />
-      </div>
-      <br></br>
+      <ListPlayers players={players} />
+      <br />
+      <Button handleClick={handleClick} buttonText="Start Game" />
       <div>Share your game link:</div>
-      <CopyToClipboardButton content={`${window.location.origin}/join/${gameRoom}`}/>
+      <CopyToClipboardButton
+        content={`${window.location.origin}/join/${gameRoom}`}
+      />
     </>
     </div>
   );

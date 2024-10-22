@@ -8,12 +8,12 @@ import { useState } from "react"
 
 export function LandingPlayer() {
   //states
-  const [input, setInput ] = useState("")
+  const [input, setInput ] = useState("");
   const [error, setError] = useState('');
-
-
+  const [avatar, setAvatar] = useState(null);
   const params = useParams()
   const navigate = useNavigate()
+ 
 
     //user cna type in the form
     const handleInputChange = (e) => {
@@ -33,7 +33,7 @@ export function LandingPlayer() {
       setError('');
       // what should happen on click if there is no error
       if (params.roomId) {
-        socket.emit("join_room", params.roomId, input)
+        socket.emit("join_room", params.roomId, { name: input, avatar })
         navigate(`/lobby/player`)
       }
       else {
@@ -75,6 +75,8 @@ const styles = {
           error={error}
           setInput={setInput}
           handleInputChange={handleInputChange}
+          avatar={avatar} 
+          setAvatar={setAvatar}
         ></UsernameForm>
         <br></br>
         <Button handleClick={handleClick} buttonText="Join Room"></Button>

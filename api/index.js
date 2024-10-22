@@ -28,20 +28,22 @@ io.on("connection", (socket) => {
   });
 
   // name of the host player passed as a variable below
-  socket.on("create_room", (name) => {
+  socket.on("create_room", (data) => {
+    const { name, avatar } = data;
     const gameId = crypto.randomBytes(3).toString("hex");
     socket.emit("receive_link", gameId);
     socket.join(gameId);
     games[gameId] = new Game();
-    games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`));
+    games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`, avatar));
     io.to(gameId).emit("receive_players", games[gameId].players);
   });
 
-  socket.on("join_room", (gameId, name) => {
+  socket.on("join_room", (gameId, data) => {
+    const { name, avatar } = data;
     socket.emit("receive_link", gameId);
     console.log("Room ID:", gameId);
     socket.join(gameId);
-    games[gameId].addPlayer(new Player(socket.id, name));
+    games[gameId].addPlayer(new Player(socket.id, name, avatar));
     io.to(gameId).emit("receive_players", games[gameId].players);
   });
 
@@ -90,10 +92,10 @@ io.on("connection", (socket) => {
     io.to(gameId).emit("pokemon", games[gameId].pokemonStats)
 
     let timeRemaining = 10;
-    io.to(gameId).emit("time_remaining", timeRemaining)
+    io.to(gameId).emit("start_timer", timeRemaining)
     let timer = setInterval(() => {
         timeRemaining -= 1;
-        io.to(gameId).emit("time_remaining", timeRemaining)
+        // io.to(gameId).emit("time_remaining", timeRemaining)
         if (timeRemaining <= 0 || (games[gameId].players.every(player => player.currentGuess !== null))) {
           clearInterval(timer)
           games[gameId].checkGuesses()
