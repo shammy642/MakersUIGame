@@ -5,6 +5,7 @@ class Player {
     this.currentGuess = null,
     this.totalScore = 0
     this.nextRound  = false
+    this.avatar = null;
   } 
 
   guess(num) {
@@ -19,6 +20,10 @@ class Player {
   }
   voteNextRound() {
     this.nextRound = true
-  } 
+  }
+  
+  setAvatar(avatar) {
+    this.avatar = avatar;
+  }
 }
 module.exports = Player
