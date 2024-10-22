@@ -48,9 +48,6 @@ function App() {
       console.log("App, onReceivePokemon:", data)
       setPokemon(data)
     }
-    const onReceiveTime = (data) => {
-      setTimeRemaining(data);
-    }
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
@@ -60,7 +57,6 @@ function App() {
     socket.on("redirect", (data) => onReceiveRedirect(data));
     socket.on("start_timer", (data) => onReceiveRemainingTime(data))
     socket.on("pokemon", (data) => onReceivePokemon(data));
-    socket.on("time_remaining", (data => onReceiveTime(data)));
 
     return () => {
       socket.off("connect", onConnect);
