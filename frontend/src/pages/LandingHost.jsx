@@ -11,9 +11,10 @@ import { UsernameForm } from "../components/UsernameForm";
 export function LandingHost() {
   //states
   const [input, setInput] = useState("");
+  const [avatar, setAvatar] = useState(null);
+  const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
 
   //user cna type in the form
   const handleInputChange = (e) => {
@@ -31,7 +32,7 @@ export function LandingHost() {
     } else {
       setError("");
       // what should happen on click if there is no error
-      socket.emit("create_room", input);
+      socket.emit("create_room", { name: input, avatar });
       navigate("/lobby/host");
     }
   };
@@ -56,6 +57,8 @@ export function LandingHost() {
           error={error}
           setInput={setInput}
           handleInputChange={handleInputChange}
+          avatar={avatar} 
+          setAvatar={setAvatar}
         ></UsernameForm>
         <br></br>
         <Button handleClick={handleClick} buttonText="Create Game"></Button>

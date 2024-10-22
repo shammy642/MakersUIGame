@@ -13,18 +13,30 @@ export function ListPlayers({ players }) {
               {player.currentGuess !== null ? (
                 // Green check mark for players who have guessed
                 <div role="status" className="flex items-center justify-center">
+                  {/* Avatar */}
+                  <img
+                      src={player.avatar}
+                      alt={`${player.name}'s avatar`}
+                      className="w-8 h-8 rounded-full mr-2"
+                  />
+                  <div>{player.name}</div>
                   <div>
                     <CheckMark />
                   </div>
-                  <div>{player.name}</div>
                 </div>
               ) : (
                 // Loading animation for players who haven't guessed yet
                 <div role="status" className="flex items-center justify-center">
+                  {/* Avatar */}
+                  <img
+                      src={player.avatar}
+                      alt={`${player.name}'s avatar`}
+                      className="w-8 h-8 rounded-full mr-2"
+                  />
+                  <div>{player.name}</div>
                   <div>
                     <LoadingSpinner />
                   </div>
-                  <div>{player.name}</div>
                 </div>
               )}
             </div>
