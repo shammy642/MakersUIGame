@@ -56,7 +56,6 @@ export function LandingHost() {
           input={input}
           error={error}
           setInput={setInput}
-          handleInputChange={handleInputChange}
           avatar={avatar} 
           setAvatar={setAvatar}
         ></UsernameForm>
