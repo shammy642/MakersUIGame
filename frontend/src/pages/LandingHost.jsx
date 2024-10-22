@@ -15,7 +15,6 @@ export function LandingHost() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
 
   //user cna type in the form
   const handleInputChange = (e) => {
