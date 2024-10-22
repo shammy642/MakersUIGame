@@ -49,7 +49,6 @@ io.on("connection", (socket) => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         io.to(gameId).emit("redirect", "/in-game")
-        games[gameId].resetGame()
         startTimer(gameId)
       }
     });
@@ -68,8 +67,8 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("next_round",  () => {
-    socket.rooms.forEach(async (gameId) => {
+  socket.on("next_round", () => {
+    socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         games[gameId].players.forEach((player) => {
           if (player.id === socket.id) {
@@ -78,15 +77,17 @@ io.on("connection", (socket) => {
         });
         if (games[gameId].checkNextRound()) {
           io.to(gameId).emit("redirect", "/in-game")
-          await games[gameId].resetGame()
-          io.to(gameId).emit("pokemon", games[gameId].pokemon)
-          startTimer(gameId)
         }
       }
     });
   });
 
-  function startTimer(gameId) {
+  async function startTimer(gameId) {
+    await games[gameId].resetGame()
+    
+    console.log("startTimer, pokemonStats: ", await games[gameId].pokemonStats)
+    io.to(gameId).emit("pokemon", games[gameId].pokemonStats)
+
     let timeRemaining = 10;
     io.to(gameId).emit("time_remaining", timeRemaining)
     let timer = setInterval(() => {

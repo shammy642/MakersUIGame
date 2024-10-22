@@ -7,6 +7,7 @@ class Game {
         this.currentRoundWinner = null
         this.timeRemaining = null
         this.pokemon = new Pokemon()
+        this.pokemonStats = null
     }
 
     // generateRandomNumber() {
@@ -52,7 +53,6 @@ class Game {
     async resetGame() {
         const pokemon = await this.getPokemonStats()
         this.pokemonStats = pokemon;
-        console.log("ResetGame() pokemonStats: ", this.pokemonStats)
         this.targetNumber = this.pokemonStats.weight;
         this.players.forEach(player => player.currentGuess = null);
         this.players.forEach(player => player.nextRound = false);

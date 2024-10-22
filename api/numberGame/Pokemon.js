@@ -7,7 +7,6 @@ class Pokemon {
     const id = Math.floor(Math.random() * this._maxPokemon);
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     const pokemon = await response.json()
-    console.log(pokemon)
     return this._extractInfo(pokemon)
 
   }
