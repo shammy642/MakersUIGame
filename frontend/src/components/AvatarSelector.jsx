@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { socket } from "../socket";
 
 const avatars = import.meta.glob("/src/assets/*.png", { eager: true });
 
-export function AvatarDropdown({ setAvatar, isOpen }) {
+export function AvatarDropdown({ setAvatar, isOpen, setAvatarOpen}) {
     const [avatarOptions, setAvatarOptions] = useState([]);
 
     useEffect(() => {
@@ -14,6 +14,7 @@ export function AvatarDropdown({ setAvatar, isOpen }) {
     const handleAvatarClick = (newAvatar) => {
         setAvatar(newAvatar);
         socket.emit("avatar-selected", newAvatar);
+        setAvatarOpen(false);
     };
 
     return (

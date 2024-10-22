@@ -4,6 +4,7 @@ import { AvatarDropdown } from "./AvatarSelector";
 
 export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
   const [avatarOpen, setAvatarOpen] = useState(false);
+
   //const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   return (
@@ -47,7 +48,7 @@ export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
         </div>
         {avatarOpen && (
           <div className="absolute z-10">
-            <AvatarDropdown setAvatar={setAvatar} isOpen={avatarOpen} />
+            <AvatarDropdown setAvatar={setAvatar} setAvatarOpen={setAvatarOpen} isOpen={avatarOpen}/>
           </div>
         )}
       </form>
