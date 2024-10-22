@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 import { socket } from "../socket";
 import { useNavigate } from "react-router-dom";
 import { ListPlayers } from "../components/ListPlayers";
+import CopyToClipboardButton from "../components/CopyToClipboardButton";
 
 export function LobbyHost({ gameRoom, players }) {
   const navigate = useNavigate()
@@ -16,9 +17,10 @@ export function LobbyHost({ gameRoom, players }) {
   return (
     <>
       <ListPlayers players = {players} />
+      <br />
       <Button handleClick={handleClick} buttonText="Start Game" />
       <div>Share your game link:</div>
-      <div data-testid="game-link" className="game-link">{`${window.location.origin}/join/${gameRoom}`}</div>
+      <CopyToClipboardButton content={`${window.location.origin}/join/${gameRoom}`}/>
     </>
   );
 }
