@@ -108,6 +108,7 @@ function App() {
           gameState={gameState}
           redirect={redirect}
           setRedirect={setRedirect}
+          pokemon={pokemon}
         />
       ),
     },

@@ -13,7 +13,6 @@ export function InGame({ players, redirect, pokemon, setRedirect }) {
   const [input, setInput] = useState("");
   //const [buttonText, setButtonText] = useState("Guess");
   const [showCheck, setShowCheck] = useState(false);
-  const [localPlayers, setLocalPlayers] = useState(players);
 
   const navigate = useNavigate();
   console.log("Ingame redirect", redirect);
@@ -34,13 +33,14 @@ export function InGame({ players, redirect, pokemon, setRedirect }) {
 
   return (
     <div className="InGame">
-      <div className="players_list">
+      <div className="players_list m-3">
         <ListPlayers players={players} />
       </div>
-
-      <div className="guess">
-        <h1 data-testid="guess-label">Guess the weight of:</h1>
-        <h1 data-testid="guess-label">{pokemon.name}</h1>
+      <div className="flex justify-center">
+        <img src={pokemon.pictureURL} />
+      </div>
+      <div className="guess m-3">
+        <h1 data-testid="guess-label" className="text-xl mb-2">Guess <b>{pokemon.name}</b>&apos;s weight!:</h1>
 
         <GuessForm input={input} setInput={setInput}></GuessForm>
         <br></br>
