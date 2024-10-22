@@ -87,10 +87,10 @@ io.on("connection", (socket) => {
 
   function startTimer(gameId) {
     let timeRemaining = 10;
-    io.to(gameId).emit("time_remaining", timeRemaining)
+    io.to(gameId).emit("start_timer", timeRemaining)
     let timer = setInterval(() => {
         timeRemaining -= 1;
-        io.to(gameId).emit("time_remaining", timeRemaining)
+        // io.to(gameId).emit("time_remaining", timeRemaining)
         if (timeRemaining <= 0 || (games[gameId].players.every(player => player.currentGuess !== null))) {
           clearInterval(timer)
           games[gameId].checkGuesses()

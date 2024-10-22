@@ -7,20 +7,22 @@ import { ListPlayers } from "../components/ListPlayers";
 import CopyToClipboardButton from "../components/CopyToClipboardButton";
 
 export function LobbyHost({ gameRoom, players }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    socket.emit("start_game")
-    navigate("/in-game")
-  }
+    socket.emit("start_game");
+    navigate("/in-game");
+  };
 
   return (
     <>
-      <ListPlayers players = {players} />
+      <ListPlayers players={players} />
       <br />
       <Button handleClick={handleClick} buttonText="Start Game" />
       <div>Share your game link:</div>
-      <CopyToClipboardButton content={`${window.location.origin}/join/${gameRoom}`}/>
+      <CopyToClipboardButton
+        content={`${window.location.origin}/join/${gameRoom}`}
+      />
     </>
   );
 }
