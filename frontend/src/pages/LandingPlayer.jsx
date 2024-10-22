@@ -40,16 +40,17 @@ export function LandingPlayer() {
         navigate('/')
       }
   }
+};
 
-  const styles = {
-    backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
-    backgroundSize: 'cover',
-    height: '100vh',
-    width: '100vw',
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',    }
-  };
+const styles = {
+  backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
+  backgroundSize: 'cover',
+  height: '100vh',
+  width: '100vw',
+  justifyContent: 'center',
+  alignItems: 'center',
+  overflow: 'hidden',    
+}
 
 
 
