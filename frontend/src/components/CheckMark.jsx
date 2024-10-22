@@ -1,6 +1,6 @@
 export default function CheckMark () {
 return (
-<svg
+<svg data-testid="check-mark-svg"
 className="w-4 h-4 me-2 text-green-500 dark:text-green-400 flex-shrink-0"
 aria-hidden="true"
 xmlns="http://www.w3.org/2000/svg"
