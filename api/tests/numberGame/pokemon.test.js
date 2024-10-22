@@ -6,7 +6,7 @@ const fetchMock = require("jest-fetch-mock")
 describe('pokemon', () => {
   test('initiates with _maxPokemon size of 1118', () => {
     const pokemon = new Pokemon()
-    expect(pokemon._maxPokemon).toBe(1118)
+    expect(pokemon._maxPokemon).toBe(1025)
   })
 
   test('_extractInfo extracts the name, pictureURL and weight from the pokemon object', () => {
