@@ -25,7 +25,7 @@ const CopyToClipboardButton = ({ content }) => {
   return (
     <div className="flex justify-center">
       <div className="flex items-center bg-black text-white shadow-md p-3 rounded-md">
-        <div className="mr-3">{content}</div>
+        <div data-testid="game-link" className="mr-3">{content}</div>
         <button
           onClick={() => copyToClipboard(content)}
           className="text-white focus:outline-none"
