@@ -25,7 +25,18 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
     navigate("/");
   };
 
+  const styles = {
+    backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
+    backgroundSize: 'cover',
+    height: '100vh',
+    width: '100vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  }
+
   return (
+    <div style={styles}>
     <div id="round-end" className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
       Poké Poké Guess Weight!
@@ -66,6 +77,7 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
         <Button handleClick={handleNextRound} buttonText={"Next Round"} />
         <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
       </div>
+    </div>
     </div>
   );
 }

@@ -67,7 +67,7 @@ describe("LandingPlayer tests", () => {
     const buttonEl = screen.getByRole("button", { name: "Join Room" });
     await user.click(buttonEl);
 
-    expect(socket.emit).toHaveBeenCalledWith("join_room", "abc123", "Joe");
+    expect(socket.emit).toHaveBeenCalledWith("join_room", "abc123", { name: "Joe", avatar: null });
     expect(navigate).toHaveBeenCalledWith("/lobby/player");
   });
   
