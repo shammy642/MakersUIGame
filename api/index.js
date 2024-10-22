@@ -28,35 +28,24 @@ io.on("connection", (socket) => {
   });
 
   // name of the host player passed as a variable below
-  socket.on("create_room", (name) => {
+  socket.on("create_room", (data) => {
+    const { name, avatar } = data;
     const gameId = crypto.randomBytes(3).toString("hex");
     socket.emit("receive_link", gameId);
     socket.join(gameId);
     games[gameId] = new Game();
-    games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`));
+    games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`, avatar));
     io.to(gameId).emit("receive_players", games[gameId].players);
   });
 
-  socket.on("join_room", (gameId, name) => {
+  socket.on("join_room", (gameId, data) => {
+    const { name, avatar } = data;
     socket.emit("receive_link", gameId);
     console.log("Room ID:", gameId);
     socket.join(gameId);
-    games[gameId].addPlayer(new Player(socket.id, name));
+    games[gameId].addPlayer(new Player(socket.id, name, avatar));
     io.to(gameId).emit("receive_players", games[gameId].players);
   });
-
-  socket.on('avatarSelected', (newAvatar) => {
-    socket.rooms.forEach((gameId) => {
-      if (games[gameId]) {
-        games[gameId].players.forEach((player) => {
-          if (player.id === socket.id) {
-            player.avatar = newAvatar;  // Update the avatar for this player
-          }
-        });
-        io.to(gameId).emit("receive_players", games[gameId].players);
-      }
-    });
-  })
 
   socket.on("start_game", () => {
     socket.rooms.forEach((gameId) => {
