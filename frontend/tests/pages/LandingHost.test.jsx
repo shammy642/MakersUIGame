@@ -29,7 +29,7 @@ describe("LandingHost tests", () => {
   });
   test("rules of the game", () => {
     render(<LandingHost />);
-    expect(screen.getByText("Rules")).toBeTruthy();
+    expect(screen.getByText("Rules :")).toBeTruthy();
     expect(screen.getByText(/Guess the Pokémon's weight in HECTOGRAMS/i)).toBeTruthy();
     expect(screen.getByText("Unlimited players")).toBeTruthy();
   });

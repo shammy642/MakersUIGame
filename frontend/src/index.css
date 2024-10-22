@@ -17,3 +17,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.full-page {
+  @apply bg-cover h-screen w-screen items-center overflow-hidden;
+  background-image: url('https://wallpapercave.com/wp/wp2595121.jpg');
+}

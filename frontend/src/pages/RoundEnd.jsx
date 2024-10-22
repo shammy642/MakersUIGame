@@ -26,6 +26,7 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
   };
 
   return (
+    <div className="full-page">
     <div className="round-end">
       <div className="m-3">
         <h2 className="text-2xl">Scores</h2>
@@ -51,18 +52,25 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
         <img src={pokemon.pictureURL} />
       </div>
       <div className="m-3">
-        <p>The winner is...</p>
+        {(gameState &&
+            gameState.currentRoundWinner && gameState.currentRoundWinner.name !== "") ? <><p>The winner is...</p>
         <h2 className="text-4xl">
           {gameState &&
             gameState.currentRoundWinner &&
             gameState.currentRoundWinner.name}
         </h2>
+        </>
+        :
+        <><h2 className="text-xl">No one guessed in time!</h2>
+        <p>Poor {pokemon.name}...</p></>
+        }
       </div>
 
       <div>
         <Button handleClick={handleNextRound} buttonText={"Next Round"} />
         <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
       </div>
+    </div>
     </div>
   );
 }

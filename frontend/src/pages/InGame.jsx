@@ -34,6 +34,7 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
   }, [redirect, navigate, setRedirect]);
 
   return (
+    <div className="full-page">
     <div className="InGame">
       <h1 data-testid="guess-label">Poké Poké Guess Weight!</h1>
       <div className="players_list m-3">
@@ -69,6 +70,7 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
           {({ remainingTime }) => remainingTime}
         </CountdownCircleTimer>
       </div>
+    </div>
     </div>
   );
 }

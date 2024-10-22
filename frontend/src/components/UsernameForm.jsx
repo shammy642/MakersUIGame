@@ -14,7 +14,6 @@ export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
           htmlFor="website-admin"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
-          Username
         </label>
         <div className="flex">
         <span
