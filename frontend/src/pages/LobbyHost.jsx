@@ -13,17 +13,30 @@ export function LobbyHost({ gameRoom, players }) {
     navigate("/in-game")
   }
 
+  const styles = {
+    backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
+    backgroundSize: 'cover',
+    height: '100vh',
+    width: '100vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  }
+
   return (
+    <div style={styles}>
     <>
-      <ListPlayers players = {players} />
-<<<<<<< HEAD
+      <div>
+        <ListPlayers players = {players} />
+      </div>
       <br></br>
-=======
-      <br />
->>>>>>> origin/main
-      <Button handleClick={handleClick} buttonText="Start Game" />
+      <div>
+        <Button handleClick={handleClick} buttonText="Start Game" />
+      </div>
+      <br></br>
       <div>Share your game link:</div>
       <div data-testid="game-link" className="game-link">{`${window.location.origin}/join/${gameRoom}`}</div>
     </>
+    </div>
   );
 }

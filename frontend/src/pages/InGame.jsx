@@ -7,9 +7,10 @@ import { socket } from "../socket";
 import { ListPlayers } from "../components/ListPlayers";
 import { useNavigate } from "react-router-dom";
 import { GuessForm } from "../components/GuessForm";
+import { Timer } from "../components/Timer"
 
 // in game page function
-export function InGame({ players, redirect, setRedirect }) {
+export function InGame({ players, redirect, setRedirect, timeRemaining }) {
   const [input, setInput] = useState("");
   //const [buttonText, setButtonText] = useState("Guess");
   const [showCheck, setShowCheck] = useState(false);
@@ -31,8 +32,20 @@ export function InGame({ players, redirect, setRedirect }) {
     }
   }, [redirect, navigate, setRedirect]);
 
+  const styles = {
+    backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
+    backgroundSize: 'cover',
+    height: '100vh',
+    width: '100vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  }
+
   return (
+    <div style={styles}>
     <div className="InGame">
+      <br></br>
       <div className="players_list">
         <ListPlayers players={players} />
       </div>
@@ -50,7 +63,14 @@ export function InGame({ players, redirect, setRedirect }) {
             <Check />
           )}
         </div>
+        {/* <img 
+          src="https://i.gifer.com/origin/06/068c8f36ce4e0216bcc86ccc2e2401a0_w200.gif" 
+          alt="Loading animation" 
+          style={{ marginTop: '0px' }} 
+        /> */}
+
       </div>
+    </div>
     </div>
   );
 }

@@ -19,6 +19,7 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [gameState, setGameState] = useState([]);
   const [redirect, setRedirect] = useState("");
+  const [timeRemaining, setTimeRemaining] = useState(0);
   useEffect(() => {
     const onConnect = () => {
       setIsConnected(true);
@@ -38,6 +39,9 @@ function App() {
     const onReceiveRedirect = (data) => {
       setRedirect(data);
     };
+    const onReceiveTime = (data) => {
+      setTimeRemaining(data);
+    }
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
@@ -45,6 +49,7 @@ function App() {
     socket.on("receive_players", (data) => onReceivePlayers(data));
     socket.on("receive_game", (data) => onReceiveGame(data));
     socket.on("redirect", (data) => onReceiveRedirect(data));
+    socket.on("time_remaining", (data => onReceiveTime(data)));
 
     return () => {
       socket.off("connect", onConnect);
@@ -85,6 +90,7 @@ function App() {
           players={players}
           redirect={redirect}
           setRedirect={setRedirect}
+          timeRemaining={timeRemaining}
         />
       ),
     },

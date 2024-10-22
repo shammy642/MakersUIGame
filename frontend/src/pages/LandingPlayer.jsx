@@ -19,13 +19,25 @@ export function LandingPlayer() {
     else {
       navigate('/')
     }
-
   }
+
+  const styles = {
+    backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
+    backgroundSize: 'cover',
+    height: '100vh',
+    width: '100vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  }
+
   return (
+    <div style={styles}>
     <>
       <Form input={input} setInput={setInput}></Form>
       <br></br>
       <Button handleClick={handleClick} buttonText="Join Room"/>
     </>
+    </div>
   )
 }
