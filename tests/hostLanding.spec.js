@@ -5,7 +5,7 @@ test.describe("Host landing page", () => {
     await page.goto("/");
 
     const gameName = page.locator('[data-testid="game-name"]');
-    await expect(gameName).toHaveText("Guess the weight of the Pokémon!");
+    await expect(gameName).toHaveText("Poké Poké Guess Weight!");
   });
   test("can enter username into field", async ({ page }) => {
     await page.goto("/");
