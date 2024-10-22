@@ -37,7 +37,10 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
 
   return (
     <div style={styles}>
-    <div className="round-end">
+    <div id="round-end" className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+      Poké Poké Guess Weight!
+    </h1>
       <div className="m-3">
         <h2 className="text-2xl">Scores</h2>
         <ol>
