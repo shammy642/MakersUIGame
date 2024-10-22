@@ -1,11 +1,7 @@
 import { useState } from "react";
-import { avatarPlaceholder } from "./AvatarPlaceholder";
 import { socket } from "../socket";
 
-const AvatarDropdown = () => {
-    const [avatar, setAvatar] = useState(avatarPlaceholder);
-    const [isOpen, setIsOpen] = useState(false);
-
+export function AvatarDropdown({ setAvatar, isOpen }) {
     const avatarOptions = [
         "../assets/1.png",
         "../assets/2.png",
@@ -37,45 +33,31 @@ const AvatarDropdown = () => {
 
     const handleAvatarClick = (newAvatar) => {
         setAvatar(newAvatar);
-        setIsOpen(false); // Close the dropdown after selecting
 
         socket.emit('avatar-selected', newAvatar);
     };
 
     return (
-        <div className="relative inline-block">
-            <img
-                id="avatarButton"
-                type="button"
-                onClick={() => setIsOpen(!isOpen)}
-                className="w-10 h-10 rounded-full cursor-pointer"
-                src={avatar}
-                alt="User dropdown"
-            />
-
+        <>
             {isOpen && (
-                <div
-                    id="avatarDropdown"
-                    className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-                >
-                <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                    <div>Choose an Avatar</div>
-                </div>
-                <div className="grid grid-cols-3 gap-2 p-2">
-                    {avatarOptions.map((imageSrc, index) => (
-                        <img
-                            key={index}
-                            src={imageSrc}
-                            alt={`avatar-${index}`}
-                            className="w-10 h-10 rounded-full cursor-pointer hover:opacity-80"
-                            onClick={() => handleAvatarClick(imageSrc)}
-                        />
+                <div id="dropdownUsers" className="z-10 bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                <ul className="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
+                    {avatarOptions.map((avatar, index) => (
+                    <li key={index}>
+                        <a
+                        href="#"
+                        onClick={() => handleAvatarClick(avatar)}
+                        className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                        <img className="w-6 h-6 me-2 rounded-full" src={avatar} alt={`Avatar ${index}`} />
+                        </a>
+                    </li>
                     ))}
+                </ul>
                 </div>
-            </div>
             )}
-        </div>
+        </>
     );
 };
 
-export default AvatarDropdown;
+
