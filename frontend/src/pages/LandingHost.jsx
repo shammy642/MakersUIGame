@@ -37,7 +37,18 @@ export function LandingHost() {
     }
   };
 
+  const styles = {
+    backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
+    backgroundSize: 'cover',
+    height: '100vh',
+    width: '100vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  }
+
   return (
+    <div style={styles}>
     <>
       <div className="home home flex-col justify-items-center">
         <h1 data-testid="game-name" className="text-xl mb-1 font-bold">
@@ -63,5 +74,6 @@ export function LandingHost() {
         <Button handleClick={handleClick} buttonText="Create Game"></Button>
       </div>
     </>
+    </div>
   );
 }

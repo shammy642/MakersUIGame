@@ -25,7 +25,18 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
     navigate("/");
   };
 
+  const styles = {
+    backgroundImage: 'url(https://wallpapercave.com/wp/wp2595121.jpg)',
+    backgroundSize: 'cover',
+    height: '100vh',
+    width: '100vw',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  }
+
   return (
+    <div style={styles}>
     <div className="round-end">
       <div className="m-3">
         <h2 className="text-2xl">Scores</h2>
@@ -63,6 +74,7 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
         <Button handleClick={handleNextRound} buttonText={"Next Round"} />
         <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
       </div>
+    </div>
     </div>
   );
 }
