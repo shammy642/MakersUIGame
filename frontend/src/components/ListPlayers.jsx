@@ -19,7 +19,7 @@ export function ListPlayers({ players }) {
                       alt={`${player.name}'s avatar`}
                       className="w-8 h-8 rounded-full mr-2"
 
-                  />
+                  />}
                   <div className="mr-2">{player.name}</div>
 
                   <div>
