@@ -182,7 +182,7 @@ describe("Game", () => {
             await game.resetGame();
 
             // Check that target number has changed
-            expect( game.targetNumber).not.toEqual(originalTargetNumber);
+            expect(game.targetNumber).not.toEqual(originalTargetNumber);
             expect(game.targetNumber).toBeGreaterThanOrEqual(1);
             expect(game.targetNumber).toBeLessThanOrEqual(1118);
 
