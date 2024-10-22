@@ -19,6 +19,8 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [gameState, setGameState] = useState([]);
   const [redirect, setRedirect] = useState("");
+  const [pokemon, setPokemon] = useState({})
+
   const [timeRemaining, setTimeRemaining] = useState(0);
   useEffect(() => {
     const onConnect = () => {
@@ -39,6 +41,10 @@ function App() {
     const onReceiveRedirect = (data) => {
       setRedirect(data);
     };
+    const onReceivePokemon = (data) => {
+      console.log("App, onReceivePokemon:", data)
+      setPokemon(data)
+    }
     const onReceiveTime = (data) => {
       setTimeRemaining(data);
     }
@@ -49,6 +55,7 @@ function App() {
     socket.on("receive_players", (data) => onReceivePlayers(data));
     socket.on("receive_game", (data) => onReceiveGame(data));
     socket.on("redirect", (data) => onReceiveRedirect(data));
+    socket.on("pokemon", (data) => onReceivePokemon(data));
     socket.on("time_remaining", (data => onReceiveTime(data)));
 
     return () => {
@@ -58,6 +65,7 @@ function App() {
       socket.off("receive_players", () => onReceivePlayers([]));
       socket.off("receive_game", () => onReceiveGame([]));
       socket.off("redirect", () => onReceiveRedirect(""));
+      socket.off("pokemon", (data) => onReceivePokemon(data));
     };
   });
 
@@ -89,6 +97,7 @@ function App() {
         <InGame
           players={players}
           redirect={redirect}
+          pokemon={pokemon}
           setRedirect={setRedirect}
           timeRemaining={timeRemaining}
         />
@@ -105,6 +114,7 @@ function App() {
           gameState={gameState}
           redirect={redirect}
           setRedirect={setRedirect}
+          pokemon={pokemon}
         />
       ),
     },

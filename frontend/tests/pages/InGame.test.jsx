@@ -37,17 +37,23 @@ const players = [
   },
 ];
 
+const mockPokemon = {
+  name: "Sam",
+  weight: 12,
+  pictureURL: "http://fakePictureURL.com"
+}
+
 describe("InGame tests", () => {
   test("name of the game", () => {
     render(
-        <InGame players={players} redirect={""} setRedirect={setRedirect} />
+        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     const heading = screen.getByTestId("guess-label");
-    expect(heading.textContent).toEqual("Guess a number between 1 and 100!");
+    expect(heading.textContent).toEqual("Poké Poké Guess Weight!");
   });
   test("given a list of players, they are visible", () => {
     render(
-        <InGame players={players} redirect={""} setRedirect={setRedirect} />
+        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     expect(screen.getByText("Alexia(Host)"));
     expect(screen.getByText("Lucy"));
@@ -55,7 +61,7 @@ describe("InGame tests", () => {
   test("a user can input a number", async () => {
     const user = userEvent.setup();
     render(
-        <InGame players={players} redirect={""} setRedirect={setRedirect} />
+        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     const inputEl = screen.getByPlaceholderText("Your guess");
     await act(async () => {
@@ -65,7 +71,7 @@ describe("InGame tests", () => {
   });
   test("a button to make guess exists", () => {
     render(
-        <InGame players={players} redirect={""} setRedirect={setRedirect} />
+        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
     const buttonEl = screen.getByRole("button", { name: "Guess" });
@@ -74,7 +80,7 @@ describe("InGame tests", () => {
   test("when a user makes a guess, the socket emits", async () => {
     const user = userEvent.setup();
     render(
-        <InGame players={players} redirect={""} setRedirect={setRedirect} />
+        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     const inputEl = screen.getByPlaceholderText("Your guess");
     await act(async () => {
@@ -90,6 +96,7 @@ describe("InGame tests", () => {
           players={players}
           redirect={"test_route"}
           setRedirect={setRedirect}
+          pokemon={mockPokemon} 
         />
     );
     const navigate = useNavigate();
