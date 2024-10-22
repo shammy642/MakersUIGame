@@ -25,26 +25,34 @@ describe("LandingHost tests", () => {
   test("name of the game", () => {
     render(<LandingHost />);
     const heading = screen.getByTestId("game-name");
-    expect(heading.textContent).toEqual("Guess the number!");
+    expect(heading.textContent).toEqual("Poké Poké Guess Weight!");
   });
   test("rules of the game", () => {
     render(<LandingHost />);
-    expect(screen.getByText("Rules of the game:")).toBeTruthy();
-    expect(screen.getByText("Guess the number between 1 and 100")).toBeTruthy();
-    expect(screen.getByText("2 to 6 players")).toBeTruthy();
+    expect(screen.getByText("Rules")).toBeTruthy();
+    expect(screen.getByText(/Guess the Pokémon's weight in HECTOGRAMS/i)).toBeTruthy();
+    expect(screen.getByText("Unlimited players")).toBeTruthy();
   });
   test("create game button appears on page", () => {
     render(<LandingHost />);
     const buttonEl = screen.getByRole("button");
     expect(buttonEl.textContent).toEqual("Create Game");
   });
-  test('when a user clicks on the button the socket emits to "create_room"', async () => {
+  test('when a user clicks on the button to start the game withour a username, they get an error', async () => {
+    // no username entered, user clicks
+    const user = userEvent.setup();
     render(<LandingHost />);
     const buttonEl = screen.getByRole("button");
-    const user = userEvent.setup();
     await user.click(buttonEl);
+
     expect(socket.emit).toHaveBeenCalledWith("create_room", { avatar: null, name: "" });
+
+    //expect the error
+    const heading = screen.getByTestId("username-error");
+    expect(heading.textContent).toEqual("Please enter a username.");
+
   });
+  
   test('when a user inputs a name and clicks create game socket is called correctly', async () => {
     const user = userEvent.setup();
     render(<LandingHost />);

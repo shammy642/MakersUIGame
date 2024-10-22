@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { AvatarDropdown } from "./AvatarSelector";
 
-export function Form({ input, setInput, avatar, setAvatar }) {
+export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
   const [avatarOpen, setAvatarOpen] = useState(false);
   //const [selectedAvatar, setSelectedAvatar] = useState(null);
 
@@ -43,6 +43,7 @@ export function Form({ input, setInput, avatar, setAvatar }) {
             className="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Username"
           ></input>
+            {error && <p data-testid='username-error'>{error}</p>}
         </div>
         {avatarOpen && (
           <div className="absolute z-10">

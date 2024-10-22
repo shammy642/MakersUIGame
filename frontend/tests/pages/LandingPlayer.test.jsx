@@ -26,6 +26,7 @@ describe("LandingPlayer tests", () => {
     const buttonEl = screen.getByRole("button");
     expect(buttonEl.textContent).toEqual("Join Room");
   });
+
   test("a user can enter their name", async () => {
     const user = userEvent.setup();
     render(<LandingPlayer />);
@@ -35,11 +36,24 @@ describe("LandingPlayer tests", () => {
     });
     expect(screen.getAllByDisplayValue("Joe"));
   });
+
+  test('when a user clicks on the button to start the game withour a username, they get an error', async () => {
+    // no username entered, user clicks
+    const user = userEvent.setup();
+    render(<LandingPlayer/>);
+    const buttonEl = screen.getByRole("button");
+    await user.click(buttonEl);
+    //expect the error
+    const heading = screen.getByTestId("username-error");
+    expect(heading.textContent).toEqual("Please enter a username.");
+  });
+
   test("a join room button is visible", () => {
     render(<LandingPlayer />);
     const buttonEl = screen.getByRole("button", { name: "Join Room" });
     expect(buttonEl).toBeDefined();
   });
+
   test("a user can enter a user name and join a game", async () => {
     const navigate = useNavigate();
     // @ts-ignore
@@ -56,6 +70,7 @@ describe("LandingPlayer tests", () => {
     expect(socket.emit).toHaveBeenCalledWith("join_room", "abc123", { name: "Joe", avatar: null });
     expect(navigate).toHaveBeenCalledWith("/lobby/player");
   });
+  
   test("when no parameter return to home page", async () => {
     const navigate = useNavigate();
     // @ts-ignore

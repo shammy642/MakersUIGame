@@ -4,7 +4,7 @@ class Utils {
 
   async newPlayerJoinGame(page, newPage, name) {
     // host shares link
-    const gameLink = await page.locator(".game-link").textContent();
+    const gameLink = await page.getByTestId("game-link").textContent();
     // player goes to host's link
     await newPage.goto(gameLink)
     await expect(newPage).toHaveURL(gameLink)

@@ -30,8 +30,8 @@ const players = [
 describe("LobbyHost tests", () => {
   test("there is a button", () => {
     render(<LobbyHost gameRoom={"abc123"} players={players} />);
-    const buttonEl = screen.getByRole("button");
-    expect(buttonEl.textContent).toEqual("Start Game");
+    const buttonEl = screen.getByRole("button", { name: "Start Game"});
+    expect(buttonEl).toBeDefined();
   });
   test("there is a link", () => {
     render(<LobbyHost gameRoom={"abc123"} players={players} />);
