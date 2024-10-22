@@ -10,9 +10,10 @@ import { Form } from "../components/UsernameForm";
 // page function
 export function LandingHost() {
   const [input, setInput] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
   const handleClick = () => {
-    socket.emit("create_room", input);
+    socket.emit("create_room", { name: input, avatar });
     navigate("/lobby/host");
   };
   return (
@@ -24,7 +25,7 @@ export function LandingHost() {
           <li>Guess the number between 1 and 100</li>
           <li>2 to 6 players</li>
         </ul>
-        <Form input={input} setInput={setInput}></Form>
+        <Form input={input} setInput={setInput} avatar={avatar} setAvatar={setAvatar}></Form>
         <br></br>
         <Button handleClick={handleClick} buttonText="Create Game"></Button>
       </div>

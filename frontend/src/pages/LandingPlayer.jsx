@@ -7,13 +7,14 @@ import { useState } from "react"
 
 
 export function LandingPlayer() {
-  const [input, setInput ] = useState("")
+  const [input, setInput ] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const params = useParams()
   const navigate = useNavigate()
   
   const handleClick = () => {
     if (params.roomId) {
-      socket.emit("join_room", params.roomId, input)
+      socket.emit("join_room", params.roomId, { name: input, avatar })
       navigate(`/lobby/player`)
     }
     else {
@@ -23,7 +24,7 @@ export function LandingPlayer() {
   }
   return (
     <>
-      <Form input={input} setInput={setInput}></Form>
+      <Form input={input} setInput={setInput} avatar={avatar} setAvatar={setAvatar}></Form>
       <br></br>
       <Button handleClick={handleClick} buttonText="Join Room"/>
     </>
