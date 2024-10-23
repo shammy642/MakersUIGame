@@ -74,7 +74,7 @@ describe("Round end tests", () => {
       <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
-    const weightEl = screen.getByText("12");
+    const weightEl = screen.getByText("1.2");
     expect(weightEl).toBeDefined();
   });
   test("given a winner they are visible", () => {
