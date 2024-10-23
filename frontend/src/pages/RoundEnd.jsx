@@ -9,6 +9,8 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useEffect, useState } from "react";
 import { Card } from "../components/Card";
 import { Table } from "../components/Table";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 export function RoundEnd({
   gameState,
@@ -20,7 +22,7 @@ export function RoundEnd({
   const [showCheck, setShowCheck] = useState(false);
 
   const navigate = useNavigate();
-
+  console.log(gameState)
   useEffect(() => {
     if (redirect) {
       navigate(redirect);
@@ -34,12 +36,13 @@ export function RoundEnd({
   };
 
   const handleQuitGame = () => {
-    socket.disconnect();
+    socket.emit("quit_game", gameState.id);
     navigate("/");
   };
 
   return (
     <div className="full-page">
+      <Header/>
       <Card>
         <div className="m-3">
           <h2 className="text-2xl">Scores</h2>
@@ -111,6 +114,7 @@ export function RoundEnd({
           </CountdownCircleTimer>
         </div>
       </Card>
+      <Footer/>
     </div>
   );
 }
