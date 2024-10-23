@@ -9,6 +9,7 @@ import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import CopyToClipboardButton from "../components/CopyToClipboardButton";
+import { H1 } from "../components/H1";
 
 export function LobbyHost({ gameRoom, players }) {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export function LobbyHost({ gameRoom, players }) {
     <div className="full-page">
       <Header/>
       <Card>
+        <H1>Poké Poké Guess Weight!</H1>
         <ListPlayers players={players} />
         <br />
         <Button handleClick={handleClick} buttonText="Start Game" />

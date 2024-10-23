@@ -7,6 +7,7 @@ import { Footer } from "../components/Footer";
 import { CardText } from "../components/CardText";
 import CopyToClipboardButton from "../components/CopyToClipboardButton";
 import { Card } from "../components/Card";
+import { H1 } from "../components/H1";
 
 
 export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
@@ -23,9 +24,7 @@ export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
     <div className="full-page">
       <Header/>
       <Card>
-        <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Poké Poké Guess Weight!
-        </h1>
+      <H1>Poké Poké Guess Weight!</H1>
         <ListPlayers players = {players} />
         <br/>
         <CardText>

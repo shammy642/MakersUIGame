@@ -10,6 +10,7 @@ import { CardText } from "../components/CardText";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { H1 } from "../components/H1";
 
 
 // page function
@@ -46,9 +47,7 @@ export function LandingHost() {
     <div className="full-page">
       <Header/>
       <Card>
-        <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Poké Poké Guess Weight!
-        </h1>
+        <H1>Poké Poké Guess Weight!</H1>
         <CardText>
         <p>A quick-fire multiplayer game</p>
         <div className="m-6 border-2 rounded-lg px-8 py-5">
