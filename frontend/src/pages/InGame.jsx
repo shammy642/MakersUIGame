@@ -11,10 +11,17 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { H1 } from "../components/H1";
+
 
 // in game page function
-export function InGame({ players, redirect, pokemon, setRedirect, remainingTime }) {
-
+export function InGame({
+  players,
+  redirect,
+  pokemon,
+  setRedirect,
+  remainingTime,
+}) {
   const [input, setInput] = useState("");
   //const [buttonText, setButtonText] = useState("Guess");
   const [showCheck, setShowCheck] = useState(false);
@@ -38,9 +45,9 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
 
   return (
     <div className="full-page">
-      <Header/>
+      <Header />
       <Card>
-        <h1 data-testid="guess-label">Poké Poké Guess Weight!</h1>
+        <H1>Poké Poké Guess Weight!</H1>
         <div className="players_list m-3">
           <ListPlayers players={players} />
         </div>
@@ -48,8 +55,11 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
           <img src={pokemon.pictureURL} />
         </div>
         <div className="guess m-3">
-          <h1 className="text-xl mb-2">Guess <b>{pokemon.name}</b>&apos;s weight!</h1>
 
+          <h1 className="text-xl mb-2">
+            Guess <b>{pokemon.name}</b>&apos;s weight!
+          </h1>
+          
           <GuessForm input={input} setInput={setInput}></GuessForm>
           <br></br>
           {/* <Button handleClick={handleClick} buttonText={buttonText} /> */}
@@ -75,7 +85,7 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
           </CountdownCircleTimer>
         </div>
       </Card>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

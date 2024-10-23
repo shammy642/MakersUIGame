@@ -6,10 +6,13 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { UsernameForm } from "../components/UsernameForm";
-import { CardText } from "../components/CardText";
+import { 
+
+} from "../components/CardText";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { H1 } from "../components/H1";
 
 
 // page function
@@ -20,12 +23,6 @@ export function LandingHost() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-
-  //user cna type in the form
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInput(value);
-  };
 
   //click should redirect the user to the lobby
   const handleClick = (e) => {
@@ -46,10 +43,7 @@ export function LandingHost() {
     <div className="full-page">
       <Header/>
       <Card>
-        <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Poké Poké Guess Weight!
-        </h1>
-
+        <H1>Poké Poké Guess Weight!</H1>
         <p>A quick-fire multiplayer game</p>
         <div className="m-6 border-2 rounded-lg px-8 py-5">
           <p className="mb-3">Rules :</p>

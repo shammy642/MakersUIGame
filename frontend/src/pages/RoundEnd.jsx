@@ -11,6 +11,7 @@ import { Card } from "../components/Card";
 import { Table } from "../components/Table";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { H1 } from "../components/H1";
 
 export function RoundEnd({
   gameState,
@@ -44,6 +45,7 @@ export function RoundEnd({
     <div className="full-page">
       <Header/>
       <Card>
+      <H1>Poké Poké Guess Weight!</H1>
         <div className="m-3">
           <h2 className="text-2xl">Scores</h2>
           {gameState && gameState.players && (

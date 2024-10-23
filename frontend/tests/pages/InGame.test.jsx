@@ -48,7 +48,7 @@ describe("InGame tests", () => {
     render(
         <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
-    const heading = screen.getByTestId("guess-label");
+    const heading = screen.getByTestId("game-name");
     expect(heading.textContent).toEqual("Poké Poké Guess Weight!");
   });
   test("given a list of players, they are visible", () => {
