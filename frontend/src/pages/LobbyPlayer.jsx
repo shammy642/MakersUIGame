@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { ListPlayers } from "../components/ListPlayers";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { CardText } from "../components/CardText";
 import CopyToClipboardButton from "../components/CopyToClipboardButton";
 import { Card } from "../components/Card";
+import { H1 } from "../components/H1";
 
 
 export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
@@ -23,16 +23,16 @@ export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
     <div className="full-page">
       <Header/>
       <Card>
-        <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Poké Poké Guess Weight!
-        </h1>
+      <H1>Poké Poké Guess Weight!</H1>
         <ListPlayers players = {players} isLobby={true} />
         <br/>
-        <CardText>
-          <div>Waiting for host to start the game...</div>
-          <br />
-          <div>Share your game link:</div>
-        </CardText>
+        
+        <p>Waiting for host to start the game...</p>
+
+        <br/>
+
+        <p>Share your game link:</p>
+      
         <CopyToClipboardButton content={`${window.location.origin}/join/${gameRoom}`}/>
       </Card>
       <Footer/>

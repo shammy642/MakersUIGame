@@ -15,8 +15,9 @@ export function Table({ players }) {
 
   return (
     <div className="relative overflow-y-auto shadow-md sm:rounded-lg max-h-36 my-6">
-      <table className="w-full text-sm text-center rtl:text-right text-white dark:text-white">
-        <thead className="sticky top-0 text-md text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+      <table className="w-full text-sm text-center rtl:text-right text-gray-700 dark:bg-gray-700">
+        <thead className="sticky top-0 text-md uppercase bg-gray-50 font-normal text-gray-700 dark:bg-gray-200">
+
           <tr>
             <th scope="col" className="px-3 py-2">
               Pos.
@@ -33,7 +34,7 @@ export function Table({ players }) {
           {players.map((player, index) => (
             <tr
               key={index}
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+              className=" border-b dark:border-gray-700text-gray-700 dark:bg-gray-200"
             >
               <td className="px-3 py-2">{position(index)}</td>
               <td className="px-3 py-2">
