@@ -8,6 +8,8 @@ import { CardText } from "../components/CardText";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useEffect, useState } from "react";
 import { Card } from "../components/Card";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 
  export function RoundEnd({ gameState, redirect, setRedirect, pokemon, remainingTime }) {
@@ -34,6 +36,7 @@ import { Card } from "../components/Card";
 
   return (
     <div className="full-page">
+      <Header/>
       <Card>
         <div className="m-3">
           <h2 className="text-2xl">Scores</h2>
@@ -102,6 +105,7 @@ import { Card } from "../components/Card";
         </CountdownCircleTimer>
       </div>
       </Card>
+      <Footer/>
     </div>
   );
 }

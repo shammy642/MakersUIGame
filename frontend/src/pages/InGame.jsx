@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { GuessForm } from "../components/GuessForm";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { Card } from "../components/Card";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 // in game page function
 export function InGame({ players, redirect, pokemon, setRedirect, remainingTime }) {
@@ -36,7 +38,7 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
 
   return (
     <div className="full-page">
-
+      <Header/>
       <Card>
         <h1 data-testid="guess-label">Poké Poké Guess Weight!</h1>
         <div className="players_list m-3">
@@ -73,6 +75,7 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
           </CountdownCircleTimer>
         </div>
       </Card>
+      <Footer/>
     </div>
   );
 }
