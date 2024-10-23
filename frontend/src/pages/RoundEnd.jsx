@@ -80,6 +80,5 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
         </div>
       </Card>
     </div>
-    </div>
   );
 }
