@@ -14,7 +14,7 @@ import { Card } from "../components/Card";
   const [showCheck, setShowCheck] = useState(false);
 
   const navigate = useNavigate();
-
+  console.log(gameState)
   useEffect(() => {
     if (redirect) {
       navigate(redirect);
@@ -28,7 +28,7 @@ import { Card } from "../components/Card";
   };
 
   const handleQuitGame = () => {
-    socket.disconnect();
+    socket.emit("quit_game", gameState.id);
     navigate("/");
   };
 
