@@ -65,7 +65,7 @@ export function RoundEnd({
             <b>{pokemon.name}</b>&apos;s weight is
           </p>
           <h2 className="text-5xl">{pokemon.weight}</h2>
-          <h2 className="font-bold">Hectograms</h2>
+          <h2 className="font-bold">Kilograms</h2>
         </div>
         <div className="flex justify-center">
           <img src={pokemon.pictureURL} />
