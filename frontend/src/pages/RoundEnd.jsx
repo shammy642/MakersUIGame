@@ -72,6 +72,15 @@ import { Card } from "../components/Card";
           }
         </div>
 
+        <div className="flex justify-center">
+          {!showCheck ? (
+            <Button handleClick={handleNextRound} buttonText={"Next Round"} />
+            ) : (
+              <Check />
+            )
+          }
+          <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
+        </div>
 
       <div className="flex justify-center items-center">
         <CountdownCircleTimer
@@ -85,16 +94,6 @@ import { Card } from "../components/Card";
           {({ remainingTime }) => remainingTime}
         </CountdownCircleTimer>
       </div>
-    </div>
-        <div className="flex justify-center">
-          {!showCheck ? (
-            <Button handleClick={handleNextRound} buttonText={"Next Round"} />
-            ) : (
-              <Check />
-            )
-          }
-          <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
-        </div>
       </Card>
     </div>
   );
