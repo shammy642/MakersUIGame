@@ -22,12 +22,6 @@ export function LandingHost() {
   const [error, setError] = useState("");
 
 
-  //user cna type in the form
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInput(value);
-  };
-
   //click should redirect the user to the lobby
   const handleClick = (e) => {
     e.preventDefault();
