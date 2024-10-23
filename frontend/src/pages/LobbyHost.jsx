@@ -22,7 +22,7 @@ export function LobbyHost({ gameRoom, players }) {
     <div className="full-page">
       <Header/>
       <Card>
-        <ListPlayers players={players} />
+        <ListPlayers players={players} isLobby={true}/>
         <br />
         <Button handleClick={handleClick} buttonText="Start Game" />
         <CardText>

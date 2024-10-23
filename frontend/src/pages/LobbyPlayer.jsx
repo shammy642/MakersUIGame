@@ -26,7 +26,7 @@ export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
         <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           Poké Poké Guess Weight!
         </h1>
-        <ListPlayers players = {players} />
+        <ListPlayers players = {players} isLobby={true} />
         <br/>
         <CardText>
           <div>Waiting for host to start the game...</div>
