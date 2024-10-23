@@ -4,11 +4,14 @@ import { socket } from "../socket";
 import { Button } from "../components/Button";
 import { Check } from "../components/Check"; 
 import { useNavigate } from "react-router-dom";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useEffect, useState } from "react";
 import { Card } from "../components/Card";
 
-export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
+
+ export function RoundEnd({ gameState, redirect, setRedirect, pokemon, remainingTime }) {
   const [showCheck, setShowCheck] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -78,6 +81,19 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
           }
           <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
         </div>
+
+      <div className="flex justify-center items-center">
+        <CountdownCircleTimer
+          isPlaying
+          duration={remainingTime}
+          colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+          colorsTime={[7, 5, 2, 0]}
+          size={100}
+          trailColor="#00000000"
+        >
+          {({ remainingTime }) => remainingTime}
+        </CountdownCircleTimer>
+      </div>
       </Card>
     </div>
   );

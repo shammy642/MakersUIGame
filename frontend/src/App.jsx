@@ -116,6 +116,7 @@ function App() {
           redirect={redirect}
           setRedirect={setRedirect}
           pokemon={pokemon}
+          remainingTime={remainingTime}
         />
       ),
     },
