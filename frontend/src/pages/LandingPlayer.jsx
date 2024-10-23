@@ -46,7 +46,7 @@ export function LandingPlayer() {
       <Card>
       <H1>Poké Poké Guess Weight!</H1> 
 
-        <CardText>
+
           <p>A quick-fire multiplayer game</p>
           <div className="m-6 border-2 rounded-lg px-8 py-5">
             <p className="mb-3">Rules :</p>
@@ -55,7 +55,7 @@ export function LandingPlayer() {
               <li>Unlimited players</li>
             </ul>
           </div>
-        </CardText>
+
 
         <img src="https://i.gifer.com/5SvD.gif" className="max-w-20" />
         <UsernameForm

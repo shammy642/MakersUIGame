@@ -6,7 +6,9 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { UsernameForm } from "../components/UsernameForm";
-import { CardText } from "../components/CardText";
+import { 
+
+} from "../components/CardText";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -42,7 +44,6 @@ export function LandingHost() {
       <Header/>
       <Card>
         <H1>Poké Poké Guess Weight!</H1>
-        <CardText>
         <p>A quick-fire multiplayer game</p>
         <div className="m-6 border-2 rounded-lg px-8 py-5">
           <p className="mb-3">Rules :</p>
@@ -52,7 +53,7 @@ export function LandingHost() {
           </ul>
         </div>
         <img src="https://i.gifer.com/5SvD.gif" className="max-w-20" />
-        </CardText>
+
         <UsernameForm
           input={input}
           error={error}

@@ -1,10 +1,15 @@
 import CheckMark from "./CheckMark";
 import LoadingSpinner from "./LoadingSpinner";
+import { CardText } from "./CardText";
 
 export function ListPlayers({ players, isLobby = false}) {
   return (
     <div className="max-w-lg mx-auto">
-      <h2 className="font-bold mb-3">Players:</h2>
+
+    <CardText><h2 className="font-bold mb-3">Players:</h2>
+    </CardText>
+      
+
       <div className="flex flex-wrap gap-3 justify-center">
         {players &&
           players.map((player, index) => (

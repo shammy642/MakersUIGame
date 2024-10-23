@@ -55,10 +55,11 @@ export function InGame({
           <img src={pokemon.pictureURL} />
         </div>
         <div className="guess m-3">
-          <h1 className="text-xl mb-2">
-            Guess <b>{pokemon.name}</b>&apos;s weight!:
-          </h1>
 
+          <h1 className="text-xl mb-2">
+            Guess <b>{pokemon.name}</b>&apos;s weight!
+          </h1>
+          
           <GuessForm input={input} setInput={setInput}></GuessForm>
           <br></br>
           {/* <Button handleClick={handleClick} buttonText={buttonText} /> */}
