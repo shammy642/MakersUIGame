@@ -36,7 +36,7 @@ const players = [
 ];
 
 describe("LobbyPlayer tests", () => {
-  test("name of the game", () => {
+  test("waiting message", () => {
     render(
       <LobbyPlayer
         gameRoom={"abc123"}
@@ -45,7 +45,7 @@ describe("LobbyPlayer tests", () => {
         setRedirect={setRedirect}
       />
     );
-    expect(screen.getByText("Waiting for host to start game...")).toBeTruthy();
+    expect(screen.getByText("Waiting for host to start the game...")).toBeTruthy();
   });
   test("given a list of players, they are visible", () => {
     render(
