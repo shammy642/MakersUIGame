@@ -16,6 +16,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User disconnected!");
     console.log(`Users Connected: ${io.engine.clientsCount}`);
+    console.log(io.sockets.adapter.rooms)
   });
 
   socket.on("disconnecting", () => {
@@ -50,8 +51,7 @@ io.on("connection", (socket) => {
   socket.on("start_game", () => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
-        io.to(gameId).emit("redirect", "/in-game")
-        startTimer(gameId)
+        startGameTimer(gameId);
       }
     });
   });
@@ -74,38 +74,55 @@ io.on("connection", (socket) => {
       if (games[gameId]) {
         games[gameId].players.forEach((player) => {
           if (player.id === socket.id) {
-            player.nextRound = true
+            player.nextRound = true;
           }
         });
         if (games[gameId].checkNextRound()) {
-          io.to(gameId).emit("redirect", "/in-game")
-          startTimer(gameId)
+          startGameTimer(gameId);
         }
       }
     });
   });
 
-  async function startTimer(gameId) {
-    await games[gameId].resetGame()
-    
-    console.log("startTimer, pokemonStats: ", await games[gameId].pokemonStats)
-    io.to(gameId).emit("pokemon", games[gameId].pokemonStats)
+  async function startGameTimer(gameId) {
+    await games[gameId].resetGame();
+    io.to(gameId).emit("receive_players", games[gameId].players);
+    io.to(gameId).emit("redirect", "/in-game");
+    io.to(gameId).emit("pokemon", games[gameId].pokemonStats);
 
-    let timeRemaining = 10;
-    io.to(gameId).emit("start_timer", timeRemaining)
+    let timeRemaining = process.env.TIMER ? parseInt(process.env.TIMER) : 10;
+    io.to(gameId).emit("start_timer", timeRemaining);
     let timer = setInterval(() => {
-        timeRemaining -= 1;
-        // io.to(gameId).emit("time_remaining", timeRemaining)
-        if (timeRemaining <= 0 || (games[gameId].players.every(player => player.currentGuess !== null))) {
-          clearInterval(timer)
-          games[gameId].checkGuesses()
-          io.to(gameId).emit("redirect", "/round-end")
-          io.to(gameId).emit("receive_players", games[gameId].players);
-          io.to(gameId).emit("receive_game", games[gameId])
-        }
-    }, 1000)
+      timeRemaining -= 1;
+      if (
+        timeRemaining <= 0 ||
+        games[gameId].players.every((player) => player.currentGuess !== null)
+      ) {
+        clearInterval(timer);
+        games[gameId].checkGuesses();
+        io.to(gameId).emit("redirect", "/round-end");
+        io.to(gameId).emit("receive_players", games[gameId].players);
+        io.to(gameId).emit("receive_game", games[gameId]);
+        startNextRoundTimer(gameId);
+      }
+    }, 1000);
   }
-})
+
+  function startNextRoundTimer(gameId) {
+    let timeRemaining = 60;
+    io.to(gameId).emit("start_timer", timeRemaining);
+    let timer = setInterval(() => {
+      timeRemaining -= 1;
+      if (
+        timeRemaining <= 0 ||
+        games[gameId].players.every((player) => player.nextRound === true)
+      ) {
+        clearInterval(timer);
+        startGameTimer(gameId);
+      }
+    }, 1000);
+  }
+});
 
 function listenForRequests() {
   const port = process.env.PORT || 3001;
