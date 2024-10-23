@@ -4,6 +4,7 @@ import { socket } from "../socket";
 import { Button } from "../components/Button";
 import { Check } from "../components/Check"; 
 import { useNavigate } from "react-router-dom";
+import { CardText } from "../components/CardText";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useEffect, useState } from "react";
 import { Card } from "../components/Card";
@@ -58,21 +59,26 @@ import { Card } from "../components/Card";
           <img src={pokemon.pictureURL} />
         </div>
         <div className="m-3">
-          {(gameState &&
-            gameState.currentRoundWinner && gameState.currentRoundWinner.name !== "") ? <><p>The winner is...</p>
-            <h2 className="text-4xl">
-              {gameState &&
-                gameState.currentRoundWinner &&
-                gameState.currentRoundWinner.name}
-            </h2>
-          </>
+          {(gameState && gameState.currentRoundWinner && gameState.currentRoundWinner.name !== "") ? 
+            <>
+              <p>The winner is...</p>
+              <h2 className="text-4xl">
+                {gameState &&
+                  gameState.currentRoundWinner &&
+                  gameState.currentRoundWinner.name}
+              </h2>
+            </>
             :
-            <><h2 className="text-xl">No one guessed in time!</h2>
-              <p>Poor {pokemon.name}...</p></>
+            <>
+              <h2 className="text-xl">No one guessed in time!</h2>
+              <CardText>
+                <p>Poor {pokemon.name}...</p> 
+              </CardText>
+            </>
           }
         </div>
 
-        <div className="flex justify-center">
+         <div className="flex justify-center">
           {!showCheck ? (
             <Button handleClick={handleNextRound} buttonText={"Next Round"} />
             ) : (
@@ -81,6 +87,7 @@ import { Card } from "../components/Card";
           }
           <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
         </div>
+
 
       <div className="flex justify-center items-center">
         <CountdownCircleTimer

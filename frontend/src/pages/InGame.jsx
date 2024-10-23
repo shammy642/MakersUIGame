@@ -36,6 +36,7 @@ export function InGame({ players, redirect, pokemon, setRedirect, remainingTime 
 
   return (
     <div className="full-page">
+
       <Card>
         <h1 data-testid="guess-label">Poké Poké Guess Weight!</h1>
         <div className="players_list m-3">
