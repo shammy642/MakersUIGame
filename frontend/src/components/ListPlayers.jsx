@@ -18,8 +18,10 @@ export function ListPlayers({ players }) {
                       src={player.avatar}
                       alt={`${player.name}'s avatar`}
                       className="w-8 h-8 rounded-full mr-2"
+
                   />}
-                  <div>{player.name}</div>
+                  <div className="mr-2">{player.name}</div>
+
                   <div>
                     <CheckMark />
                   </div>
@@ -33,7 +35,8 @@ export function ListPlayers({ players }) {
                       alt={`${player.name}'s avatar`}
                       className="w-8 h-8 rounded-full mr-2"
                   />}
-                  <div>{player.name}</div>
+                  <div className="mr-2">{player.name}</div>
+
                   <div>
                     <LoadingSpinner />
                   </div>
