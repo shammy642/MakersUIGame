@@ -82,7 +82,7 @@ describe("Round end tests", () => {
       <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
-    const targetNumberEl = screen.getByText("Alexia(Host)");
+    const targetNumberEl = screen.getAllByText("Alexia(Host)");
     expect(targetNumberEl).toBeDefined();
   });
   test("there is a next round button", () => {
