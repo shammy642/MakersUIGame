@@ -25,7 +25,7 @@ export function LobbyPlayer({ gameRoom, players, redirect, setRedirect }) {
       <Header/>
       <Card>
       <H1>Poké Poké Guess Weight!</H1>
-        <ListPlayers players = {players} />
+        <ListPlayers players = {players} isLobby={true} />
         <br/>
         <CardText>
           <div>Waiting for host to start the game...</div>

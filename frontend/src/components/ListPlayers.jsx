@@ -1,7 +1,7 @@
 import CheckMark from "./CheckMark";
 import LoadingSpinner from "./LoadingSpinner";
 
-export function ListPlayers({ players }) {
+export function ListPlayers({ players, isLobby = false}) {
   return (
     <div className="max-w-lg mx-auto">
       <h2 className="font-bold mb-3">Players:</h2>
@@ -38,7 +38,7 @@ export function ListPlayers({ players }) {
                   <div className="mr-2">{player.name}</div>
 
                   <div>
-                    <LoadingSpinner />
+                    {!isLobby && <LoadingSpinner />}
                   </div>
                 </div>
               )}

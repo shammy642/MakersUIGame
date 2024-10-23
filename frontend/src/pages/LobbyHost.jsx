@@ -24,7 +24,8 @@ export function LobbyHost({ gameRoom, players }) {
       <Header/>
       <Card>
         <H1>Poké Poké Guess Weight!</H1>
-        <ListPlayers players={players} />
+        <ListPlayers players={players} isLobby={true}/>
+
         <br />
         <Button handleClick={handleClick} buttonText="Start Game" />
         <CardText>
