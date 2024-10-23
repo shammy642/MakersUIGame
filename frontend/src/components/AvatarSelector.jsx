@@ -22,10 +22,10 @@ export function AvatarDropdown({ setAvatar, isOpen, setAvatarOpen}) {
         {isOpen && (
             <div
             id="dropdownUsers"
-            className="z-10 bg-white rounded-lg shadow w-60 h-60 dark:bg-gray-700"
+            className="z-10 bg-white rounded-lg shadow w-60 dark:bg-gray-700"
             >
             <ul
-                className="grid grid-cols-3 gap-4 p-4"
+                className="h-48 py-2 overflow-y-auto grid grid-cols-3 gap-4 p-4"
                 aria-labelledby="dropdownUsersButton"
             >
                 {avatarOptions.length > 0 ? (
