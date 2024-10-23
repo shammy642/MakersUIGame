@@ -4,22 +4,23 @@ import { socket } from "../socket"
 import { Button } from "../components/Button"
 import { UsernameForm } from "../components/UsernameForm"
 import { useState } from "react"
+import { Card } from "../components/Card"
 
 
 export function LandingPlayer() {
   //states
-  const [input, setInput ] = useState("");
+  const [input, setInput] = useState("");
   const [error, setError] = useState('');
   const [avatar, setAvatar] = useState(null);
   const params = useParams()
   const navigate = useNavigate()
- 
 
-    //user cna type in the form
-    const handleInputChange = (e) => {
-      const value = e.target.value;
-      setInput(value);
-    }
+
+  //user cna type in the form
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInput(value);
+  }
 
   //click should redirect the user to the lobby 
   const handleClick = (e) => {
@@ -39,13 +40,12 @@ export function LandingPlayer() {
       else {
         navigate('/')
       }
-  }
-};
+    }
+  };
 
   return (
     <div className="full-page">
-    <>
-      <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <Card>
         <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           Poké Poké Guess Weight!
         </h1>
@@ -57,20 +57,19 @@ export function LandingPlayer() {
             <li>Unlimited players</li>
           </ul>
         </div>
-        
+
         <img src="https://i.gifer.com/5SvD.gif" className="max-w-20" />
         <UsernameForm
           input={input}
           error={error}
           setInput={setInput}
           handleInputChange={handleInputChange}
-          avatar={avatar} 
+          avatar={avatar}
           setAvatar={setAvatar}
         ></UsernameForm>
         <br></br>
         <Button handleClick={handleClick} buttonText="Join Room"></Button>
-      </div>
-    </>
+      </Card>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { UsernameForm } from "../components/UsernameForm";
+import { Card } from "../components/Card";
 
 // page function
 export function LandingHost() {
@@ -39,8 +40,7 @@ export function LandingHost() {
 
   return (
     <div className="full-page">
-    <>
-      <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <Card>
         <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           Poké Poké Guess Weight!
         </h1>
@@ -48,7 +48,7 @@ export function LandingHost() {
         <div className="m-6 border-2 rounded-lg px-8 py-5">
           <p className="mb-3">Rules :</p>
           <ul className="list-disc">
-          <li>Guess the Pokémon&apos;s weight in HECTOGRAMS</li>
+            <li>Guess the Pokémon&apos;s weight in HECTOGRAMS</li>
             <li>Unlimited players</li>
           </ul>
         </div>
@@ -57,14 +57,12 @@ export function LandingHost() {
           input={input}
           error={error}
           setInput={setInput}
-          avatar={avatar} 
+          avatar={avatar}
           setAvatar={setAvatar}
         ></UsernameForm>
         <br></br>
         <Button handleClick={handleClick} buttonText="Create Game"></Button>
-      </div>
-      
-    </>
+      </Card>
     </div>
   );
 }
