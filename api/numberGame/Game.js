@@ -1,7 +1,8 @@
 const Pokemon = require("./Pokemon");
 
 class Game {
-    constructor() {
+    constructor(id) {
+        this.id = id;
         this.players = [];
         this.targetNumber = null;
         this.currentRoundWinner = null

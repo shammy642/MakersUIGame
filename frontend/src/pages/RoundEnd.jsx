@@ -16,7 +16,7 @@ import { Footer } from "../components/Footer";
   const [showCheck, setShowCheck] = useState(false);
 
   const navigate = useNavigate();
-
+  console.log(gameState)
   useEffect(() => {
     if (redirect) {
       navigate(redirect);
@@ -30,7 +30,7 @@ import { Footer } from "../components/Footer";
   };
 
   const handleQuitGame = () => {
-    socket.disconnect();
+    socket.emit("quit_game", gameState.id);
     navigate("/");
   };
 

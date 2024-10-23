@@ -7,7 +7,7 @@ import { RoundEnd } from "../../src/pages/RoundEnd";
 import { describe, expect, test, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { socket } from "../../src/socket";
-import { beforeEach } from "node:test";
+import { afterEach, beforeEach } from "node:test";
 import { useNavigate } from "react-router-dom";
 
 const gameState = {
@@ -54,8 +54,13 @@ vi.mock("react-router-dom", () => {
 
 describe("Round end tests", () => {
   beforeEach(() => {
-    vi.resetAllMocks()
-  })
+    vi.resetAllMocks();
+  });
+  
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+  
   test("name of the game", () => {
     render(
       <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
@@ -119,7 +124,7 @@ describe("Round end tests", () => {
       name: "Quit Game",
     });
     await user.click(quitGameButtonEl);
-    expect(socket.disconnect).toHaveBeenCalled();
+    expect(socket.emit).toHaveBeenCalledWith("quit_game", gameState.id);
     expect(navigate).toHaveBeenCalledWith("/")
   });
   test("when the redirct state changes the user is redirect", () => {
