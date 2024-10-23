@@ -2,11 +2,12 @@
 // this page has the score and the option to do another round or quit
 import { socket } from "../socket";
 import { Button } from "../components/Button";
-//import { ExitButton } from "../components/ExitButton"
+import { Check } from "../components/Check"; 
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
+  const [showCheck, setShowCheck] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
 
   const handleNextRound = () => {
     socket.emit("next_round");
+    setShowCheck(true);
   };
 
   const handleQuitGame = () => {
@@ -66,8 +68,13 @@ export function RoundEnd({ gameState, redirect, setRedirect, pokemon }) {
         }
       </div>
 
-      <div>
-        <Button handleClick={handleNextRound} buttonText={"Next Round"} />
+      <div className="flex justify-center">
+        {!showCheck ? (
+          <Button handleClick={handleNextRound} buttonText={"Next Round"} />
+          ) : (
+            <Check />
+          )
+        }
         <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
       </div>
     </div>
