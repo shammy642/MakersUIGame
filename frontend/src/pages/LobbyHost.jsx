@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { ListPlayers } from "../components/ListPlayers";
 import { CardText } from "../components/CardText";
 import { Card } from "../components/Card";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import CopyToClipboardButton from "../components/CopyToClipboardButton";
 
 export function LobbyHost({ gameRoom, players }) {
@@ -18,6 +20,7 @@ export function LobbyHost({ gameRoom, players }) {
 
   return (
     <div className="full-page">
+      <Header/>
       <Card>
         <ListPlayers players={players} />
         <br />
@@ -29,6 +32,7 @@ export function LobbyHost({ gameRoom, players }) {
           content={`${window.location.origin}/join/${gameRoom}`}
         />
       </Card>
+      <Footer/>
     </div>
   );
 }

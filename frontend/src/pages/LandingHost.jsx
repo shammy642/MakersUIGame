@@ -8,6 +8,8 @@ import { useState } from "react";
 import { UsernameForm } from "../components/UsernameForm";
 import { CardText } from "../components/CardText";
 import { Card } from "../components/Card";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 
 // page function
@@ -42,6 +44,7 @@ export function LandingHost() {
 
   return (
     <div className="full-page">
+      <Header/>
       <Card>
         <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           Poké Poké Guess Weight!
@@ -67,6 +70,7 @@ export function LandingHost() {
         <br></br>
         <Button handleClick={handleClick} buttonText="Create Game"></Button>
       </Card>
+      <Footer/>
     </div>
   );
 }
