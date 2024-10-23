@@ -1,15 +1,9 @@
-// imports
-import { CardText } from "../components/CardText";
-
 // A form that allows a user to input tet and numbers
 export function GuessForm(props) {
   return (
     <>
     <form className="max-w-sm mx-auto">
       <div className="md-5">
-        <CardText>
-          <label htmlFor="website-admin">How much does this Pokémon weight?</label>
-        </CardText>
         <br/>
         <div className="flex">
           
