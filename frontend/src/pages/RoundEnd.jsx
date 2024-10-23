@@ -87,8 +87,6 @@ import { Card } from "../components/Card";
           }
           <Button handleClick={handleQuitGame} buttonText={"Quit Game"} />
         </div>
-      </div>
-
 
 
       <div className="flex justify-center items-center">
@@ -104,7 +102,6 @@ import { Card } from "../components/Card";
         </CountdownCircleTimer>
       </div>
       </Card>
-
     </div>
   );
 }
