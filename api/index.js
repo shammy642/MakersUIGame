@@ -9,6 +9,7 @@ const Player = require("./numberGame/Player");
 
 const games = {};
 
+
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
   console.log(`Users Connected: ${io.engine.clientsCount}`);
@@ -91,7 +92,7 @@ io.on("connection", (socket) => {
     console.log("startTimer, pokemonStats: ", await games[gameId].pokemonStats)
     io.to(gameId).emit("pokemon", games[gameId].pokemonStats)
 
-    let timeRemaining = 10;
+    let timeRemaining = process.env.TIMER ? parseInt(process.env.TIMER) : 10
     io.to(gameId).emit("start_timer", timeRemaining)
     let timer = setInterval(() => {
         timeRemaining -= 1;
