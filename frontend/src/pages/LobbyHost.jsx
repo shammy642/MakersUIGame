@@ -22,6 +22,9 @@ export function LobbyHost({ gameRoom, players }) {
     <div className="full-page">
       <Header/>
       <Card>
+      <h1 data-testid="game-name" className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          Poké Poké Guess Weight!
+        </h1>
         <ListPlayers players={players} isLobby={true}/>
         <br />
         <Button handleClick={handleClick} buttonText="Start Game" />
