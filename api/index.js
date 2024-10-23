@@ -7,7 +7,7 @@ const crypto = require("crypto");
 const Game = require("./numberGame/Game.js");
 const Player = require("./numberGame/Player");
 
-const games = {};
+let games = {};
 
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
@@ -34,7 +34,7 @@ io.on("connection", (socket) => {
     const gameId = crypto.randomBytes(3).toString("hex");
     socket.emit("receive_link", gameId);
     socket.join(gameId);
-    games[gameId] = new Game();
+    games[gameId] = new Game(gameId);
     games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`, avatar));
     io.to(gameId).emit("receive_players", games[gameId].players);
   });
@@ -84,6 +84,22 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("quit_game", (gameId) => {
+    if (games[gameId]) {
+      games[gameId].removePlayer(socket.id)
+      socket.leave(gameId)
+      
+      if (games[gameId].players.length === 0) {
+        delete games[gameId]
+        socket.rooms.delete(gameId)
+      }
+      else {
+        io.to(gameId).emit("receive_players", games[gameId].players);
+      }
+    }
+  })
+
+
   async function startGameTimer(gameId) {
     await games[gameId].resetGame();
     io.to(gameId).emit("receive_players", games[gameId].players);
@@ -109,18 +125,23 @@ io.on("connection", (socket) => {
   }
 
   function startNextRoundTimer(gameId) {
-    let timeRemaining = 60;
-    io.to(gameId).emit("start_timer", timeRemaining);
-    let timer = setInterval(() => {
-      timeRemaining -= 1;
-      if (
-        timeRemaining <= 0 ||
-        games[gameId].players.every((player) => player.nextRound === true)
-      ) {
-        clearInterval(timer);
-        startGameTimer(gameId);
-      }
-    }, 1000);
+    if (games[gameId]) {
+      let timeRemaining = 60;
+      io.to(gameId).emit("start_next_round_timer", timeRemaining);
+      let timer = setInterval(() => {
+        timeRemaining -= 1;
+        if (games[gameId]) {
+          if (
+            timeRemaining <= 0 ||
+            games[gameId].players.every((player) => player.nextRound === true)
+          ) {
+            clearInterval(timer);
+            startGameTimer(gameId);
+          }
+        }
+
+      }, 1000);
+    }
   }
 });
 
