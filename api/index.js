@@ -18,7 +18,7 @@ io.on("connection", (socket) => {
     console.log(`Users Connected: ${io.engine.clientsCount}`);
     console.log("disconnect, rooms: ", io.sockets.adapter.rooms)
     // console.log(games)
-    
+
   });
 
   socket.on("disconnecting", () => {
@@ -45,12 +45,14 @@ io.on("connection", (socket) => {
 
   socket.on("join_room", (gameId, data) => {
     console.log("join room")
-    const { name, avatar } = data;
-    socket.emit("receive_link", gameId);
-    console.log("Room ID:", gameId);
-    socket.join(gameId);
-    games[gameId].addPlayer(new Player(socket.id, name, avatar));
-    io.to(gameId).emit("receive_game", games[gameId]);
+    if (games[gameId]) {
+      const { name, avatar } = data;
+      socket.emit("receive_link", gameId);
+      console.log("Room ID:", gameId);
+      socket.join(gameId);
+      games[gameId].addPlayer(new Player(socket.id, name, avatar));
+      io.to(gameId).emit("receive_game", games[gameId]);
+    }
   });
 
   socket.on("start_game", () => {
@@ -102,13 +104,13 @@ io.on("connection", (socket) => {
     if (games[gameId]) {
       await games[gameId].removePlayer(socket.id);
       socket.leave(gameId);
-  
+
       if (games[gameId].players.length === 0) {
         delete games[gameId];
         socket.rooms.delete(gameId);
       } else {
-        await handleHostLeaving(gameId); 
-        io.to(gameId).emit("receive_game", games[gameId]); 
+        await handleHostLeaving(gameId);
+        io.to(gameId).emit("receive_game", games[gameId]);
       }
     }
   }
@@ -119,11 +121,11 @@ io.on("connection", (socket) => {
       delete games[gameId]
       socket.rooms.delete(gameId)
     }
-   if (games[gameId].players.every(player => player.isHost === false)) {
+    if (games[gameId].players.every(player => player.isHost === false)) {
       console.log("No hosts. Reassigning host...")
       await games[gameId].players[0].setIsHost()
       io.to(games[gameId].players[0].id).emit('is_host')
-    } 
+    }
   }
 
   async function startGameTimer(gameId) {
@@ -138,7 +140,7 @@ io.on("connection", (socket) => {
     let timer = setInterval(() => {
       timeRemaining -= 1;
       // needed a check to see if game still exists here, and clear the timer if not
-      if (!games[gameId]) { 
+      if (!games[gameId]) {
         clearInterval(timer);
         return;
       }
@@ -148,7 +150,7 @@ io.on("connection", (socket) => {
       ) {
         clearInterval(timer);
         // needed a check to see if game still exists here
-        if (games[gameId]) { 
+        if (games[gameId]) {
           games[gameId].checkGuesses();
           io.to(gameId).emit("redirect", "/round-end");
           io.to(gameId).emit("receive_game", games[gameId]);
