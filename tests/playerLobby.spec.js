@@ -33,4 +33,10 @@ test.describe("Player Lobby Page", () => {
     await expect(page.getByText("Simon")).toBeVisible();
     await expect(page.getByText("Joe (Host)")).toBeVisible();
   });
+  test("when a host starts a game, the player is directed to in-game", async ({page}) => {
+    await utils.newPlayerJoinGame(page, playerPage, "Simon");
+    await utils.hostStartsGame(page)
+    await expect(playerPage).toHaveURL("/in-game");
+
+  })
 });
