@@ -1,6 +1,7 @@
 export default function Copied() {
   return (
     <svg
+      data-testid="copied-svg"
       className="w-6 h-6 text-white-800 dark:text-white"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"

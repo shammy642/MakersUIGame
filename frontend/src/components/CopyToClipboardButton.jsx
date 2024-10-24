@@ -1,10 +1,7 @@
-import { useState } from "react";
 import Copied from "./Copied";
 import Clipboard from "./Clipboard";
 
-const useCopyToClipboard = () => {
-  const [isCopied, setIsCopied] = useState(false);
-
+export const CopyToClipboardButton = ({ content, isCopied, setIsCopied }) => {
   const copyToClipboard = async (content) => {
     try {
       await navigator.clipboard.writeText(content);
@@ -15,12 +12,6 @@ const useCopyToClipboard = () => {
       console.error("Unable to copy to clipboard:", error);
     }
   };
-
-  return { isCopied, copyToClipboard };
-};
-
-const CopyToClipboardButton = ({ content }) => {
-  const { isCopied, copyToClipboard } = useCopyToClipboard();
 
   return (
     <div className="flex justify-center">
@@ -37,4 +28,3 @@ const CopyToClipboardButton = ({ content }) => {
   );
 };
 
-export default CopyToClipboardButton;

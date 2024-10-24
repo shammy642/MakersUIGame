@@ -28,7 +28,8 @@ export default defineConfig({
         "**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}",
         "**/*.config.*",
         "**/socket.js",
-        "**/main.jsx"
+        "**/main.jsx",
+        "**/assets/**"
       ],
     },
   },
