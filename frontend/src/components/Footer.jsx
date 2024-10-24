@@ -3,7 +3,7 @@ export function Footer() {
   return (
     <>
       <footer className="bg-gray-800 text-white">
-        <div className="w-full flex justify-between items-center p-4">
+        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
           {/* Bottom left */}
           <div className="text-left">
             <p>
