@@ -42,7 +42,7 @@ export function InGame({
   }, [redirect, navigate, setRedirect]);
 
   return (
-    <span className="max-h-full">
+    
       <div className="full-page">
         <Header />
         <Card>
@@ -83,9 +83,7 @@ export function InGame({
             </CountdownCircleTimer>
           </div>
         </Card>
+        <Footer />
       </div>
-      
-      <Footer />
-    </span>
   );
 }

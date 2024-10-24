@@ -1,8 +1,8 @@
 // A component for the HTML footer to use on all pages
 export function Footer() {
   return (
-      <footer className="bg-gray-800 text-white w-screen">
-        <div className="w-full mx-auto max-w-screen-xl p-4 flex items-center justify-between">
+      <footer className="bg-gray-50 text-gray-900 dark:bg-gray-800 dark:text-white w-screen">
+        <div className="w-full mx-auto p-4 flex items-center justify-between">
           {/* Bottom left */}
           <div className="text-left">
             <p>
@@ -11,7 +11,7 @@ export function Footer() {
                 href="https://pokeapi.co"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-red-400 hover:underline"
+                className="text-red-600 dark:text-red-400 hover:underline"
               >
                 PokeAPI
               </a>{" "}
@@ -37,7 +37,7 @@ export function Footer() {
                 href="https://github.com/Alexia-May"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 Alexia
               </a>
@@ -46,7 +46,7 @@ export function Footer() {
                 href="https://github.com/shammy642"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 Sam
               </a>
@@ -55,7 +55,7 @@ export function Footer() {
                 href="https://github.com/JHLincoln"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 James
               </a>
@@ -64,7 +64,7 @@ export function Footer() {
                 href="https://github.com/lucfercas"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 Lucy
               </a>
@@ -73,7 +73,7 @@ export function Footer() {
                 href="https://github.com/aulus-plautius"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
               >
                 Joe
               </a>{" "}
@@ -87,7 +87,7 @@ export function Footer() {
               href="https://github.com/shammy642/MakersUIGame"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white"
+              className="text-gray-900 dark:text-gray-400 hover:text-green-500"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
