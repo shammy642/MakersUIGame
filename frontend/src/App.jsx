@@ -84,7 +84,7 @@ function App() {
 
     {
       path: "/join/:roomId",
-      element: <LandingPlayer />,
+      element: <Landing />,
     },
 
     {

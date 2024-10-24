@@ -8,7 +8,6 @@ import userEvent from "@testing-library/user-event";
 import { socket } from "../../src/socket";
 import { useNavigate, useParams } from "react-router-dom";
 import { act } from "react";
-import { beforeEach } from "node:test";
 
 vi.mock("../../src/socket.js", () => {
   return { socket: { emit: vi.fn() } };
