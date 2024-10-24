@@ -192,4 +192,9 @@ describe("Game", () => {
             fetchMock.resetMocks();
         });
     });
+    describe("checkNextRound", () => {
+      test("given all players next round equals false", () => {
+        expect(game.checkNextRound()).toEqual(true)
+      })
+    })
 });
