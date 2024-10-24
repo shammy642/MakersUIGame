@@ -127,7 +127,7 @@ io.on("connection", (socket) => {
 
   function startNextRoundTimer(gameId) {
     if (games[gameId]) {
-      let timeRemaining = 30;
+      let timeRemaining = 20;
       io.to(gameId).emit("start_timer", timeRemaining);
       let timer = setInterval(() => {
         timeRemaining -= 1;
