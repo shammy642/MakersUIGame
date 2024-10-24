@@ -13,7 +13,6 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { H1 } from "../components/H1";
 
-
 // in game page function
 export function InGame({
   gameState,
@@ -43,48 +42,48 @@ export function InGame({
   }, [redirect, navigate, setRedirect]);
 
   return (
-    <div className="full-page">
-      <Header />
-      <Card>
-        <H1>Poké Poké Guess Weight!</H1>
-        <div className="players_list m-3">
-          <ListPlayers players={gameState.players} />
-        </div>
-        <div className="flex justify-center">
-          <img src={pokemon.pictureURL} />
-        </div>
-        <div className="guess m-3">
-
-          <h1 className="text-xl mb-2">
-            Guess <b>{pokemon.name}</b>&apos;s weight!
-          </h1>
-          
-          <GuessForm input={input} setInput={setInput}></GuessForm>
-          <br></br>
-          {/* <Button handleClick={handleClick} buttonText={buttonText} /> */}
-          <div className="flex justify-center items-center">
-            {!showCheck ? (
-              <Button handleClick={handleClick} buttonText="Guess" />
-            ) : (
-              <Check />
-            )}
+    
+      <div className="full-page">
+        <Header />
+        <Card>
+          <H1>Poké Poké Guess Weight!</H1>
+          <div className="players_list m-3">
+            <ListPlayers players={gameState.players} />
           </div>
-        </div>
-        <br />
-        <div className="flex justify-center items-center">
-          <CountdownCircleTimer
-            isPlaying
-            duration={remainingTime}
-            colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-            colorsTime={[7, 5, 2, 0]}
-            size={100}
-            trailColor="#00000000"
-          >
-            {({ remainingTime }) => remainingTime}
-          </CountdownCircleTimer>
-        </div>
-      </Card>
-      <Footer />
-    </div>
+          <div className="flex justify-center">
+            <img src={pokemon.pictureURL} />
+          </div>
+          <div className="guess m-3">
+            <h1 className="text-xl mb-2">
+              Guess <b>{pokemon.name}</b>&apos;s weight!
+            </h1>
+
+            <GuessForm input={input} setInput={setInput}></GuessForm>
+            <br></br>
+            {/* <Button handleClick={handleClick} buttonText={buttonText} /> */}
+            <div className="flex justify-center items-center">
+              {!showCheck ? (
+                <Button handleClick={handleClick} buttonText="Guess" />
+              ) : (
+                <Check />
+              )}
+            </div>
+          </div>
+          <br />
+          <div className="flex justify-center items-center">
+            <CountdownCircleTimer
+              isPlaying
+              duration={remainingTime}
+              colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+              colorsTime={[7, 5, 2, 0]}
+              size={100}
+              trailColor="#00000000"
+            >
+              {({ remainingTime }) => remainingTime}
+            </CountdownCircleTimer>
+          </div>
+        </Card>
+        <Footer />
+      </div>
   );
 }
