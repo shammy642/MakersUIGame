@@ -68,7 +68,7 @@ describe("LandingHost tests", () => {
       await user.type(inputEl, "Joe")
       await user.click(buttonEl)
     })
-    expect(socket.emit).toHaveBeenCalledWith("create_room", { avatar: null, name: "Joe" });
+    expect(socket.emit).toHaveBeenCalledWith("create_room", { avatar: "/src/assets/1.png", name: "Joe" });
   })
   test('when a user clicks create game, they are navigated to lobby/host', async () => {
     useParams.mockReturnValue({ roomId: undefined });
@@ -138,7 +138,7 @@ describe("LandingPlayer tests", () => {
     const buttonEl = screen.getByRole("button", { name: "Join Game" });
     await user.click(buttonEl);
 
-    expect(socket.emit).toHaveBeenCalledWith("join_room", "abc123", { name: "Joe", avatar: null });
+    expect(socket.emit).toHaveBeenCalledWith("join_room", "abc123", { name: "Joe", avatar: "/src/assets/1.png" });
     expect(navigate).toHaveBeenCalledWith("/lobby");
   });
 });
