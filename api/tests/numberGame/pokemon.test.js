@@ -4,8 +4,9 @@ const fetchMock = require("jest-fetch-mock")
 
 
 describe('pokemon', () => {
-  test('initiates with _maxPokemon size of 1118', () => {
+  test('initiates with _minPokemon size of 1 and _maxPokemon size of 1025', () => {
     const pokemon = new Pokemon()
+    expect(pokemon._minPokemon).toBe(1)
     expect(pokemon._maxPokemon).toBe(1025)
   })
 
@@ -28,4 +29,27 @@ describe('pokemon', () => {
 
     fetchMock.resetMocks();
   })
+  test('getRandom retrieves an error and reruns getRandom until it gets a valid response', async () => {
+    fetchMock.enableMocks();
+    const pokemon = new Pokemon();
+  
+    fetchMock.mockRejectOnce(new Error("Network Error"));
+    fetchMock.mockResponseOnce(JSON.stringify({ 
+      name: "sam", 
+      sprites: { front_default: "http://mocksite.com" }, 
+      weight: 75 
+    }));
+  
+    const result = await pokemon.getRandom();
+    
+    expect(result).toEqual({
+      name: "sam",
+      pictureURL: "http://mocksite.com",
+      weight: 75
+    });
+  
+    // Reset fetch mocks to clean up
+    fetchMock.resetMocks();
+  });
+  
 })
