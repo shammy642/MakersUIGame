@@ -42,7 +42,7 @@ export function InGame({
   }, [redirect, navigate, setRedirect]);
 
   return (
-    <>
+    <span className="max-h-full">
       <div className="full-page">
         <Header />
         <Card>
@@ -84,7 +84,8 @@ export function InGame({
           </div>
         </Card>
       </div>
+      
       <Footer />
-    </>
+    </span>
   );
 }

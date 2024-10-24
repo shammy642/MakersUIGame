@@ -1,9 +1,8 @@
 // A component for the HTML footer to use on all pages
 export function Footer() {
   return (
-    <>
-      <footer className="bg-gray-800 text-white">
-        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <footer className="bg-gray-800 text-white w-screen">
+        <div className="w-full mx-auto max-w-screen-xl p-4 flex items-center justify-between">
           {/* Bottom left */}
           <div className="text-left">
             <p>
@@ -103,6 +102,5 @@ export function Footer() {
           </div>
         </div>
       </footer>
-    </>
   );
 }
