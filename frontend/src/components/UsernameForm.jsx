@@ -6,7 +6,12 @@ export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
   const [avatarOpen, setAvatarOpen] = useState(false);
 
   //const [selectedAvatar, setSelectedAvatar] = useState(null);
-
+  const handleOnChange = (e) => {
+    if (e.target.value.length < 14) {
+      setInput(e.target.value);
+    }
+    
+  };
   return (
     <>
       <form className="max-w-sm mx-auto">
@@ -77,7 +82,7 @@ export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
           <input
             required
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleOnChange}
             type="text"
             id="website-admin"
             className={`rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5 

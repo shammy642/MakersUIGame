@@ -10,10 +10,10 @@ export function ListPlayers({ players, isLobby = false}) {
     </CardText>
       
 
-      <div className="flex flex-wrap gap-3 justify-center">
+      <div className="flex flex-wrap gap-3 justify-center overflow-y-auto max-h-36">
         {players &&
           players.map((player, index) => (
-            <div key={index} data-testid="player-box" className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center justify-center"
+            <div key={index} data-testid="player-box" className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center justify-center"
             >
               {player.currentGuess !== null ? (
                 // Green check mark for players who have guessed
@@ -22,7 +22,7 @@ export function ListPlayers({ players, isLobby = false}) {
                   {player.avatar && <img
                       src={player.avatar}
                       alt={`${player.name}'s avatar`}
-                      className="w-8 h-8 rounded-full mr-2"
+                      className="w-5 h-5 rounded-full mr-2"
 
                   />}
                   <div className="mr-2">{player.name}</div>
@@ -38,7 +38,7 @@ export function ListPlayers({ players, isLobby = false}) {
                   {player.avatar && <img
                       src={player.avatar}
                       alt={`${player.name}'s avatar`}
-                      className="w-8 h-8 rounded-full mr-2"
+                      className="w-5 h-5 rounded-full mr-2"
                   />}
                   <div className="mr-2">{player.name}</div>
 
