@@ -5,35 +5,25 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 
 import { InGame } from "./pages/InGame";
-import { LobbyHost } from "./pages/LobbyHost";
 import { RoundEnd } from "./pages/RoundEnd";
-import { LandingPlayer } from "./pages/LandingPlayer";
-import { LobbyPlayer } from "./pages/LobbyPlayer";
-import { LandingHost } from "./pages/LandingHost";
-
+import { Lobby } from "./pages/Lobby";
+import { Landing } from "./pages/Landing";
 // router
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [gameRoom, setGameRoom] = useState("");
-  const [players, setPlayers] = useState([]);
   const [gameState, setGameState] = useState([]);
   const [redirect, setRedirect] = useState("");
-  const [remainingTime, setRemainingTime] = useState("")
-  const [pokemon, setPokemon] = useState({})
-  
+  const [remainingTime, setRemainingTime] = useState("");
+  const [pokemon, setPokemon] = useState({});
+  const [isHost, setIsHost] = useState(false);
+
   useEffect(() => {
     const onConnect = () => {
       setIsConnected(true);
     };
     const onDisconnect = () => {
       setIsConnected(false);
-    };
-    const onReceiveLink = (data) => {
-      setGameRoom(data);
-    };
-    const onReceivePlayers = (data) => {
-      setPlayers(data);
     };
     const onReceiveGame = (data) => {
       setGameState(data);
@@ -45,77 +35,72 @@ function App() {
       setRemainingTime(data);
     };
     const onReceivePokemon = (data) => {
-      console.log("App, onReceivePokemon:", data)
-      setPokemon(data)
-    }
+      console.log("App, onReceivePokemon:", data);
+      setPokemon(data);
+    };
+    const onReceiveIsHost = () => {
+      setIsHost(true);
+    };
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    socket.on("receive_link", (data) => onReceiveLink(data));
-    socket.on("receive_players", (data) => onReceivePlayers(data));
-    socket.on("receive_game", (data) => onReceiveGame(data));
-    socket.on("redirect", (data) => onReceiveRedirect(data));
-    socket.on("start_timer", (data) => onReceiveRemainingTime(data))
-    socket.on("pokemon", (data) => onReceivePokemon(data));
+    socket.on("receive_game", onReceiveGame);
+    socket.on("redirect", onReceiveRedirect);
+    socket.on("start_timer", onReceiveRemainingTime);
+    socket.on("pokemon", onReceivePokemon);
+    socket.on("is_host", onReceiveIsHost);
 
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
-      socket.off("receive_link", () => onReceiveLink(""));
-      socket.off("receive_players", () => onReceivePlayers([]));
-      socket.off("receive_game", () => onReceiveGame([]));
-      socket.off("redirect", () => onReceiveRedirect(""));
-      socket.off("remaining_time", () => onReceiveRemainingTime(""))
-      socket.off("pokemon", (data) => onReceivePokemon(data));
+      socket.off("receive_game", onReceiveGame);
+      socket.off("redirect", onReceiveRedirect);
+      socket.off("start_timer", onReceiveRemainingTime);
+      socket.off("pokemon", onReceivePokemon);
+      socket.off("is_host", onReceiveIsHost);
     };
   });
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingHost />,
+      element: <Landing />,
     },
     {
-      path: "/lobby/player",
+      path: "/join/:roomId",
+      element: <Landing />,
+    },
+    {
+      path: "/lobby",
       element: (
-        <LobbyPlayer
-          gameRoom={gameRoom}
-          players={players}
+        <Lobby
+          gameState={gameState}
           redirect={redirect}
           setRedirect={setRedirect}
+          isHost={isHost}
         />
       ),
     },
-
-    {
-      path: "/join/:roomId",
-      element: <LandingPlayer />,
-    },
-
     {
       path: "/in-game",
       element: (
         <InGame
-          players={players}
-          redirect={redirect}
+          gameState={gameState}
           pokemon={pokemon}
+          redirect={redirect}
           setRedirect={setRedirect}
           remainingTime={remainingTime}
         />
       ),
     },
     {
-      path: "/lobby/host",
-      element: <LobbyHost gameRoom={gameRoom} players={players} />,
-    },
-    {
       path: "/round-end",
       element: (
         <RoundEnd
           gameState={gameState}
+          pokemon={pokemon}
           redirect={redirect}
           setRedirect={setRedirect}
-          pokemon={pokemon}
           remainingTime={remainingTime}
         />
       ),

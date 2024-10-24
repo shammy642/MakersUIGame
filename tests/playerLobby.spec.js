@@ -26,11 +26,11 @@ test.describe("Player Lobby Page", () => {
 
   test("player should be redirected to lobby page", async ({ page }) => {
     await utils.newPlayerJoinGame(page, playerPage, "Simon");
-    await expect(playerPage).toHaveURL("/lobby/player");
+    await expect(playerPage).toHaveURL("/lobby");
   });
   test("inputed name is visible in lobby along with the host", async ({page}) => {
     await utils.newPlayerJoinGame(page, playerPage, "Simon");
     await expect(page.getByText("Simon")).toBeVisible();
-    await expect(page.getByText("Joe(Host)")).toBeVisible();
+    await expect(page.getByText("Joe (Host)")).toBeVisible();
   });
 });

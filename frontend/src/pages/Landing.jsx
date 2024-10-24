@@ -3,45 +3,51 @@
 //imports needed
 import { socket } from "../socket";
 import { Button } from "../components/Button";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { UsernameForm } from "../components/UsernameForm";
-import { 
-
-} from "../components/CardText";
+import {} from "../components/CardText";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { H1 } from "../components/H1";
 
-
 // page function
-export function LandingHost() {
+export function Landing() {
+  const [isJoining, setIsJoining] = useState(false);
+  const params = useParams();
   //states
   const [input, setInput] = useState("");
   const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  console.log("Landing params", params);
+  useEffect(() => {
+    if (params.roomId) {
+      setIsJoining(true);
+    }
+  }, [params]);
 
-
-  //click should redirect the user to the lobby
-  const handleClick = (e) => {
-    e.preventDefault();
-
+  const handleClick = () => {
     // Validate if the input is not empty
     if (!input.trim()) {
       setError("Please enter a username.");
     } else {
       setError("");
       // what should happen on click if there is no error
-      socket.emit("create_room", { name: input, avatar });
-      navigate("/lobby/host");
+      if (isJoining) {
+        socket.emit("join_room", params.roomId, { name: input, avatar });
+        navigate(`/lobby`);
+      } else {
+        socket.emit("create_room", { name: input, avatar });
+        navigate("/lobby");
+      }
     }
   };
 
   return (
     <div className="full-page">
-      <Header/>
+      <Header />
       <Card>
         <H1>Poké Poké Guess Weight!</H1>
         <p>A quick-fire multiplayer game</p>
@@ -62,9 +68,10 @@ export function LandingHost() {
           setAvatar={setAvatar}
         ></UsernameForm>
         <br></br>
-        <Button handleClick={handleClick} buttonText="Create Game"></Button>
+        {!isJoining && (<Button handleClick={handleClick} buttonText="Create Game"></Button>)}
+        {isJoining && <Button handleClick={handleClick} buttonText="Join Game"></Button>}
       </Card>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -25,11 +25,11 @@ test.describe("Host Lobby Tests", () => {
   });
 
   test("host should be redirected to lobby page", async ({ page }) => {
-    await expect(page).toHaveURL("/lobby/host");
+    await expect(page).toHaveURL("/lobby");
   });
 
   test("host name should be visible in lobby", async ({ page }) => {
-    await expect(page.getByText("Joe(Host)")).toBeVisible();
+    await expect(page.getByText("Joe (Host)")).toBeVisible();
   });
 
   test("lobby should display shareable game link", async ({ page }) => {
@@ -43,7 +43,7 @@ test.describe("Host Lobby Tests", () => {
   });
 
   test("player should be able to access lobby via shared link", async ({page,}) => {
-    await expect(page.getByText("Joe(Host)")).toBeVisible();
+    await expect(page.getByText("Joe (Host)")).toBeVisible();
 
     const gameLinkString = await page.getByTestId("game-link").textContent();
     await playerPage.goto(gameLinkString);
@@ -52,14 +52,14 @@ test.describe("Host Lobby Tests", () => {
   });
 
   test("player's name should appear in host lobby after joining", async ({page}) => {
-    await expect(page.getByText("Joe(Host)")).toBeVisible();
+    await expect(page.getByText("Joe (Host)")).toBeVisible();
 
     await utils.newPlayerJoinGame(page, playerPage, "John")
 
     await expect(page.getByText("John")).toBeVisible();
   });
   test("given a host and a player the host clicks start game", async ({page}) => {
-    await expect(page.getByText("Joe(Host)")).toBeVisible();
+    await expect(page.getByText("Joe (Host)")).toBeVisible();
 
     await utils.newPlayerJoinGame(page, playerPage, "John")
 

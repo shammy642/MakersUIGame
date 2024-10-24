@@ -9,27 +9,35 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import CopyToClipboardButton from "../components/CopyToClipboardButton";
 import { H1 } from "../components/H1";
+import { useEffect } from "react";
 
-export function LobbyHost({ gameRoom, players }) {
+export function Lobby({ gameState, isHost, redirect, setRedirect}) {
   const navigate = useNavigate();
 
   const handleClick = () => {
     socket.emit("start_game");
-    navigate("/in-game");
   };
+
+  useEffect(() => {
+    if (redirect) {
+      navigate(redirect)
+      setRedirect("")
+    }
+  }, [redirect, navigate, setRedirect]);
 
   return (
     <div className="full-page">
       <Header/>
       <Card>
         <H1>Poké Poké Guess Weight!</H1>
-        <ListPlayers players={players} isLobby={true}/>
+        <ListPlayers players={gameState.players} isLobby={true}/>
 
         <br />
-        <Button handleClick={handleClick} buttonText="Start Game" />
+        {isHost && <Button handleClick={handleClick} buttonText="Start Game" />}
+        {!isHost && <p>Waiting for host to start the game...</p>}
         <p>Share your game link:</p>
         <CopyToClipboardButton
-          content={`${window.location.origin}/join/${gameRoom}`}
+          content={`${window.location.origin}/join/${gameState.id}`}
         />
       </Card>
       <Footer/>

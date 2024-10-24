@@ -31,6 +31,6 @@ test.describe("Host landing page", () => {
     const buttonEl = page.getByRole("button");
     await buttonEl.click();
 
-    await expect(page).toHaveURL("/lobby/host");
+    await expect(page).toHaveURL("/lobby");
   });
 });
