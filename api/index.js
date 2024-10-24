@@ -16,16 +16,14 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User disconnected!");
     console.log(`Users Connected: ${io.engine.clientsCount}`);
-    console.log(io.sockets.adapter.rooms)
+    console.log("disconnect, rooms: ", io.sockets.adapter.rooms)
     console.log(games)
+    
   });
 
   socket.on("disconnecting", () => {
     socket.rooms.forEach((gameId) => {
-      if (games[gameId]) {
-        games[gameId].removePlayer(socket.id);
-        io.to(gameId).emit("receive_game", games[gameId]);
-      }
+      handlePlayerLeaving(gameId, socket)
     });
   });
 
@@ -36,8 +34,11 @@ io.on("connection", (socket) => {
     socket.emit("receive_link", gameId);
     socket.join(gameId);
     games[gameId] = new Game(gameId);
-    games[gameId].addPlayer(new Player(socket.id, `${name} (Host)`, avatar));
+    const player = new Player(socket.id, name, avatar)
+    player.setIsHost()
+    games[gameId].addPlayer(player);
     socket.emit('is_host')
+    console.log(games[gameId].players[0].id)
     io.to(gameId).emit("receive_game", games[gameId]);
   });
 
@@ -87,20 +88,35 @@ io.on("connection", (socket) => {
   });
 
   socket.on("quit_game", (gameId) => {
-    if (games[gameId]) {
-      games[gameId].removePlayer(socket.id)
-      socket.leave(gameId)
-      
-      if (games[gameId].players.length === 0) {
-        delete games[gameId]
-        socket.rooms.delete(gameId)
-      }
-      else {
-        io.to(gameId).emit("receive_game", games[gameId]);
-      }
-    }
+    handlePlayerLeaving(gameId, socket)
   })
 
+  function handlePlayerLeaving(gameId, socket) {
+    if (games[gameId]) {
+      games[gameId].removePlayer(socket.id);
+      socket.leave(gameId);
+  
+      if (games[gameId].players.length === 0) {
+        delete games[gameId];
+        socket.rooms.delete(gameId);
+      } else {
+        handleHostLeaving(gameId); 
+        io.to(gameId).emit("receive_game", games[gameId]); 
+      }
+    }
+  }
+
+  function handleHostLeaving(gameId) {
+    if (games[gameId].players.length === 0) {
+      delete games[gameId]
+      socket.rooms.delete(gameId)
+    }
+    else if (games[gameId].players.every(player => player.isHost === false)) {
+      console.log("No hosts. Reassigning host...")
+      games[gameId].players[0].setIsHost()
+      io.to(games[gameId].players[0].id).emit('is_host')
+    } 
+  }
 
   async function startGameTimer(gameId) {
     await games[gameId].resetGame();
