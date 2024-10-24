@@ -24,4 +24,19 @@ describe('player', () => {
     player.wonRound()
     expect(player.totalScore).toEqual(1)
   })
+  test('voteNextRound', () => {
+    const player = new Player('17326746', 'Bob')
+    player.voteNextRound()
+    expect(player.nextRound).toEqual(true)
+  })
+  test('setAvatar', () => {
+    const player = new Player('17326746', 'Bob')
+    player.setAvatar("avatar")
+    expect(player.avatar).toEqual("avatar")
+  })
+  test('setIsHost', () => {
+    const player = new Player('17326746', 'Bob')
+    player.setIsHost()
+    expect(player.host).toEqual(true)
+  })
 })

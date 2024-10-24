@@ -6,6 +6,7 @@ class Player {
     this.totalScore = 0
     this.nextRound  = false
     this.avatar = avatar;
+    this.host = false
   } 
 
   guess(num) {
