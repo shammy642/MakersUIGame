@@ -17,18 +17,19 @@ io.on("connection", (socket) => {
     console.log("User disconnected!");
     console.log(`Users Connected: ${io.engine.clientsCount}`);
     console.log("disconnect, rooms: ", io.sockets.adapter.rooms)
-    console.log(games)
+    // console.log(games)
     
   });
 
   socket.on("disconnecting", () => {
-    socket.rooms.forEach((gameId) => {
-      handlePlayerLeaving(gameId, socket)
+    socket.rooms.forEach(async (gameId) => {
+      await handlePlayerLeaving(gameId, socket)
     });
   });
 
   // name of the host player passed as a variable below
   socket.on("create_room", (data) => {
+    console.log('create_room')
     const { name, avatar } = data;
     const gameId = crypto.randomBytes(3).toString("hex");
     socket.emit("receive_link", gameId);
@@ -38,11 +39,12 @@ io.on("connection", (socket) => {
     player.setIsHost()
     games[gameId].addPlayer(player);
     socket.emit('is_host')
-    console.log(games[gameId].players[0].id)
+
     io.to(gameId).emit("receive_game", games[gameId]);
   });
 
   socket.on("join_room", (gameId, data) => {
+    console.log("join room")
     const { name, avatar } = data;
     socket.emit("receive_link", gameId);
     console.log("Room ID:", gameId);
@@ -52,6 +54,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("start_game", () => {
+    console.log("start game")
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         startGameTimer(gameId);
@@ -60,6 +63,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_number", (number) => {
+    console.log("send number")
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         games[gameId].players.forEach((player) => {
@@ -73,6 +77,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("next_round", () => {
+    console.log("next round")
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         games[gameId].players.forEach((player) => {
@@ -88,37 +93,41 @@ io.on("connection", (socket) => {
   });
 
   socket.on("quit_game", (gameId) => {
+    console.log("quit game")
     handlePlayerLeaving(gameId, socket)
   })
 
-  function handlePlayerLeaving(gameId, socket) {
+  async function handlePlayerLeaving(gameId, socket) {
+    console.log("handle Player Leaving")
     if (games[gameId]) {
-      games[gameId].removePlayer(socket.id);
+      await games[gameId].removePlayer(socket.id);
       socket.leave(gameId);
   
       if (games[gameId].players.length === 0) {
-        delete games[gameId];
+        // delete games[gameId];
         socket.rooms.delete(gameId);
       } else {
-        handleHostLeaving(gameId); 
+        await handleHostLeaving(gameId); 
         io.to(gameId).emit("receive_game", games[gameId]); 
       }
     }
   }
 
-  function handleHostLeaving(gameId) {
+  async function handleHostLeaving(gameId) {
+    console.log("handle host leaving")
     if (games[gameId].players.length === 0) {
-      delete games[gameId]
+      // delete games[gameId]
       socket.rooms.delete(gameId)
     }
-    else if (games[gameId].players.every(player => player.isHost === false)) {
+   if (games[gameId].players.every(player => player.isHost === false)) {
       console.log("No hosts. Reassigning host...")
-      games[gameId].players[0].setIsHost()
+      await games[gameId].players[0].setIsHost()
       io.to(games[gameId].players[0].id).emit('is_host')
     } 
   }
 
   async function startGameTimer(gameId) {
+    console.log("starting game timer")
     await games[gameId].resetGame();
     io.to(gameId).emit("receive_game", games[gameId]);
     io.to(gameId).emit("redirect", "/in-game");
@@ -142,6 +151,7 @@ io.on("connection", (socket) => {
   }
 
   function startNextRoundTimer(gameId) {
+    console.log("starting next round timer")
     if (games[gameId]) {
       let timeRemaining = 60;
       io.to(gameId).emit("start_timer", timeRemaining);
