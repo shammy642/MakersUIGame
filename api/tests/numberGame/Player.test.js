@@ -31,12 +31,14 @@ describe('player', () => {
     const player = new Player('17326746', 'Bob') 
     player.setIsHost()
     expect(player.isHost).toEqual(true)
+  })
 
   test('voteNextRound', () => {
     const player = new Player('17326746', 'Bob')
     player.voteNextRound()
     expect(player.nextRound).toEqual(true)
   })
+  
   test('setAvatar', () => {
     const player = new Player('17326746', 'Bob')
     player.setAvatar("avatar")
