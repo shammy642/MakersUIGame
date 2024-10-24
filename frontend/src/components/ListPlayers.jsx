@@ -10,7 +10,7 @@ export function ListPlayers({ players, isLobby = false}) {
     </CardText>
       
 
-      <div className="flex flex-wrap gap-3 justify-center overflow-y-auto h-36">
+      <div className="flex flex-wrap gap-3 justify-center overflow-y-auto max-h-36">
         {players &&
           players.map((player, index) => (
             <div key={index} data-testid="player-box" className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center justify-center"

@@ -11,14 +11,16 @@ import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { H1 } from "../components/H1";
+const avatars = import.meta.glob("/src/assets/*.png", { eager: true });
 
 // page function
 export function Landing() {
+  const avatarUrls = Object.keys(avatars).map((key) => avatars[key].default || avatars[key]);
   const [isJoining, setIsJoining] = useState(false);
   const params = useParams();
   //states
   const [input, setInput] = useState("");
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(avatarUrls[0]);
   const navigate = useNavigate();
   const [error, setError] = useState("");
   console.log("Landing params", params);
