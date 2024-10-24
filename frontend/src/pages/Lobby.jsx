@@ -7,12 +7,13 @@ import { ListPlayers } from "../components/ListPlayers";
 import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import CopyToClipboardButton from "../components/CopyToClipboardButton";
+import { CopyToClipboardButton } from "../components/CopyToClipboardButton";
 import { H1 } from "../components/H1";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function Lobby({ gameState, isHost, redirect, setRedirect}) {
   const navigate = useNavigate();
+  const [isCopied, setIsCopied] = useState(false)
 
   const handleClick = () => {
     socket.emit("start_game");
@@ -38,6 +39,8 @@ export function Lobby({ gameState, isHost, redirect, setRedirect}) {
         <p>Share your game link:</p>
         <CopyToClipboardButton
           content={`${window.location.origin}/join/${gameState.id}`}
+          isCopied={isCopied}
+          setIsCopied={setIsCopied}
         />
       </Card>
       <Footer/>
