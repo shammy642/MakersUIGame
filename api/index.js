@@ -24,7 +24,6 @@ io.on("connection", (socket) => {
     socket.rooms.forEach((gameId) => {
       if (games[gameId]) {
         games[gameId].removePlayer(socket.id);
-        io.to(gameId).emit("receive_players", games[gameId].players);
         io.to(gameId).emit("receive_game", games[gameId]);
       }
     });

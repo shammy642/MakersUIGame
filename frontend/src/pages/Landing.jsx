@@ -68,9 +68,7 @@ export function Landing() {
           setAvatar={setAvatar}
         ></UsernameForm>
         <br></br>
-        {!isJoining && (
-          <Button handleClick={handleClick} buttonText="Create Game"></Button>
-        )}
+        {!isJoining && (<Button handleClick={handleClick} buttonText="Create Game"></Button>)}
         {isJoining && <Button handleClick={handleClick} buttonText="Join Game"></Button>}
       </Card>
       <Footer />

@@ -3,13 +3,11 @@
 
 //required imports
 import { render, screen } from "@testing-library/react";
-import { LobbyHost } from "../../src/pages/LobbyHost";
 import { beforeAll, describe, expect, test, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { socket } from "../../src/socket";
 import { useNavigate } from "react-router-dom";
 import { Lobby } from "../../src/pages/Lobby";
-import { before } from "node:test";
 vi.mock("../../src/socket.js", () => {
   return { socket: { emit: vi.fn() } };
 });
