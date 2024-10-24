@@ -1,6 +1,7 @@
 class Player {
   constructor(id, name, avatar) {
     this.id = id;
+    this.isHost = false
     this.name = name;
     this.currentGuess = null,
     this.totalScore = 0
@@ -27,7 +28,9 @@ class Player {
   }
 
   setIsHost() {
-    this.host = true
+    this.isHost = true
+    this.name += " (Host)"
+    console.log("name:", this.name, "isHost: ", this.isHost )
   }
 }
 module.exports = Player
