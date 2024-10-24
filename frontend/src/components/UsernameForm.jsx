@@ -16,11 +16,13 @@ export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
         ></label>
         <div className="flex">
           <span
+            data-testid="select-avatar"
             className="relative inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 cursor-pointer"
             onClick={() => setAvatarOpen(!avatarOpen)} // Toggle avatar dropdown on click
           >
             {avatar ? (
               <img
+                data-testid="avatar-img"
                 className="w-8 h-8 rounded-full"
                 src={avatar}
                 alt="Selected Avatar"
@@ -73,7 +75,7 @@ export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
 
         </div>
         {avatarOpen && (
-          <div className="absolute z-10">
+          <div className="absolute z-10" data-testid="avatar-dropdown">
             <AvatarDropdown
               setAvatar={setAvatar}
               setAvatarOpen={setAvatarOpen}
