@@ -66,6 +66,7 @@ export function Landing() {
           setInput={setInput}
           avatar={avatar}
           setAvatar={setAvatar}
+          handleClick={handleClick}
         ></UsernameForm>
         <br></br>
         {!isJoining && (<Button handleClick={handleClick} buttonText="Create Game"></Button>)}

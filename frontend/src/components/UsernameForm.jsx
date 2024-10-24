@@ -2,8 +2,13 @@
 import { useState } from "react";
 import { AvatarDropdown } from "./AvatarDropdown";
 
-export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
+export function UsernameForm({ input, setInput, avatar, setAvatar, error, handleClick }) {
   const [avatarOpen, setAvatarOpen] = useState(false);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleClick();
+    }
+  }
 
   //const [selectedAvatar, setSelectedAvatar] = useState(null);
 
@@ -78,6 +83,7 @@ export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
             required
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
             type="text"
             id="website-admin"
             className={`rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5 
