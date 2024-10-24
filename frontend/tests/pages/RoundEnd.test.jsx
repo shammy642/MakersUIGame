@@ -85,6 +85,7 @@ describe("Round end tests", () => {
     const targetNumberEl = screen.getAllByText("Alexia(Host)");
     expect(targetNumberEl).toBeDefined();
   });
+  
   test("there is a next round button", () => {
     render(
       <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
@@ -95,6 +96,7 @@ describe("Round end tests", () => {
     });
     expect(nextRoundButtonEl).toBeDefined();
   });
+
   test("when the next round button is clicked it calls the socket", async () => {
     render(
       <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
@@ -106,6 +108,7 @@ describe("Round end tests", () => {
     await user.click(nextRoundButtonEl);
     expect(socket.emit).toHaveBeenCalledWith("next_round");
   });
+  
   test("there is a quit game button button", () => {
     render(
       <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
@@ -114,6 +117,7 @@ describe("Round end tests", () => {
     const quitGameButtonEl = screen.getByRole("button", { name: "Quit Game" });
     expect(quitGameButtonEl).toBeDefined();
   });
+  
   test("when the next quit button it calls socket and naviagte", async () => {
     render(
       <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
@@ -127,6 +131,7 @@ describe("Round end tests", () => {
     expect(socket.emit).toHaveBeenCalledWith("quit_game", gameState.id);
     expect(navigate).toHaveBeenCalledWith("/")
   });
+  
   test("when the redirct state changes the user is redirect", () => {
     render(
       <RoundEnd gameState={gameState} pokemon={mockPokemon} redirect={"/test-route"} setRedirect={setRedirect} />
@@ -135,4 +140,30 @@ describe("Round end tests", () => {
     expect(navigate).toHaveBeenCalledWith("/test-route")
     expect(setRedirect).toHaveBeenCalledWith("")
   })
-});
+
+  test("when there is there is no winner, display prompt", () => {
+    const gameWithNoWinners = {
+      players: [
+        {
+          currentGuess: null,
+          id: "WHbOG6ET1uHeg-MqAAA8",
+          name: "Alexia(Host)",
+          totalScore: 0,
+        },
+        {
+          currentGuess: null,
+          id: "werjighig52-54252tgv",
+          name: "Lucy",
+          totalScore: 2,
+        },
+      ],
+      targetNumber: 42,
+      currentRoundWinner: null
+    }
+    render(<RoundEnd gameState={gameWithNoWinners} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />)
+
+    expect(screen.getByText("No one guessed in time!"))
+    expect(screen.getByText("Poor Sam..."))
+  });
+})
+  

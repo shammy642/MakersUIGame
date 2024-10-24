@@ -28,7 +28,7 @@ const carouselTheme = {
     icon: "h-5 w-5 text-gray-600 sm:h-3 sm:w-3",
   },
   scrollContainer: {
-    base: "flex snap-mandatory overflow-y-hidden overflow-x-scroll scroll-smooth rounded-lg",
+    base: "flex snap-mandatory overflow-y-hidden overflow-x-hidden scroll-smooth rounded-lg",
     snap: "snap-x",
   },
 };
@@ -41,14 +41,14 @@ export function TableCarousel({ players, weight }) {
   const playersByGuess = players && [...players].sort((a, b) => Math.abs(weight - a.currentGuess) - Math.abs(weight - b.currentGuess))
   return (
     <Carousel theme={carouselTheme} leftControl=" " rightControl=" ">
-      <div className="w-full">
+      <div className="w-full pb-4">
         Last Game
-        {players && <Table players={playersByGuess} sortBy="currentGuess"/>}
+        {players && <Table players={playersByGuess} sortBy="currentGuess" showMedals={false}/>}
 
       </div>
       <div className="w-full overflow-auto">
         Leaderboard
-        {players && <Table players={playersByScore} sortBy="totalScore"/>}
+        {players && <Table players={playersByScore} sortBy="totalScore" showMedals={true}/>}
       </div>
     </Carousel>
   );
