@@ -4,6 +4,7 @@ import { socket } from "../socket";
 const avatars = import.meta.glob("/src/assets/*.png", { eager: true });
 
 export function AvatarDropdown({ setAvatar, isOpen, setAvatarOpen}) {
+    //console.log("Avatar dropdown - avatars", avatars)
     const [avatarOptions, setAvatarOptions] = useState([]);
 
     useEffect(() => {
@@ -21,6 +22,7 @@ export function AvatarDropdown({ setAvatar, isOpen, setAvatarOpen}) {
         <>
         {isOpen && (
             <div
+    
             id="dropdownUsers"
             className="z-10 bg-white rounded-lg shadow w-60 dark:bg-gray-700"
             >
