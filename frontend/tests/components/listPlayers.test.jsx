@@ -35,4 +35,36 @@ describe("List players component", () => {
     const loadingSpinnerEls = screen.getAllByTestId("loading-spinner-svg");
     expect(loadingSpinnerEls.length).toEqual(1);
   });
-});
+  test("when a player has an avatar it is visible", () => {
+    const playersWithAvatar = [
+      {
+        currentGuess: 1,
+        id: "WHbOG6ET1uHeg-MqAAA8",
+        name: "Alexia (Host)",
+        totalScore: 0,
+        avatar: "/avatar.png"
+      },
+    ]
+    render(<ListPlayers players={playersWithAvatar} />);
+    const imgEl = screen.getByAltText("Alexia (Host)'s avatar")
+    expect(imgEl).toHaveProperty('src', 'http://localhost:3000/avatar.png')
+  })
+  
+  test("when a player who has not guessed has an avatar it is visible", () => {
+  // mock player who has not guessed
+  const playersWithAvatar = [
+    {
+      currentGuess: null,
+      id: "WHbOG6ET1uHeg-MqAAA8",
+      name: "Alexia (Host)",
+      totalScore: 0,
+      avatar: "/avatar.png"
+    },
+  ]
+  
+  render(<ListPlayers players={playersWithAvatar} />);
+    const imgEl = screen.getByAltText("Alexia (Host)'s avatar")
+    expect(imgEl).toHaveProperty('src', 'http://localhost:3000/avatar.png')
+  
+  });
+})

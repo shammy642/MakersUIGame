@@ -1,6 +1,6 @@
 // A form that allows a user to input tet and numbers
 import { useState } from "react";
-import { AvatarDropdown } from "./AvatarSelector";
+import { AvatarDropdown } from "./AvatarDropdown"
 
 export function UsernameForm({ input, setInput, avatar, setAvatar, error }) {
   const [avatarOpen, setAvatarOpen] = useState(false);
