@@ -24,8 +24,8 @@ const carouselTheme = {
     },
   },
   control: {
-    base: "inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-400/50 hover:bg-gray-400 group-focus:outline-none group-focus:ring-2 group-focus:ring-gray-400 sm:h-4 sm:w-4",
-    icon: "h-5 w-5 text-gray-600 sm:h-3 sm:w-3",
+    base: "inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-400/50 hover:bg-gray-400 group-focus:outline-none group-focus:ring-2 group-focus:ring-gray-400 sm:h-4 sm:w-4",
+    icon: "h-5 w-5 hover:text-gray-600 sm:h-3 sm:w-3",
   },
   scrollContainer: {
     base: "flex snap-mandatory overflow-y-hidden overflow-x-hidden scroll-smooth rounded-lg",
@@ -40,7 +40,7 @@ export function TableCarousel({ players, weight }) {
   const playersByScore = players && [...players].sort((a, b) => b.totalScore - a.totalScore)
   const playersByGuess = players && [...players].sort((a, b) => Math.abs(weight - a.currentGuess) - Math.abs(weight - b.currentGuess))
   return (
-    <Carousel theme={carouselTheme} leftControl=" " rightControl=" ">
+    <Carousel theme={carouselTheme} pauseOnHover>
       <div className="w-full pb-4">
         Last Game
         {players && <Table players={playersByGuess} sortBy="currentGuess" showMedals={false}/>}
