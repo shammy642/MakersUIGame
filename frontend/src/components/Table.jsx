@@ -14,8 +14,8 @@ export function Table({ players, sortBy, showMedals }) {
 
   return (
     <div className="relative overflow-y-auto shadow-md sm:rounded-lg max-h-36 my-6">
-      <table className="w-full text-sm text-center rtl:text-right text-white dark:text-white">
-        <thead className="sticky top-0 text-md text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
+      <table className="w-full text-sm text-center rtl:text-right text-gray-900 dark:text-white">
+        <thead className="sticky top-0 text-md text-gray-900 uppercase bg-yellow-300 dark:bg-gray-700 dark:text-white">
           <tr>
             {showMedals && (
               <th scope="col" className="px-3 py-2">
