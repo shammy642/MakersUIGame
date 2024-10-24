@@ -12,7 +12,7 @@ import { Table } from "../components/Table";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { H1 } from "../components/H1";
-
+import TableCarousel from "../components/TableCarousel";
 export function RoundEnd({
   gameState,
   redirect,
@@ -49,17 +49,8 @@ export function RoundEnd({
         <div className="m-3">
           <h2 className="text-2xl">Scores</h2>
           {gameState && gameState.players && (
-            <Table players={gameState.players} />
+            <TableCarousel players={gameState.players} weight={pokemon.weight} />
           )}
-          {/* <ol>
-            {gameState &&
-              gameState.players &&
-              gameState.players.map((player, index) => (
-                <p key={`${player.name}-${index}`}>
-                  {player.name}: {player.totalScore}
-                </p>
-              ))}
-          </ol> */}
         </div>
 
         <div className="m-3">

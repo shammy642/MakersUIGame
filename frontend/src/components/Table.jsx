@@ -1,6 +1,6 @@
 import { Gold, Silver, Bronze } from "../assets/Medals";
 
-export function Table({ players }) {
+export function Table({ players, sortBy }) {
 
   const position = (number) => {
     if (number === 0) {
@@ -15,9 +15,8 @@ export function Table({ players }) {
 
   return (
     <div className="relative overflow-y-auto shadow-md sm:rounded-lg max-h-36 my-6">
-      <table className="w-full text-sm text-center rtl:text-right text-gray-700 dark:bg-gray-700">
-        <thead className="sticky top-0 text-md uppercase bg-gray-50 font-normal text-gray-700 dark:bg-gray-200">
-
+      <table className="w-full text-sm text-center rtl:text-right text-white dark:text-white">
+        <thead className="sticky top-0 text-md text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-white">
           <tr>
             <th scope="col" className="px-3 py-2">
               Pos.
@@ -26,7 +25,7 @@ export function Table({ players }) {
               Name
             </th>
             <th scope="col" className="px-3 py-2">
-              Score
+            {sortBy === "totalScore" ? "Score" : "Guess"}
             </th>
           </tr>
         </thead>
@@ -34,7 +33,7 @@ export function Table({ players }) {
           {players.map((player, index) => (
             <tr
               key={index}
-              className=" border-b dark:border-gray-700text-gray-700 dark:bg-gray-200"
+              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               <td className="px-3 py-2">{position(index)}</td>
               <td className="px-3 py-2">
@@ -50,7 +49,8 @@ export function Table({ players }) {
                   {player.name}
                 </div>
               </td>
-              <td className="px-3 py-2">{player.totalScore}</td>
+              
+              <td className="px-3 py-2">{sortBy === "totalScore" ? player.totalScore : player.currentGuess}</td>
             </tr>
           ))}
         </tbody>
