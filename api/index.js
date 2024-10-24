@@ -18,15 +18,12 @@ io.on("connection", (socket) => {
     console.log(`Users Connected: ${io.engine.clientsCount}`);
     console.log("disconnect, rooms: ", io.sockets.adapter.rooms)
     // console.log(games)
-
+    
   });
 
   socket.on("disconnecting", () => {
-    socket.rooms.forEach((gameId) => {
-      if (games[gameId]) {
-        games[gameId].removePlayer(socket.id);
-        io.to(gameId).emit("receive_game", games[gameId]);
-      }
+    socket.rooms.forEach(async (gameId) => {
+      await handlePlayerLeaving(gameId, socket)
     });
   });
 
@@ -96,18 +93,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("quit_game", (gameId) => {
-    if (games[gameId]) {
-      games[gameId].removePlayer(socket.id)
-      socket.leave(gameId)
-
-      if (games[gameId].players.length === 0) {
-        delete games[gameId]
-        socket.rooms.delete(gameId)
-      }
-      else {
-        io.to(gameId).emit("receive_game", games[gameId]);
-      }
-    }
+    console.log("quit game")
+    handlePlayerLeaving(gameId, socket)
   })
 
   async function handlePlayerLeaving(gameId, socket) {
@@ -115,13 +102,13 @@ io.on("connection", (socket) => {
     if (games[gameId]) {
       await games[gameId].removePlayer(socket.id);
       socket.leave(gameId);
-
+  
       if (games[gameId].players.length === 0) {
-        // delete games[gameId];
+        delete games[gameId];
         socket.rooms.delete(gameId);
       } else {
-        await handleHostLeaving(gameId);
-        io.to(gameId).emit("receive_game", games[gameId]);
+        await handleHostLeaving(gameId); 
+        io.to(gameId).emit("receive_game", games[gameId]); 
       }
     }
   }
@@ -129,63 +116,66 @@ io.on("connection", (socket) => {
   async function handleHostLeaving(gameId) {
     console.log("handle host leaving")
     if (games[gameId].players.length === 0) {
-      // delete games[gameId]
+      delete games[gameId]
       socket.rooms.delete(gameId)
     }
-    if (games[gameId].players.every(player => player.isHost === false)) {
+   if (games[gameId].players.every(player => player.isHost === false)) {
       console.log("No hosts. Reassigning host...")
       await games[gameId].players[0].setIsHost()
       io.to(games[gameId].players[0].id).emit('is_host')
-    }
+    } 
   }
 
   async function startGameTimer(gameId) {
-    if (io.sockets.adapter.rooms) {
-      console.log("starting game timer")
-      await games[gameId].resetGame();
-      io.to(gameId).emit("receive_game", games[gameId]);
-      io.to(gameId).emit("redirect", "/in-game");
-      io.to(gameId).emit("pokemon", games[gameId].pokemonStats);
+    console.log("starting game timer")
+    await games[gameId].resetGame();
+    io.to(gameId).emit("receive_game", games[gameId]);
+    io.to(gameId).emit("redirect", "/in-game");
+    io.to(gameId).emit("pokemon", games[gameId].pokemonStats);
 
-      let timeRemaining = process.env.TIMER ? parseInt(process.env.TIMER) : 10;
-      io.to(gameId).emit("start_timer", timeRemaining);
-      let timer = setInterval(() => {
-        timeRemaining -= 1;
-        if (
-          timeRemaining <= 0 ||
-          games[gameId].players.every((player) => player.currentGuess !== null)
-        ) {
-          clearInterval(timer);
+    let timeRemaining = process.env.TIMER ? parseInt(process.env.TIMER) : 10;
+    io.to(gameId).emit("start_timer", timeRemaining);
+    let timer = setInterval(() => {
+      timeRemaining -= 1;
+      // needed a check to see if game still exists here, and clear the timer if not
+      if (!games[gameId]) { 
+        clearInterval(timer);
+        return;
+      }
+      if (
+        timeRemaining <= 0 ||
+        games[gameId].players.every((player) => player.currentGuess !== null)
+      ) {
+        clearInterval(timer);
+        // needed a check to see if game still exists here
+        if (games[gameId]) { 
           games[gameId].checkGuesses();
           io.to(gameId).emit("redirect", "/round-end");
           io.to(gameId).emit("receive_game", games[gameId]);
           startNextRoundTimer(gameId);
         }
-      }, 1000);
-    }
-
+      }
+    }, 1000);
   }
 
   function startNextRoundTimer(gameId) {
-    if (io.sockets.adapter.rooms) {
-      console.log("starting next round timer")
-      if (games[gameId]) {
-        let timeRemaining = 20;
-        io.to(gameId).emit("start_timer", timeRemaining);
-        let timer = setInterval(() => {
-          timeRemaining -= 1;
-          if (games[gameId]) {
-            if (
-              timeRemaining <= 0 ||
-              games[gameId].players.every((player) => player.nextRound === true)
-            ) {
-              clearInterval(timer);
-              startGameTimer(gameId);
-            }
+    console.log("starting next round timer")
+    if (games[gameId]) {
+      let timeRemaining = 60;
+      io.to(gameId).emit("start_timer", timeRemaining);
+      let timer = setInterval(() => {
+        timeRemaining -= 1;
+        if (games[gameId]) {
+          if (
+            timeRemaining <= 0 ||
+            games[gameId].players.every((player) => player.nextRound === true)
+          ) {
+            clearInterval(timer);
+            startGameTimer(gameId);
           }
+        }
 
-        }, 1000);
-      }
+      }, 1000);
     }
   }
 });
