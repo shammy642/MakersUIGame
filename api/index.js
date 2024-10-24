@@ -24,6 +24,7 @@ io.on("connection", (socket) => {
       if (games[gameId]) {
         games[gameId].removePlayer(socket.id);
         io.to(gameId).emit("receive_players", games[gameId].players);
+        io.to(gameId).emit("receive_game", games[gameId]);
       }
     });
   });
@@ -36,7 +37,9 @@ io.on("connection", (socket) => {
     socket.join(gameId);
     games[gameId] = new Game(gameId);
     games[gameId].addPlayer(new Player(socket.id, `${name}(Host)`, avatar));
-    io.to(gameId).emit("receive_players", games[gameId].players);
+    socket.emit('is_host')
+    io.to(gameId).emit("receive_game", games[gameId]);
+    // io.to(gameId).emit("receive_players", games[gameId].players);
   });
 
   socket.on("join_room", (gameId, data) => {
@@ -45,7 +48,8 @@ io.on("connection", (socket) => {
     console.log("Room ID:", gameId);
     socket.join(gameId);
     games[gameId].addPlayer(new Player(socket.id, name, avatar));
-    io.to(gameId).emit("receive_players", games[gameId].players);
+    io.to(gameId).emit("receive_game", games[gameId]);
+    // io.to(gameId).emit("receive_players", games[gameId].players);
   });
 
   socket.on("start_game", () => {
@@ -62,7 +66,8 @@ io.on("connection", (socket) => {
         games[gameId].players.forEach((player) => {
           if (player.id === socket.id) {
             player.guess(number);
-            io.to(gameId).emit("receive_players", games[gameId].players);
+            io.to(gameId).emit("receive_game", games[gameId]);
+            // io.to(gameId).emit("receive_players", games[gameId].players);
           }
         });
       }
@@ -94,7 +99,8 @@ io.on("connection", (socket) => {
         socket.rooms.delete(gameId)
       }
       else {
-        io.to(gameId).emit("receive_players", games[gameId].players);
+        io.to(gameId).emit("receive_game", games[gameId]);
+        // io.to(gameId).emit("receive_players", games[gameId].players);
       }
     }
   })
@@ -102,7 +108,8 @@ io.on("connection", (socket) => {
 
   async function startGameTimer(gameId) {
     await games[gameId].resetGame();
-    io.to(gameId).emit("receive_players", games[gameId].players);
+    io.to(gameId).emit("receive_game", games[gameId]);
+    // io.to(gameId).emit("receive_players", games[gameId].players);
     io.to(gameId).emit("redirect", "/in-game");
     io.to(gameId).emit("pokemon", games[gameId].pokemonStats);
 
@@ -117,7 +124,7 @@ io.on("connection", (socket) => {
         clearInterval(timer);
         games[gameId].checkGuesses();
         io.to(gameId).emit("redirect", "/round-end");
-        io.to(gameId).emit("receive_players", games[gameId].players);
+        // io.to(gameId).emit("receive_players", games[gameId].players);
         io.to(gameId).emit("receive_game", games[gameId]);
         startNextRoundTimer(gameId);
       }

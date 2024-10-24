@@ -16,7 +16,7 @@ import { H1 } from "../components/H1";
 
 // in game page function
 export function InGame({
-  players,
+  gameState,
   redirect,
   pokemon,
   setRedirect,
@@ -34,7 +34,6 @@ export function InGame({
     //setButtonText("Good luck!")
     setShowCheck(true);
   };
-  console.log(players);
 
   useEffect(() => {
     if (redirect) {
@@ -49,7 +48,7 @@ export function InGame({
       <Card>
         <H1>Poké Poké Guess Weight!</H1>
         <div className="players_list m-3">
-          <ListPlayers players={players} />
+          <ListPlayers players={gameState.players} />
         </div>
         <div className="flex justify-center">
           <img src={pokemon.pictureURL} />

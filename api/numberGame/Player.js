@@ -25,5 +25,9 @@ class Player {
   setAvatar(avatar) {
     this.avatar = avatar;
   }
+
+  setIsHost() {
+    this.host = true
+  }
 }
 module.exports = Player
