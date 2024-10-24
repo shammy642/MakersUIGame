@@ -30,7 +30,7 @@ describe("LobbyHost tests", () => {
         {
           currentGuess: null,
           id: "WHbOG6ET1uHeg-MqAAA8",
-          name: "Alexia(Host)",
+          name: "Alexia (Host)",
           totalScore: 0,
         },
       ],
@@ -97,7 +97,7 @@ describe("LobbyPlayer tests", () => {
         {
           currentGuess: null,
           id: "WHbOG6ET1uHeg-MqAAA8",
-          name: "Alexia(Host)",
+          name: "Alexia (Host)",
           totalScore: 0,
         },
         {
@@ -132,7 +132,7 @@ describe("LobbyPlayer tests", () => {
         setRedirect={setRedirect}
       />
     );
-    expect(screen.getByText("Alexia(Host)"));
+    expect(screen.getByText("Alexia (Host)"));
     expect(screen.getByText("Lucy"));
   });
   test("when the redirect state is changed the user is redirect", () => {

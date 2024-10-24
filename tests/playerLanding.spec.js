@@ -39,7 +39,7 @@ test.describe("Player Landing Page", () => {
     await playerPage.goto(gameLink)
     await expect(playerPage).toHaveURL(gameLink)
 
-    const buttonEl = await playerPage.getByRole("button", { name: "Join Room"})
+    const buttonEl = await playerPage.getByRole("button", { name: "Join Game"})
 
     await expect(buttonEl).toBeVisible()
   })
@@ -51,8 +51,8 @@ test.describe("Player Landing Page", () => {
     const inputEl = playerPage.getByPlaceholder("Username");
     await inputEl.fill("Joe");
 
-    await playerPage.getByRole("button", { name: "Join Room"}).click()
+    await playerPage.getByRole("button", { name: "Join Game"}).click()
 
-    await expect(playerPage).toHaveURL('/lobby/player')
+    await expect(playerPage).toHaveURL('/lobby')
   })
 });
