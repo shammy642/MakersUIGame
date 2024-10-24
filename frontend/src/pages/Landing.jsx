@@ -58,7 +58,7 @@ export function Landing() {
             <li>Unlimited players</li>
           </ul>
         </div>
-        <img src="https://i.gifer.com/5SvD.gif" className="max-w-20" />
+        <img src="https://i.gifer.com/5SvD.gif" className="ml-4 max-w-20" />
 
         <UsernameForm
           input={input}
