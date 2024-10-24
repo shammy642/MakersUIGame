@@ -66,7 +66,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
-                Lucy
+                Lucia
               </a>
               , and{" "}
               <a
