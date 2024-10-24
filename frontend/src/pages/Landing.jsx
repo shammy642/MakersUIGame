@@ -4,7 +4,7 @@
 import { socket } from "../socket";
 import { Button } from "../components/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UsernameForm } from "../components/UsernameForm";
 import {} from "../components/CardText";
 import { Card } from "../components/Card";
@@ -21,10 +21,12 @@ export function Landing() {
   const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  
-  if (params.roomId) {
-    setIsJoining(true)
-  }
+  console.log("Landing params", params);
+  useEffect(() => {
+    if (params.roomId) {
+      setIsJoining(true);
+    }
+  }, [params]);
 
   const handleClick = () => {
     // Validate if the input is not empty
@@ -66,7 +68,9 @@ export function Landing() {
           setAvatar={setAvatar}
         ></UsernameForm>
         <br></br>
-        {!isJoining && <Button handleClick={handleClick} buttonText="Create Game"></Button>}
+        {!isJoining && (
+          <Button handleClick={handleClick} buttonText="Create Game"></Button>
+        )}
         {isJoining && <Button handleClick={handleClick} buttonText="Join Game"></Button>}
       </Card>
       <Footer />

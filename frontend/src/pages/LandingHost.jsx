@@ -35,7 +35,7 @@ export function LandingHost() {
       setError("");
       // what should happen on click if there is no error
       socket.emit("create_room", { name: input, avatar });
-      navigate("/lobby");
+      navigate("/lobby/host");
     }
   };
 

@@ -32,7 +32,7 @@ export function LandingPlayer() {
       // what should happen on click if there is no error
       if (params.roomId) {
         socket.emit("join_room", params.roomId, { name: input, avatar })
-        navigate(`/lobby`)
+        navigate(`/lobby/player`)
       }
       else {
         navigate('/')

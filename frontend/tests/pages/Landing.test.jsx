@@ -8,6 +8,7 @@ import userEvent from "@testing-library/user-event";
 import { socket } from "../../src/socket";
 import { useNavigate, useParams } from "react-router-dom";
 import { act } from "react";
+import { beforeEach } from "node:test";
 
 vi.mock("../../src/socket.js", () => {
   return { socket: { emit: vi.fn() } };
@@ -23,23 +24,28 @@ vi.mock("react-router-dom", () => {
 
 describe("LandingHost tests", () => {
   test("name of the game", () => {
+    // @ts-ignore
+    useParams.mockReturnValue({ roomId: undefined });
     render(<Landing />);
     const heading = screen.getByTestId("game-name");
     expect(heading.textContent).toEqual("Poké Poké Guess Weight!");
   });
   test("rules of the game", () => {
+    useParams.mockReturnValue({ roomId: undefined });
     render(<Landing />);
     expect(screen.getByText("Rules :")).toBeTruthy();
     expect(screen.getByText(/Guess the Pokémon's weight in kilograms/i)).toBeTruthy();
     expect(screen.getByText("Unlimited players")).toBeTruthy();
   });
   test("create game button appears on page", () => {
+    useParams.mockReturnValue({ roomId: undefined });
     render(<Landing />);
     const buttonEl = screen.getByRole("button");
     expect(buttonEl.textContent).toEqual("Create Game");
   });
   test('when a user clicks on the button to start the game withour a username, they get an error', async () => {
     // no username entered, user clicks
+    useParams.mockReturnValue({ roomId: undefined });
     const user = userEvent.setup();
     render(<Landing />);
     const buttonEl = screen.getByRole("button");
@@ -54,6 +60,7 @@ describe("LandingHost tests", () => {
   });
   
   test('when a user inputs a name and clicks create game socket is called correctly', async () => {
+    useParams.mockReturnValue({ roomId: undefined });
     const user = userEvent.setup();
     render(<Landing />);
     const buttonEl = screen.getByRole("button");
@@ -65,14 +72,16 @@ describe("LandingHost tests", () => {
     expect(socket.emit).toHaveBeenCalledWith("create_room", { avatar: null, name: "Joe" });
   })
   test('when a user clicks create game, they are navigated to lobby/host', async () => {
+    useParams.mockReturnValue({ roomId: undefined });
     render(<Landing />)
     const buttonEl = screen.getByRole("button");
     const user = userEvent.setup()
     await user.click(buttonEl);
     const navigate = useNavigate()
-    expect(navigate).toHaveBeenCalledWith("/lobby/host")
+    expect(navigate).toHaveBeenCalledWith("/lobby")
   })
   test("when no link is passed into the component it is not visible", () => {
+    useParams.mockReturnValue({ roomId: undefined });
     render(<Landing />);
     const link = screen.queryByTestId("game-link");
     expect(link).toBeNull();
@@ -81,13 +90,15 @@ describe("LandingHost tests", () => {
 
 describe("LandingPlayer tests", () => {
   test("join room button is visible", () => {
+
+    useParams.mockReturnValue({ roomId: "abc123" });
     render(<Landing />);
     const buttonEl = screen.getByRole("button");
-    expect(buttonEl.textContent).toEqual("Join Room");
+    expect(buttonEl.textContent).toEqual("Join Game");
   });
-
   test("a user can enter their name", async () => {
     const user = userEvent.setup();
+    useParams.mockReturnValue({ roomId: "abc123" });
     render(<Landing />);
     const inputEl = screen.getByPlaceholderText("Username");
     await act(async () => {
@@ -99,6 +110,7 @@ describe("LandingPlayer tests", () => {
   test('when a user clicks on the button to start the game withour a username, they get an error', async () => {
     // no username entered, user clicks
     const user = userEvent.setup();
+    useParams.mockReturnValue({ roomId: "abc123" });
     render(<Landing/>);
     const buttonEl = screen.getByRole("button");
     await user.click(buttonEl);
@@ -108,8 +120,9 @@ describe("LandingPlayer tests", () => {
   });
 
   test("a join room button is visible", () => {
+    useParams.mockReturnValue({ roomId: "abc123" });
     render(<Landing />);
-    const buttonEl = screen.getByRole("button", { name: "Join Room" });
+    const buttonEl = screen.getByRole("button", { name: "Join Game" });
     expect(buttonEl).toBeDefined();
   });
 
@@ -123,25 +136,10 @@ describe("LandingPlayer tests", () => {
     await act(async () => {
       await user.type(inputEl, "Joe");
     });
-    const buttonEl = screen.getByRole("button", { name: "Join Room" });
+    const buttonEl = screen.getByRole("button", { name: "Join Game" });
     await user.click(buttonEl);
 
     expect(socket.emit).toHaveBeenCalledWith("join_room", "abc123", { name: "Joe", avatar: null });
-    expect(navigate).toHaveBeenCalledWith("/lobby/player");
-  });
-  
-  test("when no parameter return to home page", async () => {
-    const navigate = useNavigate();
-    // @ts-ignore
-    useParams.mockReturnValue({ roomId: "" });
-    const user = userEvent.setup();
-    render(<Landing />);
-    const inputEl = screen.getByPlaceholderText("Username");
-    await act(async () => {
-      await user.type(inputEl, "Joe");
-    });
-    const buttonEl = screen.getByRole("button", { name: "Join Room" });
-    await user.click(buttonEl);
-    expect(navigate).toHaveBeenCalledWith("/");
+    expect(navigate).toHaveBeenCalledWith("/lobby");
   });
 });

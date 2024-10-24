@@ -16,9 +16,7 @@ export function Lobby({ gameState, isHost, redirect, setRedirect}) {
 
   const handleClick = () => {
     socket.emit("start_game");
-    // navigate("/in-game");
   };
-  console.log("Lobby GameState:", gameState)
 
   useEffect(() => {
     if (redirect) {

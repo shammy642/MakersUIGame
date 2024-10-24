@@ -21,21 +21,29 @@ vi.mock("react-router-dom", () => {
   const useNavigateMock = () => navigateMock;
   return { useNavigate: useNavigateMock };
 });
-
-const players = [
-  {
-    currentGuess: null,
+const gameState = {
+  players: [
+    {
+      currentGuess: 3,
+      id: "WHbOG6ET1uHeg-MqAAA8",
+      name: "Alexia(Host)",
+      totalScore: 0,
+    },
+    {
+      currentGuess: 1,
+      id: "werjighig52-54252tgv",
+      name: "Lucy",
+      totalScore: 2,
+    },
+  ],
+  targetNumber: 42,
+  currentRoundWinner: {
+    currentGuess: 3,
     id: "WHbOG6ET1uHeg-MqAAA8",
     name: "Alexia(Host)",
     totalScore: 0,
   },
-  {
-    currentGuess: null,
-    id: "werjighig52-54252tgv",
-    name: "Lucy",
-    totalScore: 2,
-  },
-];
+};
 
 const mockPokemon = {
   name: "Sam",
@@ -46,14 +54,14 @@ const mockPokemon = {
 describe("InGame tests", () => {
   test("name of the game", () => {
     render(
-        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
+        <InGame gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     const heading = screen.getByTestId("game-name");
     expect(heading.textContent).toEqual("Poké Poké Guess Weight!");
   });
-  test("given a list of players, they are visible", () => {
+  test("given a list of gameState, they are visible", () => {
     render(
-        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
+        <InGame gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     expect(screen.getByText("Alexia(Host)"));
     expect(screen.getByText("Lucy"));
@@ -61,7 +69,7 @@ describe("InGame tests", () => {
   test("a user can input a number", async () => {
     const user = userEvent.setup();
     render(
-        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
+        <InGame gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     const inputEl = screen.getByPlaceholderText("Your guess");
     await act(async () => {
@@ -71,7 +79,7 @@ describe("InGame tests", () => {
   });
   test("a button to make guess exists", () => {
     render(
-        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
+        <InGame gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
 
     const buttonEl = screen.getByRole("button", { name: "Guess" });
@@ -80,7 +88,7 @@ describe("InGame tests", () => {
   test("when a user makes a guess, the socket emits", async () => {
     const user = userEvent.setup();
     render(
-        <InGame players={players} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
+        <InGame gameState={gameState} pokemon={mockPokemon} redirect={""} setRedirect={setRedirect} />
     );
     const inputEl = screen.getByPlaceholderText("Your guess");
     await act(async () => {
@@ -93,7 +101,7 @@ describe("InGame tests", () => {
   test("when the redirect state is changed the user is redirect", () => {
     render(
         <InGame
-          players={players}
+          gameState={gameState}
           redirect={"test_route"}
           setRedirect={setRedirect}
           pokemon={mockPokemon} 
