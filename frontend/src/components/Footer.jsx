@@ -1,7 +1,7 @@
 // A component for the HTML footer to use on all pages
 export function Footer() {
   return (
-      <footer className="bg-gray-50 text-gray-900 dark:bg-gray-800 dark:text-white w-screen">
+      <footer className="bg-gray-50 border-gray-300 text-gray-900 dark:bg-gray-800 dark:text-white w-screen">
         <div className="w-full mx-auto p-4 flex items-center justify-between">
           {/* Bottom left */}
           <div className="text-left">

@@ -30,3 +30,44 @@ body {
   background-image: url('https://wallpapercave.com/wp/wp2595121.jpg');
   background-attachment: fixed;
 }
+
+/* Scrollbar style rules */
+@media (prefers-color-scheme: light) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #1F2937;
+    border-radius: 5px; 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #666; 
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F3F4F6; 
+  }
+}
