@@ -1,5 +1,5 @@
 # Poké Poké Guess Weight!
-A quick-fire online multiplayer game
+A quick-fire online multiplayer game where users simultaneously guess pokemon's weights.
 
 # Installation:
 - Clone this github!
@@ -12,4 +12,12 @@ A quick-fire online multiplayer game
 	- `VITE_BACKEND_URL="http://localhost:3001"`
 	
 - run `npm run dev` in frontend and api folders.
-- visit http://localhost:5173 in your browser and play away!
+- visit http://localhost:5173 in your browser
+
+# Tech Used
+- 	Javascript
+- 	NodeJS
+- 	Express
+- 	PokeAPI
+- 	React
+- 	Tailwind
