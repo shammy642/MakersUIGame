@@ -38,7 +38,11 @@ const carouselTheme = {
 export function TableCarousel({ players, weight }) {
 
   const playersByScore = players && [...players].sort((a, b) => b.totalScore - a.totalScore)
-  const playersByGuess = players && [...players].sort((a, b) => Math.abs(weight - a.currentGuess) - Math.abs(weight - b.currentGuess))
+  const playersWhoGuessed = players && players.filter((player) => player.currentGuess)
+  const playersWhoDidntGuess = players && players.filter((player) => !player.currentGuess)
+  const playersByGuess = playersWhoGuessed && [...playersWhoGuessed].sort((a, b) => Math.abs(weight - a.currentGuess) - Math.abs(weight - b.currentGuess))
+  playersByGuess.push(...playersWhoDidntGuess)
+
   return (
     <Carousel theme={carouselTheme} pauseOnHover>
       <div className="w-full pb-4">

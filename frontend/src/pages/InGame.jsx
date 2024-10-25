@@ -26,7 +26,6 @@ export function InGame({
   const [showCheck, setShowCheck] = useState(false);
 
   const navigate = useNavigate();
-  console.log("Ingame redirect", redirect);
 
   const handleClick = () => {
     socket.emit("send_number", input);
@@ -60,10 +59,9 @@ export function InGame({
 
             <GuessForm input={input} setInput={setInput}></GuessForm>
             <br></br>
-            {/* <Button handleClick={handleClick} buttonText={buttonText} /> */}
             <div className="flex justify-center items-center">
               {!showCheck ? (
-                <Button handleClick={handleClick} buttonText="Guess" />
+                <button disabled={(input === "")}onClick={handleClick} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Guess</button>
               ) : (
                 <Check />
               )}
