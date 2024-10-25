@@ -129,7 +129,8 @@ io.on("connection", (socket) => {
   }
 
   async function startGameTimer(gameId) {
-    console.log("starting game timer")
+    console.log("games reamining", games)
+    console.log("starting game timer", gameId)
     await games[gameId].resetGame();
     io.to(gameId).emit("receive_game", games[gameId]);
     io.to(gameId).emit("redirect", "/in-game");
@@ -161,7 +162,7 @@ io.on("connection", (socket) => {
   }
 
   function startNextRoundTimer(gameId) {
-    console.log("starting next round timer")
+    console.log("starting next round timer", gameId)
     if (games[gameId]) {
       let timeRemaining = 60;
       io.to(gameId).emit("start_timer", timeRemaining);

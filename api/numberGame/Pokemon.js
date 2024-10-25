@@ -10,6 +10,8 @@ class Pokemon {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       const pokemon = await response.json()
+      console.log("Pokemon, weight in hectograms: ", pokemon.weight)
+      console.log("Pokemon, weight in kg: ", pokemon.weight/10)
       return this._extractInfo(pokemon)
     } catch(error) {
       console.log("Error fetching pokemon, re-fetching!", error)
@@ -21,7 +23,7 @@ class Pokemon {
     return {
       name: pokemon.name,
       pictureURL: pokemon.sprites.front_default,
-      weight: pokemon.weight
+      weight: pokemon.weight / 10
     }
   }
 }
